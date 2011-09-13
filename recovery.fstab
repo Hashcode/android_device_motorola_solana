@@ -1,0 +1,12 @@
+# mount point   fstype          device
+
+/sdcard         vfat            /dev/block/mmcblk0p1    /dev/block/mmcblk0
+/emstorage      vfat            /dev/block/mmcblk1p25   /dev/block/mmcblk1
+/system         ext3            system
+/cache          ext3            cache
+/data           ext3            userdata
+/misc           mtd             misc
+/boot           mtd             boot
+/recovery       mtd             recovery
+/pds            ext3            pds
+/preinstall     ext3            preinstall
