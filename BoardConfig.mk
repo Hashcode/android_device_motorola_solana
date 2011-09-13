@@ -28,7 +28,7 @@ USE_CAMERA_STUB := false
 # inherit from the proprietary version
 -include vendor/motorola/solana/BoardConfigVendor.mk
 
-OMAP_ENHANCEMENT := true
+#OMAP_ENHANCEMENT := true
 NEEDS_ARM_ERRATA_754319_754320 := true
 
 TARGET_BOARD_PLATFORM := omap4
@@ -40,8 +40,8 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_ARCH_VARIANT_FPU := neon
-#TARGET_GLOBAL_CFLAGS += -mcpu=cortex-a9 -mfpu=neon
-#TARGET_GLOBAL_CPPFLAGS += -mcpu=cortex-a9 -mfpu=neon
+#TARGET_GLOBAL_CFLAGS += -march=cortex-a9 -mfpu=neon
+#TARGET_GLOBAL_CPPFLAGS += -march=cortex-a9 -mfpu=neon
 
 BOARD_GLOBAL_CFLAGS += -Dsolana_HARDWARE
 solana_HARDWARE := true
@@ -61,21 +61,21 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 BOARD_USES_TI_CAMERA_HAL := true
-HARDWARE_OMX := true
+#HARDWARE_OMX := true
 
-ifdef HARDWARE_OMX
-OMX_VENDOR := ti
-OMX_VENDOR_INCLUDES := \
-   hardware/ti/omx/system/src/openmax_il/omx_core/inc \
-   hardware/ti/omx/image/src/openmax_il/jpeg_enc/inc
-OMX_VENDOR_WRAPPER := TI_OMX_Wrapper
-BOARD_OPENCORE_LIBRARIES := libOMX_Core
-BOARD_OPENCORE_FLAGS := -DHARDWARE_OMX=1
-endif
+#ifdef HARDWARE_OMX
+#OMX_VENDOR := ti
+#OMX_VENDOR_INCLUDES := \
+#   hardware/ti/omx/system/src/openmax_il/omx_core/inc \
+#   hardware/ti/omx/image/src/openmax_il/jpeg_enc/inc
+#OMX_VENDOR_WRAPPER := TI_OMX_Wrapper
+#BOARD_OPENCORE_LIBRARIES := libOMX_Core
+#BOARD_OPENCORE_FLAGS := -DHARDWARE_OMX=1
+#endif
 
-ifdef OMAP_ENHANCEMENT
-COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
-endif
+#ifdef OMAP_ENHANCEMENT
+#COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
+#endif
 
 
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -86,8 +86,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x9df80000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_shadow librecovery_ui_generic
-BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 #BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/solana/recovery/recovery_ui.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 BOARD_HAS_SDCARD_INTERNAL := true
 
 #TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
@@ -97,7 +97,7 @@ TARGET_PREBUILT_KERNEL := device/motorola/solana/kernel
 #TARGET_NO_RECOVERY := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 
-BOARD_HAS_JANKY_BACKBUFFER := true
+#BOARD_HAS_JANKY_BACKBUFFER := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Below is a sample of how you can tweak the mount points using the board config.
@@ -112,8 +112,10 @@ BOARD_SYSTEM_FILESYSTEM := ext4
 BOARD_CACHE_DEVICE := /dev/block/mmcblk1p22
 BOARD_CACHE_FILESYSTEM := ext4
 BOARD_CACHE_FILESYSTEM_OPTIONS := nosuid,nodev,noatime,nodiratime,errors=continue,barrier=1,data=ordered
-BOARD_HIJACK_RECOVERY_PATH := /preinstall/
 BOARD_HAS_PREINSTALL := true
+BOARD_PREINSTALL_DEVICE := /dev/block/mmcblk1p23
+BOARD_PREINSTALL_FILESYSTEM := ext3
+BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_NO_BOOT := false
 TARGET_NO_RECOVERY := false
 BOARD_HAS_WEBTOP := false
@@ -125,16 +127,11 @@ BOARD_VOLD_MAX_PARTITIONS := 18
 
 BOARD_SDEXT_DEVICE := /dev/block/mmcblk0p1
 #BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
+
 BOARD_HIJACK_BOOT_PATH := /preinstall/
 BOARD_HIJACK_EXECUTABLES := logwrapper
 BOARD_HIJACK_LOG_ENABLE := false
 BOARD_USES_MMCUTILS := true
-BOARD_HIJACK_UPDATE_BINARY := /preinstall/update-binary
-BOARD_HIJACK_BOOT_UPDATE_ZIP := /preinstall/update-boot.zip
-BOARD_HIJACK_RECOVERY_UPDATE_ZIP := /preinstall/update-recovery.zip
-BOARD_PREINSTALL_DEVICE := /dev/block/mmcblk1p23
-BOARD_PREINSTALL_FILESYSTEM := ext3
-BOARD_HAS_NO_SELECT_BUTTON := true
 
 BOARD_USES_HW_MEDIARECORDER := true
 BOARD_USES_HW_MEDIASCANNER := false
@@ -142,7 +139,8 @@ BOARD_USES_HW_MEDIAPLUGINS := true
 
 TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
 TARGET_USES_GL_VENDOR_EXTENSIONS := true
-OMX_TI_OMAP_TIER_LEVEL := 10
+
+#OMX_TI_OMAP_TIER_LEVEL := 10
 
 #EGL
 BOARD_EGL_CFG := device/motorola/solana/egl.cfg
@@ -170,10 +168,15 @@ ifndef solana_DEV_PHONE
 #TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools/solana_img_from_target_files
 
 #BOARD_HIJACK_ENABLE := true
+#BOARD_HIJACK_UPDATE_BINARY := /preinstall/update-binary
+#BOARD_HIJACK_BOOT_UPDATE_ZIP := /preinstall/update-boot.zip
+#BOARD_HIJACK_RECOVERY_UPDATE_ZIP := /preinstall/update-recovery.zip
+#BOARD_HIJACK_RECOVERY_MODE_FILE := /data/.recovery_mode
+
 #BOARD_HIJACK_UPDATE_BINARY := /preinstall/recovery/update-binary
 #BOARD_HIJACK_BOOT_UPDATE_ZIP := /system/etc/solana-boot.zip
 #BOARD_HIJACK_RECOVERY_UPDATE_ZIP := /preinstall/recovery/recovery.zip
-#BOARD_HIJACK_RECOVERY_MODE_FILE := /data/.recovery_mode
+#BOARD_HIJACK_RECOVERY_PATH := /preinstall/
 
 #BOARD_HIJACK_LOG_ENABLE := true
 
