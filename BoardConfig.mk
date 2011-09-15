@@ -85,48 +85,41 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x1ac00000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x9df80000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_shadow librecovery_ui_generic
-#BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/solana/recovery/recovery_ui.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 BOARD_HAS_SDCARD_INTERNAL := true
 
-#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
-
 TARGET_PREBUILT_KERNEL := device/motorola/solana/kernel
 
-#TARGET_NO_RECOVERY := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 
-#BOARD_HAS_JANKY_BACKBUFFER := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Below is a sample of how you can tweak the mount points using the board config.
 BOARD_HAS_NO_MISC_PARTITION := false
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
-BOARD_DATA_DEVICE := /dev/block/mmcblk1p24
-BOARD_DATA_FILESYSTEM := ext4
-BOARD_DATA_FILESYSTEM_OPTIONS := nosuid,nodev,noatime,nodiratime,errors=continue,barrier=1,data=ordered
-BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p21
-BOARD_SYSTEM_FILESYSTEM_OPTIONS := noatime,nodiratime,barrier=1,data=ordered
-BOARD_SYSTEM_FILESYSTEM := ext4
-BOARD_CACHE_DEVICE := /dev/block/mmcblk1p22
-BOARD_CACHE_FILESYSTEM := ext4
-BOARD_CACHE_FILESYSTEM_OPTIONS := nosuid,nodev,noatime,nodiratime,errors=continue,barrier=1,data=ordered
+#BOARD_DATA_DEVICE := /dev/block/mmcblk1p24
+#BOARD_DATA_FILESYSTEM := ext4
+#BOARD_DATA_FILESYSTEM_OPTIONS := nosuid,nodev,noatime,nodiratime,errors=continue,barrier=1,data=ordered
+#BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p21
+#BOARD_SYSTEM_FILESYSTEM_OPTIONS := noatime,nodiratime,barrier=1,data=ordered
+#BOARD_SYSTEM_FILESYSTEM := ext4
+#BOARD_CACHE_DEVICE := /dev/block/mmcblk1p22
+#BOARD_CACHE_FILESYSTEM := ext4
+#BOARD_CACHE_FILESYSTEM_OPTIONS := nosuid,nodev,noatime,nodiratime,errors=continue,barrier=1,data=ordered
 BOARD_HAS_PREINSTALL := true
 BOARD_PREINSTALL_DEVICE := /dev/block/mmcblk1p23
 BOARD_PREINSTALL_FILESYSTEM := ext3
 BOARD_HAS_NO_SELECT_BUTTON := true
+
 TARGET_NO_BOOT := false
 TARGET_NO_RECOVERY := false
 BOARD_HAS_WEBTOP := false
 
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p25
-#BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk1p25
-#BOARD_SDCARD_DEVICE_INTERNAL := /dev/block/mmcblk0p18
 BOARD_VOLD_MAX_PARTITIONS := 18
 
 BOARD_SDEXT_DEVICE := /dev/block/mmcblk0p1
-#BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
+BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 
 BOARD_HIJACK_BOOT_PATH := /preinstall/
 BOARD_HIJACK_EXECUTABLES := logwrapper
@@ -139,8 +132,6 @@ BOARD_USES_HW_MEDIAPLUGINS := true
 
 TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
 TARGET_USES_GL_VENDOR_EXTENSIONS := true
-
-#OMX_TI_OMAP_TIER_LEVEL := 10
 
 #EGL
 BOARD_EGL_CFG := device/motorola/solana/egl.cfg
