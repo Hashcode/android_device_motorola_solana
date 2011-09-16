@@ -31,8 +31,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shadow/DroidXBootstrap.cfg:system/etc/DroidXBootstrap.cfg \
-    device/motorola/shadow/Droid2Bootstrap.cfg:system/etc/Droid2Bootstrap.cfg \
 
 # these need to be here for the installer, just put them here for now
 PRODUCT_COPY_FILES += \
