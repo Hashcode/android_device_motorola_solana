@@ -128,15 +128,12 @@ void gr_flip_32(unsigned *bits, unsigned short *ptr, unsigned count)
         uint32_t rgb32, red, green, blue, alpha;
 
         /* convert 16 bits to 32 bits */
-        rgb32 = ((ptr[i] >> 11) & 0x1F);
-        red = (rgb32 << 3) | (rgb32 >> 2);
-        rgb32 = ((ptr[i] >> 5) & 0x3F);
-        green = (rgb32 << 2) | (rgb32 >> 4);
-        rgb32 = ((ptr[i]) & 0x1F);
-        blue = (rgb32 << 3) | (rgb32 >> 2);
-        alpha = 0xff;
-        rgb32 = (alpha << 24) | (blue << 16)
-        | (green << 8) | (red);
+        rgb32 = ptr[i];
+        red = (rgb32 & 0x1f) << 3; // shift left 3 for full precision
+        green = (rgb32 & 0x7E0) << 5; // shift right 5 to align, shift left 2 for full precision, shift left 8 for rgb
+        blue = (rgb32 & 0xF800) << 8; // shift right 11 to aligh, shift left 3 for full precision, left 16 for rgb 
+
+        rgb32 = 0xFF000000 | red | green | blue;
         android_memset32((uint32_t *)bits, rgb32, 4);
         i++;
         bits++;
