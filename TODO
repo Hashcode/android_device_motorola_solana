@@ -1,0 +1,2 @@
+- [CAMERA] STUBBED the libcamera stuff so it would compile
+- [WIFI] Disabled SOFTAP_DEVICE Was generating a compile error

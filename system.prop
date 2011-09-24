@@ -1,3 +1,196 @@
 #
-# system.prop for solana
+# system.prop for CDMA Droidwe
 #
+# rild.libpath=/system/lib/libril-moto-umts-1.so
+rild.libpath=/system/lib/libmoto_ril.so
+rild.libargs=-d /dev/ttyO0
+ro.sf.lcd_density=240
+ro.default_usb_mode=2
+ro.mot.ril.danlist=611,*611,#611
+persist.ril.ecclist=911,*911,#911
+persist.ril.modem.mode =1
+# This defines the max event window manager can
+# handle in 1 s. We may adjust this # for performance
+# reason later
+windowsmgr.max_events_per_sec=55
+
+# USB modes allowed for UI and switching
+ro.ngp_available=1
+ro.modem_available=0
+
+# Default network type.
+# 7 => GLOBAL.
+ro.telephony.default_network=7
+ro.com.google.clientid=android-motorola
+ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html
+ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html
+ro.cdma.home.operator.numeric=310004
+ro.cdma.home.operator.alpha=Verizon
+ro.config.vc_call_vol_steps=7
+
+# wlan interface
+wifi.interface = tiwlan0
+softap.interface = tiap0
+
+# Time between scans in seconds. Keep it high to minimize battery drain.
+# This only affects the case in which there are remembered access points,
+# but none are in range.
+wifi.supplicant_scan_interval = 45
+
+# Indicate carrier OTA SP number schema
+# refer to frameworks/base/telephony/java/com/android/
+# internal/telephony/cdma/CDMAPhone.java for the schema:
+ro.cdma.otaspnumschema=SELC,1,80,99
+
+# write cdma MIN to property for VVM use in GSM/UMTS mode
+
+persist.radio.cdma.min = 0
+
+# true  Horizontal VVM is preloaded, not allow to install standalone version of
+# VVM from Android Market
+# false Horizontal VVM is not preloaded
+
+ro.HorizontalVVM=true
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+ro.opengles.version = 131072
+
+# This is a high density device with more memory, so larger vm heaps for it.
+dalvik.vm.heapsize=32m
+
+# our HTML browser (not WAP browser ) does not need to specify UAProf URL
+ro.mot.hw.uaprof=http://uaprof.vtext.com/mot/xt862/xt862.xml
+
+# Enable HAC to also display Call Setting Menu Option.
+ro.mot.hw.HAC=1
+# Motorola, a19622, 12/28/2009, IKSHADOW-204 / Location Settings for android
+# Property to set enabling state of the location privacy setting feature.
+# Motorola, a19622, 03/16/2010, IKSHADOW-2141 / Disable feature 33067
+#ro.mot.settings.locprivacy=1
+# ERI feature
+# 0 OFF
+# 1 ON
+ro.mot.eri=1
+
+# Motorol,a6889c,02/Feb/2010,IKSHADOW-619
+# Proximity Sensor feature
+# 0 disable
+# 1 enable
+persist.mot.proximity.touch=1
+# End IKSHADOW-619
+
+# BEGIN Motorola, a22976, 25-Feb-2010, IKSHADOW-702, FID 31841
+# VZW Requirement Specifications: NETWORK BASED PLUS CODE DIALING
+# 0 disable
+# 1 enable
+ro.cdma.nbpcd=1
+# END IKSHADOW-702
+
+# BEGIN Motorola, a22976, 12-Mar-2010, IKSHADOW-1784, Power Up Tone
+# Motorola, a22976, 12-Apr-2010, IKSHADOW-3298, Remove temporary power up tone
+# persist.mot.powerup.tone=/system/media/bootup.ogg
+# END IKSHADOW-1784
+persist.mot.usb.mediasync = 1
+# persist.usb.android_config = 1
+
+# System property for SMC
+ro.service.start.smc=1
+ro.HorizontalBUA=true
+#Proximity sensor debounce time
+mot.proximity.delay=450
+# disable touch below 60 pixels
+mot.proximity.distance=60
+
+#inphone calibration backup support
+ro.mot.hw.calibratedImager=1
+
+# BEGIN Motorola, qpmc46, 05-Jul-2010, IKMAIN-311
+persist.ril.mux.noofchannels = 8
+# END  Motorola, qpmc46, 05-Jul-2010, IKMAIN-311
+
+#BEGIN Motorola, nfjb73, 21-jun-2010,
+# this is for feature 34386, other features for vzw global phone
+# could use this property too. IKMAIN-732
+#1 this is verizon wireless globle phone
+#0 this is not verizon wireless globle phone
+ro.mot.phonemode.vzwglobalphone=1
+# END Motorola, nfjb73, 21-jun-2010, IKMAIN-732
+
+# BEGIN Motorola, nfjb73 23-jun-2010, IKMAIN-624
+# this is for feature 33860, when phone is activated, the cdma mdn is written.
+persist.radio.vzw.cdma.mdn=
+# END Motorola, nfjb73
+
+# BEGIN Motorola, qmfd78, 14-Jul-2010, IKMAIN-884
+# GSM SMS traffic needs to be routed/sent through North America SMSC.
+# This is part of the VZW World-phone Feature. SMS are always sent to a US SMSC and then injected
+# into that network. This allows for billing and give the user the impression that the device is
+# still in the US.
+ro.telephony.gsm-routes-us-smsc = 1
+# END  Motorola, qmfd78, 14-Jul-2010, IKMAIN-884
+
+# BEGIN Motorola, a22600 qmfd78, 16-Jul-2010, IKDROIDPRO-423
+# For north american cdma operators, this flag should be 1.
+# It enables number mangling when nbpcd (plus code dialing) is not supported.
+# This is part of the VZW World-phone Feature.
+ro.cdma.home.operator.isnan=1
+# END Motorola, a22600 qmfd78, 16-Jul-2010, IKDROIDPRO-423
+
+# EDM feature - IKDROIDPRO-381 - Start
+ro.mot.dpmext = true
+# EDM feature - IKDROIDPRO-381 -End
+
+# BEGIN Moto,IKDROIDPRO-430, a17673
+# Feature33857 on DroidWE, support DualMode switch, UMTS/CDMA
+ro.mot.FTR.33857=true
+# END IKDROIDPRO-430
+
+# BEGIN Moto, IKSTABLETWO-1284, nfjb73
+# without this property, the lock screen would take global phone as UMTS
+# block user to operate before setup
+keyguard.no_require_sim = true
+# End Moto
+
+# BEGIN Moto, IKSTABLETWO-689, nfjb73, for 34387,33857
+# when phone in Global mode, FW need to know the last phone mode beore power off
+# when phone power up, it would use the right mode to avoid switch
+persist.radio.ap.phonetype=2
+# END IKSTABLETWO-689
+
+# Motorola, IKHALFMWK-3, w001091
+# Feature 32711, deep sleep mode support
+ro.mot.deep.sleep.supported=true
+
+# BEGIN Moto, IKMAIN-14097, gdr487, 33531 flex on for Solana
+# true  feature enabled
+# false feature disabled
+ro.mot.fid.33531.keylock_ecm=true
+# END IKMAIN-14097
+
+# BEGIN Motorola, A24124, 01-Mar-2011, IKMAIN-13570
+ro.mot.bindervm.config = 210
+# END IKMAIN-13570
+
+#BEGIN Motorola, w30471, 16-Mar-2011, IKSTABLEFIVE-1796 35691 - Set configurable parameters for Verizon products
+mot.mms.con.timeout = 30000
+mot.mms.socket.timeout = 120000
+mot.mms.tr.vc.timeout = 55000
+mot.mms.trm.timeout = 240000
+mot.mms.abort.prog.lim = 90
+mot.mms.retry.pic.size = 512000
+mot.mms.retry.default = false
+mot.mms.retry.timeout.1 = 30000
+mot.mms.retry.timeout.2 = 180000
+mot.mms.retry.timeout.3 = 300000
+mot.mms.retry.timeout.4 = 480000
+# END IKSTABLEFIVE-1796
+
+#BEGIN Motorola, w36256, 6-Apr-2011, IKSTABLEFOURV-6808
+# add latin encoding type for sms in cdma mode, this is only for vzw
+ro.cdma.sms.latin_encode=true
+#END IKSTABLEFOURV-6808
+
+#Enable hdcp support
+ro.hdcp.support=2
+
