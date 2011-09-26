@@ -1,13 +1,3 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
-
-PRODUCT_COPY_FILES += \
-	device/motorola/solana/root/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
-	device/motorola/solana/root/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
-	device/motorola/solana/root/ueventd.mapphone_cdma.rc:root/ueventd.mapphone_cdma.rc
-
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
@@ -94,25 +84,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Device overlays
 DEVICE_PACKAGE_OVERLAYS += device/motorola/solana/overlay
 
-PRODUCT_PACKAGES += \
-
 # Permissions files
-#	frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-#	frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-#	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-#	frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-#	frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-#	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-#	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-#	frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-#	frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-#	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-#	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-#	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-#	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-
 PRODUCT_COPY_FILES += \
-
+	frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+	frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+	frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+	frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -125,6 +111,15 @@ PRODUCT_COPY_FILES += \
 	device/motorola/solana/prebuilt/tiwlan.ini:system/etc/wifi/tiwlan.ini \
 	device/motorola/solana/prebuilt/vold.fstab:system/etc/vold.fstab
 
+# Sandbox Rootfs files
+PRODUCT_COPY_FILES += \
+	device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
+	device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
+	device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
+	device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc
+	device/motorola/solana/root/ueventd.mapphone_cdma.rc:system/etc/rootfs/ueventd.mapphone_cdma.rc
+	device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc
+
 # HW Libs
 PRODUCT_PACKAGES += \
 	alsa.default \
@@ -133,6 +128,7 @@ PRODUCT_PACKAGES += \
 	overlay.omap4
 # sensors.solana \
 # lights.solana \
+
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -156,8 +152,9 @@ PRODUCT_PACKAGES += \
 	libVendor_ti_omx_config_parser
 
 # Syslink and Tiler
+#	libcamera \
+
 PRODUCT_PACKAGES += \
-	libcamera \
 	libd2cmap \
 	libipc \
 	libipcutils \
@@ -223,7 +220,7 @@ FRAMEWORKS_BASE_SUBDIRS += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# targa uses high-density artwork where available
+# high-density artwork where available
 PRODUCT_LOCALES += hdpi
 
 # copy all kernel modules under the "modules" directory to system/lib/modules
@@ -242,7 +239,14 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-PRODUCT_COPY_FILES += \
+
+# stuff common to all Motorola phones -- disabled for Sandbox
+#$(call inherit-product, device/motorola/common/common_hijack.mk)
+
+#$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# The gps config appropriate for this device
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 

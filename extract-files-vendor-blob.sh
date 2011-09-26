@@ -159,52 +159,6 @@ vendor/motorola/__DEVICE__/proprietary/cid1039_ov8820_lsc_interp.bin:/system/etc
 vendor/motorola/__DEVICE__/proprietary/cid1039_ov8820_vnf_cfg_dcc.bin:/system/etc/omapcam/module1.bak/cid1039_ov8820_vnf_cfg_dcc.bin \\
 vendor/motorola/__DEVICE__/proprietary/cid1040_ov7739_sensor_config_dcc.bin:/system/etc/omapcam/module2/cid1040_ov7739_sensor_config_dcc.bin \\
 
-# /system/etc/permissions
-#vendor/motorola/__DEVICE__/proprietary/android.hardware.camera.flash-autofocus.xml:/system/etc/permissions/android.hardware.camera.flash-autofocus.xml \\
-#vendor/motorola/__DEVICE__/proprietary/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \\
-PRODUCT_COPY_FILES += \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.location.gps.xml:/system/etc/permissions/android.hardware.location.gps.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.sensor.accelerometer.xml:/system/etc/permissions/android.hardware.sensor.accelerometer.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.sensor.proximity.xml:/system/etc/permissions/android.hardware.sensor.proximity.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.telephony.cdma.xml:/system/etc/permissions/android.hardware.telephony.cdma.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.telephony.gsm.xml:/system/etc/permissions/android.hardware.telephony.gsm.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.touchscreen.multitouch.distinct.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \\
-vendor/motorola/__DEVICE__/proprietary/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.android.location.provider.xml:/system/etc/permissions/com.android.location.provider.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.cequint.platform.xml:/system/etc/permissions/com.cequint.platform.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.google.android.maps.xml:/system/etc/permissions/com.google.android.maps.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.camera.xml:/system/etc/permissions/com.motorola.android.camera.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.customization.xml:/system/etc/permissions/com.motorola.android.customization.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.datamanager_library.xml:/system/etc/permissions/com.motorola.android.datamanager_library.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.dlna_library.xml:/system/etc/permissions/com.motorola.android.dlna_library.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.drm1config.xml:/system/etc/permissions/com.motorola.android.drm1config.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.drmcommonconfig.xml:/system/etc/permissions/com.motorola.android.drmcommonconfig.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.iextdispservice.xml:/system/etc/permissions/com.motorola.android.iextdispservice.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.imirrorservice.xml:/system/etc/permissions/com.motorola.android.imirrorservice.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.mediasyncconfig.xml:/system/etc/permissions/com.motorola.android.mediasyncconfig.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.mobad.xml:/system/etc/permissions/com.motorola.android.mobad.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.nativehdmiapis_v1.xml:/system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.storage_library.xml:/system/etc/permissions/com.motorola.android.storage_library.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.tcmd.xml:/system/etc/permissions/com.motorola.android.tcmd.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.android.widget.xml:/system/etc/permissions/com.motorola.android.widget.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.app.admin_library.xml:/system/etc/permissions/com.motorola.app.admin_library.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.atcmd_library.xml:/system/etc/permissions/com.motorola.atcmd_library.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.motorola.device.xml:/system/etc/permissions/com.motorola.device.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.nbi.android.xml:/system/etc/permissions/com.nbi.android.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.netflix.android.mediaclient.xml:/system/etc/permissions/com.netflix.android.mediaclient.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.scalado.android.photoeditor.xml:/system/etc/permissions/com.scalado.android.photoeditor.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.scalado.caps.xml:/system/etc/permissions/com.scalado.caps.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.softwareimaging.mot.xml:/system/etc/permissions/com.softwareimaging.mot.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.vzw.android.hux.xml:/system/etc/permissions/com.vzw.android.hux.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.vzw.android.smart.xml:/system/etc/permissions/com.vzw.android.smart.xml \\
-vendor/motorola/__DEVICE__/proprietary/com.vzw.android.xml:/system/etc/permissions/com.vzw.android.xml \\
-vendor/motorola/__DEVICE__/proprietary/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \\
-vendor/motorola/__DEVICE__/proprietary/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \\
-vendor/motorola/__DEVICE__/proprietary/platform.xml:/system/etc/permissions/platform.xml \\
-
 # /system/etc/* (other dirs)
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/pppd-ril.options:/system/etc/ppp/peers/pppd-ril.options \\
@@ -243,8 +197,6 @@ vendor/motorola/__DEVICE__/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.
 vendor/motorola/__DEVICE__/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \\
 vendor/motorola/__DEVICE__/proprietary/libbattd.so:/system/lib/libbattd.so \\
 vendor/motorola/__DEVICE__/proprietary/libbcbmsg.so:/system/lib/libbcbmsg.so \\
-vendor/motorola/__DEVICE__/proprietary/libcamera.so:/system/lib/libcamera.so \\
-vendor/motorola/__DEVICE__/proprietary/libcameraservice.so:/system/lib/libcameraservice.so \\
 vendor/motorola/__DEVICE__/proprietary/libcaps.so:/system/lib/libcaps.so \\
 vendor/motorola/__DEVICE__/proprietary/libcapsjava.so:/system/lib/libcapsjava.so \\
 vendor/motorola/__DEVICE__/proprietary/libdlnahttpjni.so:/system/lib/libdlnahttpjni.so \\
@@ -341,6 +293,8 @@ vendor/motorola/__DEVICE__/proprietary/libsyslink_ipc_listener.so:/system/lib/li
 vendor/motorola/__DEVICE__/proprietary/libtalk_jni.so:/system/lib/libtalk_jni.so \\
 vendor/motorola/__DEVICE__/proprietary/libtexture_mem.so:/system/lib/libtexture_mem.so \\
 vendor/motorola/__DEVICE__/proprietary/libtf_crypto_sst.so:/system/lib/libtf_crypto_sst.so \\
+vendor/motorola/__DEVICE__/proprietary/libtimemmgr.so:/system/lib/libtimemmgr.so \\
+vendor/motorola/__DEVICE__/proprietary/libtiutils.so:/system/lib/libtiutils.so \\
 vendor/motorola/__DEVICE__/proprietary/libtpa.so:/system/lib/libtpa.so \\
 vendor/motorola/__DEVICE__/proprietary/libtpa_core.so:/system/lib/libtpa_core.so \\
 vendor/motorola/__DEVICE__/proprietary/libui3d.so:/system/lib/libui3d.so \\
