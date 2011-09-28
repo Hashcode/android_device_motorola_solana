@@ -1,10 +1,9 @@
 on fs
-    mount ext3 /dev/block/mmcblk1p21 /system noatime nodiratime
-    mount ext3 /dev/block/mmcblk1p21 /system ro remount
-    mount ext3 /dev/block/mmcblk1p22 /cache nosuid nodev noatime nodiratime
-    mount ext3 /dev/block/mmcblk1p25 /data nosuid nodev noatime nodiratime
 
 on post-fs
+    mount yaffs2 mtd@preinstall ro noatime nodiratime remount
+    mount ext3 mmc@system ro noatime nodiratime remount
+
     mount rootfs rootfs / rw remount
 
     mkdir /cdrom 0770 system system
@@ -67,7 +66,7 @@ on post-fs
     # mount /pds as r/w
     # We chown/chmod /pds again so because mount is run as root + defaults
     mount yaffs2 mtd@pds /pds nosuid nodev no-checkpoint
-    mount ext3 /dev/block/mmcblk1p7 /pds nosuid nodev noatime nodiratime
+    mount ext3 /dev/block/pds /pds nosuid nodev noatime nodiratime
     chown system system /pds
     chmod 0775 /pds
     mkdir /pds/comm_drv 0770 radio radio
@@ -85,7 +84,7 @@ on post-fs
     chmod 0775 /pds/camera/module1
 # Mount preinstall partition
     mkdir /preinstall 0771 system system
-    mount ext3 /dev/block/mmcblk1p23 /preinstall nosuid nodev noatime nodiratime
+#    mount ext3 /dev/block/mmcblk1p23 /preinstall nosuid nodev noatime nodiratime
     chmod 0771 /preinstall
     chown system system /preinstall
 # Create basic filesystem structure

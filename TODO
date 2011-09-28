@@ -1,2 +1,14 @@
-- [CAMERA] STUBBED the libcamera stuff so it would compile
 - [WIFI] Disabled SOFTAP_DEVICE Was generating a compile error
+
+Build:
+Add to update-script
+symlink("motobox", "/system/bin/getconfig", "/system/bin/masterclear", "/system/bin/ptf", "/system/bin/setconfig", "/system/bin/test");
+Add to .zip: misc. library files
+
+Startup:
+ 1.  (tcmd) /system/lib/libhdmi.so doesn't exist: android_createDisplaySurfaceOnFB_HDMI can't be found.
+ 2.  (ftmipcd) 18:01:44.301696 writev(2, [{"\4"..., 1}, {"ftmipcd\0"..., 8}, {"USBLAN interface not available\0"..., 31}], 3) = 40
+ 3.  (runtime: /etc/media-profiles.xml) frameworks/base/media/libmedia/MediaProfiles.cpp:189 codec != -1
+ 3a. fix encoder / decoders
+ 4.  Screen is "off" by 10pixels or so.
+ 5.  (vold) SD Cards not mounted

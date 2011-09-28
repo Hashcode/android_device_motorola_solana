@@ -3,7 +3,7 @@
 
 
 # Camera
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
 BOARD_USES_TI_CAMERA_HAL := true
 
 
@@ -64,8 +64,8 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
-TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
+#TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
+#TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 BOARD_ALWAYS_INSECURE := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_MKE2FS := device/motorola/solana/releaseutils/mke2fs
@@ -75,7 +75,7 @@ BOARD_MKE2FS := device/motorola/solana/releaseutils/mke2fs
 #SYSTEM_BOOT_STATUS_FILE := /systemorig/etc/recovery/flags/alt_system_mode
 
 
-# Filesystem
+# Sandbox Filesystem Settings
 BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p23
 BOARD_SYSTEM_FILESYSTEM_OPTIONS := noatime,nodiratime
 BOARD_SYSTEM_FILESYSTEM := ext3
@@ -83,8 +83,8 @@ BOARD_SYSTEM_FILESYSTEM := ext3
 
 # Graphics
 BOARD_EGL_CFG := device/motorola/solana/prebuilt/egl.cfg
-#TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
-#TARGET_USES_GL_VENDOR_EXTENSIONS := true
+TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
+TARGET_USES_GL_VENDOR_EXTENSIONS := true
 
 
 # OMX
@@ -104,10 +104,11 @@ COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
 endif
 
 
-# FM Radio
+# Media / Radio
 BUILD_FM_RADIO := true
 BUILD_TI_FM_APPS := true
-
+#PV_PLAYER := 
+#BOARD_HW_PLAYER :=
 
 # OTA Packaging
 TARGET_PROVIDES_RELEASETOOLS := true
