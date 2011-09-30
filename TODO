@@ -8,7 +8,10 @@ Add to .zip: misc. library files
 Startup:
  1.  (tcmd) /system/lib/libhdmi.so doesn't exist: android_createDisplaySurfaceOnFB_HDMI can't be found.
  2.  (ftmipcd) 18:01:44.301696 writev(2, [{"\4"..., 1}, {"ftmipcd\0"..., 8}, {"USBLAN interface not available\0"..., 31}], 3) = 40
- 3.  (runtime: /etc/media-profiles.xml) frameworks/base/media/libmedia/MediaProfiles.cpp:189 codec != -1
- 3a. fix encoder / decoders
- 4.  Screen is "off" by 10pixels or so.
+ 3.  /etc/media_profiles.xml: fix audio encoders / decoders
+ 4.  Screen is "off" by 10pixels or so.  EGL: /etc/powervr.ini
  5.  (vold) SD Cards not mounted
+ 6.  no sound
+ 7.  unmount /mnt/asec, /mnt/obb, /dev, /dev/pts, /dev/cpuctrl
+ 8.  check mount for /tmp
+ 9.  Camera is stubbed in frameworks/base/services/camera/libcameraservice/

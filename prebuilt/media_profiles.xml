@@ -182,12 +182,12 @@
         minFrameHeight="144" maxFrameHeight="1080"
         minFrameRate="1" maxFrameRate="30" />
 
-    <AudioEncoderCap name="aac" enabled="disable"
+    <AudioEncoderCap name="aac" enabled="true"
         minBitRate="8192" maxBitRate="96000"
         minSampleRate="16000" maxSampleRate="44100"
         minChannels="1" maxChannels="1" />
 
-    <AudioEncoderCap name="amrnb" enabled="disable"
+    <AudioEncoderCap name="amrnb" enabled="true"
         minBitRate="5525" maxBitRate="12200"
         minSampleRate="8000" maxSampleRate="8000"
         minChannels="1" maxChannels="1" />
@@ -199,8 +199,11 @@
         for TEST applications. For other applications, we do
         not perform any checks at all.
     -->
+    <VideoDecoderCap name="m4v" enabled="true"/>
+    <VideoDecoderCap name="h264" enabled="true"/>
     <VideoDecoderCap name="wmv" enabled="true"/>
-    <AudioDecoderCap name="wma" enabled="disable"/>
-    <AudioDecoderCap name="qcp" enabled="disable"/>
+    <AudioDecoderCap name="aac" enabled="true"/>
+    <AudioDecoderCap name="amrnb" enabled="true"/>
+    <AudioDecoderCap name="mp3" enabled="true"/>
     <AudioDecoderCap name="evrc" enabled="disable"/>
 </MediaSettings>

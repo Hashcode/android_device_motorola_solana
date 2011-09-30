@@ -234,31 +234,6 @@ adb pull /system/lib/soundfx/libbundlewrapper.so ../../../vendor/motorola/$DEVIC
 adb pull /system/lib/soundfx/libreverbwrapper.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/soundfx/libvisualizer.so ../../../vendor/motorola/$DEVICE/proprietary
 
-# /system/lib ** Probably PRODUCT_PACKAGES **
-adb pull /system/lib/libOMX.TI.DUCATI1.IMAGE.JPEGD.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.H264D.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4D.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.VP6D.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.TI.DUCATI1.VIDEO.VP7D.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX_Core.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX_CoreOsal.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libVendor_ti_omx.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libVendor_ti_omx_config_parser.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libcamera.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libd2cmap.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libipc.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libipcutils.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libnotify.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomxcameraadapter.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/librcm.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libstagefrighthw.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libsysmgr.so ../../../vendor/motorola/$DEVICE/proprietary
-
 # /system/lib
 adb pull /system/lib/libFMRadio.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libIMGegl.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -432,7 +407,6 @@ adb pull /system/lib/libtalk_jni.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libtexture_mem.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libtf_crypto_sst.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libthread_db.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libtimemmgr.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libtiutils.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libtpa.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libtpa_core.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -671,34 +645,6 @@ vendor/motorola/__DEVICE__/proprietary/MeaningFulLocation.vsensor:system/etc/vse
 vendor/motorola/__DEVICE__/proprietary/fw_wlan1281.bin:/system/etc/wifi/fw_wlan1281.bin \\
 vendor/motorola/__DEVICE__/proprietary/fw_wlan1281_AP.bin:/system/etc/wifi/fw_wlan1281_AP.bin \\
 vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hostapd.conf.templet
-
-# ** Probably PRODUCT_PACKAGES **
-PRODUCT_COPY_FILES += \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.IMAGE.JPEGD.so:/system/lib/libOMX.TI.DUCATI1.IMAGE.JPEGD.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.H264D.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264D.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.MPEG4D.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4D.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.VP6D.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.VP6D.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.TI.DUCATI1.VIDEO.VP7D.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.VP7D.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX_Core.so:/system/lib/libOMX_Core.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX_CoreOsal.so:/system/lib/libOMX_CoreOsal.so \\
-vendor/motorola/__DEVICE__/proprietary/libVendor_ti_omx.so:/system/lib/libVendor_ti_omx.so \\
-vendor/motorola/__DEVICE__/proprietary/libVendor_ti_omx_config_parser.so:/system/lib/libVendor_ti_omx_config_parser.so \\
-vendor/motorola/__DEVICE__/proprietary/libcamera.so:/system/lib/libcamera.so \\
-vendor/motorola/__DEVICE__/proprietary/libd2cmap.so:/system/lib/libd2cmap.so \\
-vendor/motorola/__DEVICE__/proprietary/libipc.so:/system/lib/libipc.so \\
-vendor/motorola/__DEVICE__/proprietary/libipcutils.so:/system/lib/libipcutils.so \\
-vendor/motorola/__DEVICE__/proprietary/libnotify.so:/system/lib/libnotify.so \\
-vendor/motorola/__DEVICE__/proprietary/libomxcameraadapter.so:/system/lib/libomxcameraadapter.so \\
-vendor/motorola/__DEVICE__/proprietary/librcm.so:/system/lib/librcm.so \\
-vendor/motorola/__DEVICE__/proprietary/libstagefrighthw.so:/system/lib/libstagefrighthw.so \\
-vendor/motorola/__DEVICE__/proprietary/libsysmgr.so:/system/lib/libsysmgr.so \\
-vendor/motorola/__DEVICE__/proprietary/libtimemmgr.so:/system/lib/libtimemmgr.so \\
-vendor/motorola/__DEVICE__/proprietary/libtiutils.so:/system/lib/libtiutils.so \\
 
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/libFMRadio.so:/system/lib/libFMRadio.so \\

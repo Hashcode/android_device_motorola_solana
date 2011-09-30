@@ -116,20 +116,16 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/strace:system/bin/strace \
     device/motorola/solana/prebuilt/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/tiwlan.ini:system/etc/wifi/tiwlan.ini \
-    device/motorola/solana/prebuilt/vold.fstab:system/etc/vold.fstab
+    device/motorola/solana/prebuilt/vold.fstab:system/etc/vold.fstab \
+    device/motorola/solana/prebuilt/powervr.ini:system/etc/powervr.ini
 
-# additional package files
-#PRODUCT_COPY_FILES += \
-#    device/motorola/solana/prebuilt/libgl2jni.so:/system/lib/libgl2jni.so \
-#    device/motorola/solana/prebuilt/libgldualjni.so:/system/lib/libgldualjni.so \
-#    device/motorola/solana/prebuilt/libgljni.so:/system/lib/libgljni.so \
-#    device/motorola/solana/prebuilt/libnfc_jni.so:/system/lib/libnfc_jni.so \
-#    device/motorola/solana/prebuilt/libnfc.so:/system/lib/libnfc.so \
-#    device/motorola/solana/prebuilt/libquake.so:/system/lib/libquake.so \
-#    device/motorola/solana/prebuilt/libsampleplugin.so:/system/lib/libsampleplugin.so \
-#    device/motorola/solana/prebuilt/libsimplejni.so:/system/lib/libsimplejni.so \
-#    device/motorola/solana/prebuilt/libtestplugin.so:/system/lib/libtestplugin.so \
-#    device/motorola/solana/prebuilt/libvisualizer.so:/system/lib/libvisualizer.so
+# Bootanimation
+PRODUCT_COPY_FILES +=  \
+    vendor/cyanogen/prebuilt/hdpi/media/bootanimation.zip:system/media/bootanimation.zip
+
+# Recovery / 2nd-init
+PRODUCT_PACKAGES += \
+    init2
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -165,12 +161,13 @@ PRODUCT_PACKAGES += \
     libicui18n \
     lubicuuc \
     libmedia \
+    libnotify \
     libomap_mm_library_jni \
     librcm \
     libRS \
     libSR_AudioIn \
-    libsysmgr \
     libtimemmgr \
+    libsysmgr \
     libtiutils \
     libvorbisidec \
     dmm_daemontest.out \
@@ -222,16 +219,6 @@ PRODUCT_PACKAGES += \
     libreference-ril \
     libreference-cdma-sms \
     Usb
-#    libgl2jni \
-#    libgldualjni \
-#    libgljni \
-#    libnfc_jni \
-#    libnfc \
-#    libquake \
-#    libsampleplugin \
-#    libsimplejni \
-#    libtestplugin \
-#    libvisualizer
 
 FRAMEWORKS_BASE_SUBDIRS += \
     $(addsuffix /java, omapmmlib)
@@ -260,7 +247,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
 # stuff common to all Motorola phones -- disabled for Sandbox
-#$(call inherit-product, device/motorola/common/common_hijack.mk)
+$(call inherit-product, device/motorola/common/common_hijack.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 
