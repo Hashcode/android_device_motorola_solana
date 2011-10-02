@@ -1,9 +1,0 @@
-make clobber
-
-. build/envsetup.sh
-
-. lunch full_solana-eng
-
-make -j4 recoveryimage
-
-. build/tools/device/mkrecoveryzip.sh out/target/product/solana out/host/linux-x86/framework/dump.jar
