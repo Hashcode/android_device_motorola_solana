@@ -132,12 +132,15 @@ PRODUCT_PACKAGES += \
     alsa.default \
     alsa.omap4 \
     acoustics.default \
-    overlay.omap4
+    lights.solana \
+    sensors.solana \
+#   overlay.omap4 \ [HASH] requires /motorola/hal
+
 
 # OMX
+#   libomxcameraadapter \ requires vendor/arcsoft
 PRODUCT_PACKAGES += \
     OMXCore \
-    libomxcameraadapter \
     libOMX_CoreOsal \
     libOMX_Core \
     libomx_proxy_common \
@@ -153,21 +156,28 @@ PRODUCT_PACKAGES += \
     libOMX.TI.DUCATI1.VIDEO.VP6D \
     libOMX.TI.DUCATI1.VIDEO.VP7D \
     libVendor_ti_omx \
-    libVendor_ti_omx_config_parser
+    libVendor_ti_omx_config_parser \
+    libopencore_common \
+
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
     libcamera \
+    libd2cmap \
     libicui18n \
     lubicuuc \
+    libipc \
+    libipcutils \
+    libjni_latinime \
     libmedia \
     libnotify \
     libomap_mm_library_jni \
     librcm \
     libRS \
     libSR_AudioIn \
-    libtimemmgr \
     libsysmgr \
+    libstagefrighthw \
+    libtimemmgr \
     libtiutils \
     libvorbisidec \
     dmm_daemontest.out \
@@ -195,7 +205,7 @@ PRODUCT_PACKAGES += \
     syslink_daemon.out \
     syslink_tilertest.out \
     syslink_trace_daemon.out \
-    utilsApp.out
+    utilsApp.out \
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -219,6 +229,27 @@ PRODUCT_PACKAGES += \
     libreference-ril \
     libreference-cdma-sms \
     Usb
+
+
+# Add motobox symlinks
+#MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
+#SYMLINKS := $(addprefix /system/bin/,$(MOTOBOX_TOOLS))
+#$(SYMLINKS): MOTOBOX_BINARY := motobox
+#$(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
+#	@echo "Symlink: $@ -> $(MOTOBOX_BINARY)"
+#	@mkdir -p $(dir $@)
+#	@rm -rf $@
+#	$(hide) ln -sf $(MOTOBOX_BINARY) $@
+#
+#ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
+#
+# We need this so that the installed files could be picked up based on the
+# local module name
+#ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
+#    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+
+
+
 
 FRAMEWORKS_BASE_SUBDIRS += \
     $(addsuffix /java, omapmmlib)
@@ -247,7 +278,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
 # stuff common to all Motorola phones -- disabled for Sandbox
-$(call inherit-product, device/motorola/common/common_hijack.mk)
+#$(call inherit-product, device/motorola/common/common_hijack.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 
