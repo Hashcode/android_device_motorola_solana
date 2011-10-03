@@ -2,16 +2,14 @@ Build:
 Add to update-script
 symlink("motobox", "/system/bin/getconfig", "/system/bin/masterclear", "/system/bin/ptf", "/system/bin/setconfig", "/system/bin/test");
 
-[FIX] Manual copy to obg/libs:
-libopencore_common.so
-libmirror.so
+[FIX] Manual copy to obj/libs:
+libhdr_interface.so (requires: vendor/arcsoft/*)
+libfmchr.so (?)
 
 Startup:
  1.  [tcmd] /system/lib/libhdmi.so doesn't exist? (Check boot permissions): android_createDisplaySurfaceOnFB_HDMI can't be found.
  2.  [ftmipcd] 18:01:44.301696 writev(2, [{"\4"..., 1}, {"ftmipcd\0"..., 8}, {"USBLAN interface not available\0"..., 31}], 3) = 40
- 4.  [SCREEN] Screen is "off" by 10pixels or so.  EGL: /etc/powervr.ini
+ 4.  [SCREEN] Screen is "off" by 10pixels or so?
  5.  [SDCARD] (vold) SD Cards not mounted
  6.  [SOUND] check also sound for errors
- 7.  [HDMI] "overlay.omap4.so" is pulled from phone / not compiled needs: motorola/hal/
- 8.  [HDMI] "libmirror.so" is pulled from phone / needs: vendor/arcsoft
- 9.  [WIFI] Disabled SOFTAP_DEVICE Was generating a compile error
+ 7.  [WIFI] Disabled SOFTAP_DEVICE Was generating a compile error

@@ -132,13 +132,24 @@ PRODUCT_PACKAGES += \
     alsa.default \
     alsa.omap4 \
     acoustics.default \
-    lights.solana \
-    sensors.solana \
-#   overlay.omap4 \ [HASH] requires /motorola/hal
+    overlay.omap4 \
+#    lights.solana \
+#    sensors.solana \
 
+# Soundfx
+PRODUCT_PACKAGES += \
+    libbundlewrapper \
+    libreverbwrapper \
+    libvisualizer \
+
+# FM Radio
+PRODUCT_PACKAGES += \
+    libfm_stack \
+    libmcphal \
 
 # OMX
-#   libomxcameraadapter \ requires vendor/arcsoft
+#   SKIPPING: libhdr_interface \ requires vendor/arcsoft
+#   SKIPPING: libomxcameraadapter \ requires vendor/arcsoft
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -157,29 +168,32 @@ PRODUCT_PACKAGES += \
     libOMX.TI.DUCATI1.VIDEO.VP7D \
     libVendor_ti_omx \
     libVendor_ti_omx_config_parser \
+    libomx_proxy_common \
+    libomx_rpc \
     libopencore_common \
 
+# Framework
+PRODUCT_PACKAGES += \
+    libicui18n \
+    lubicuuc \
+    libjni_latinime \
+    libmedia \
+    libRS \
+    libvorbisidec \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
     libcamera \
     libd2cmap \
-    libicui18n \
-    lubicuuc \
     libipc \
     libipcutils \
-    libjni_latinime \
-    libmedia \
     libnotify \
     libomap_mm_library_jni \
     librcm \
-    libRS \
-    libSR_AudioIn \
+    libsyslink_ipc_listener \
     libsysmgr \
-    libstagefrighthw \
     libtimemmgr \
     libtiutils \
-    libvorbisidec \
     dmm_daemontest.out \
     ducati_load.out \
     event_listener.out \
@@ -228,7 +242,8 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libreference-ril \
     libreference-cdma-sms \
-    Usb
+    libSR_AudioIn \
+    Usb \
 
 
 # Add motobox symlinks

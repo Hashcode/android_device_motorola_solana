@@ -83,9 +83,6 @@ BOARD_SYSTEM_FILESYSTEM := ext3
 
 # Graphics
 BOARD_EGL_CFG := device/motorola/solana/prebuilt/egl.cfg
-#TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
-#TARGET_USES_GL_VENDOR_EXTENSIONS := true
-
 
 # OMX
 HARDWARE_OMX := true
