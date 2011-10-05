@@ -137,13 +137,12 @@ PRODUCT_PACKAGES += \
 
 # FM Radio
 #PRODUCT_PACKAGES += \
-#    libfmchr \
-#    libfm_stack \
-#    libmcphal \
 
-# OMX
-#   SKIPPING: libhdr_interface \ requires vendor/arcsoft
-#   SKIPPING: libomxcameraadapter \ requires vendor/arcsoft
+# OMX -- have to copy the following into out/target/product/solana/obj/lib for now
+#   libfmchr.so \ breaking all over
+#   libfm_stack \
+#   libmcphal \
+#   libhdr_interface.so \ requires vendor/arcsoft
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -165,6 +164,7 @@ PRODUCT_PACKAGES += \
     libomx_proxy_common \
     libomx_rpc \
     libopencore_common \
+    libomxcameraadapter
 
 # Framework
 PRODUCT_PACKAGES += \
