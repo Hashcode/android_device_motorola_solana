@@ -561,7 +561,7 @@ service usbd /system/bin/usbd
     user root
     group system
 
-service battd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/battd.pid /system/bin/battd
+service battd /system/bin/battd
     socket battdsock stream 0660 root mount
     user root
     group system mount 9001
@@ -635,7 +635,7 @@ service map /system/bin/sdptool add --channel=20 --network=2 MAP
     disabled
     oneshot
 
-service tcmd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/tcmd.pid /system/bin/tcmd
+service tcmd /system/bin/tcmd
     group radio input system log camera graphics sdcard_rw audio inet bluetooth wifi compass net_bt_admin mount net_raw net_admin media
     socket local_tcmd stream 0660 system system
     socket batch_socket stream 0600 system system
@@ -723,7 +723,7 @@ service pppd-ril /system/bin/pppd-ril /dev/ttyUSB0 call pppd-ril.options plugin 
     disabled
     oneshot
 
-service smc /system/bin/strace -ff -F -tt -s 200 -o /data/trace/smc.pid /system/bin/startup_smc.sh
+service smc /system/bin/startup_smc.sh
     user root
     group root
     disabled
