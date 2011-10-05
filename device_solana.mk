@@ -143,9 +143,9 @@ PRODUCT_PACKAGES += \
     libvisualizer \
 
 # FM Radio
-PRODUCT_PACKAGES += \
-    libfm_stack \
-    libmcphal \
+#PRODUCT_PACKAGES += \
+#    libfm_stack \
+#    libmcphal \
 
 # OMX
 #   SKIPPING: libhdr_interface \ requires vendor/arcsoft
