@@ -587,6 +587,7 @@ vendor/motorola/__DEVICE__/proprietary/libomx_avcdec_sharedlibrary.so:/system/li
 vendor/motorola/__DEVICE__/proprietary/libomx_m4vdec_sharedlibrary.so:/system/lib/libomx_m4vdec_sharedlibrary.so \\
 vendor/motorola/__DEVICE__/proprietary/libomx_mp3dec_sharedlibrary.so:/system/lib/libomx_mp3dec_sharedlibrary.so \\
 vendor/motorola/__DEVICE__/proprietary/libomx_sharedlibrary.so:/system/lib/libomx_sharedlibrary.so \\
+vendor/motorola/__DEVICE__/proprietary/libomxcameraadapter.so:/system/lib/libomxcameraadapter.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_author.so:/system/lib/libopencore_author.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_download.so:/system/lib/libopencore_download.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_downloadreg.so:/system/lib/libopencore_downloadreg.so \\

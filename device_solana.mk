@@ -3,10 +3,11 @@
 #
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/root/init:system/etc/rootfs/init \
     device/motorola/solana/root/default.prop:system/etc/rootfs/default.prop \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
@@ -118,14 +119,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/tiwlan.ini:system/etc/wifi/tiwlan.ini \
     device/motorola/solana/prebuilt/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/powervr.ini:system/etc/powervr.ini
-
-# Bootanimation
-PRODUCT_COPY_FILES +=  \
-    vendor/cyanogen/prebuilt/hdpi/media/bootanimation.zip:system/media/bootanimation.zip
-
-# Recovery / 2nd-init
-PRODUCT_PACKAGES += \
-    init2
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -245,7 +238,6 @@ PRODUCT_PACKAGES += \
     libSR_AudioIn \
     Usb \
 
-
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
 #SYMLINKS := $(addprefix /system/bin/,$(MOTOBOX_TOOLS))
@@ -255,15 +247,12 @@ PRODUCT_PACKAGES += \
 #	@mkdir -p $(dir $@)
 #	@rm -rf $@
 #	$(hide) ln -sf $(MOTOBOX_BINARY) $@
-#
 #ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
 #
 # We need this so that the installed files could be picked up based on the
 # local module name
 #ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
 #    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
-
-
 
 
 FRAMEWORKS_BASE_SUBDIRS += \
