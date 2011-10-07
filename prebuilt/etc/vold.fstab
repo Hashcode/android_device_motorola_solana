@@ -34,12 +34,12 @@ dev_mount sdcard /mnt/sdcard 25 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
 ## Example of specifying a specific partition for mounts
 # dev_mount sdcard /sdcard 2 /devices/platform/goldfish_mmc.0 /devices/platform/msm_sdcc.2/mmc_host/mmc1
 
-
+##NOT NEEDED FOR CM7
 # flash drive connection through hub connected to USB3
-dev_mount usbdisk_1.1 /mnt/usbdisk_1.1 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.1
-dev_mount usbdisk_1.2 /mnt/usbdisk_1.2 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.2
-dev_mount usbdisk_1.3 /mnt/usbdisk_1.3 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.3
-dev_mount usbdisk_1.4 /mnt/usbdisk_1.4 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.4
-dev_mount usbdisk_1.5 /mnt/usbdisk_1.5 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.5
-dev_mount usbdisk_1.6 /mnt/usbdisk_1.6 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.6
-dev_mount usbdisk_1.7 /mnt/usbdisk_1.7 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.7
+#dev_mount usbdisk_1.1 /mnt/usbdisk_1.1 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.1
+#dev_mount usbdisk_1.2 /mnt/usbdisk_1.2 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.2
+#dev_mount usbdisk_1.3 /mnt/usbdisk_1.3 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.3
+#dev_mount usbdisk_1.4 /mnt/usbdisk_1.4 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.4
+#dev_mount usbdisk_1.5 /mnt/usbdisk_1.5 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.5
+#dev_mount usbdisk_1.6 /mnt/usbdisk_1.6 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.6
+#dev_mount usbdisk_1.7 /mnt/usbdisk_1.7 auto /devices/platform/musb_hdrc/usb3/3-1/3-1.7
