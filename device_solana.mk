@@ -109,16 +109,17 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
-    device/motorola/solana/prebuilt/apns-conf.xml:system/etc/apns-conf.xml \
-    device/motorola/solana/prebuilt/gps.conf:system/etc/gps.conf \
-    device/motorola/solana/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
-    device/motorola/solana/prebuilt/mount_ext3.sh:system/bin/mount_ext3.sh \
-    device/motorola/solana/prebuilt/strace:system/bin/strace \
-    device/motorola/solana/prebuilt/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
-    device/motorola/solana/prebuilt/tiwlan.ini:system/etc/wifi/tiwlan.ini \
-    device/motorola/solana/prebuilt/vold.fstab:system/etc/vold.fstab \
-    device/motorola/solana/prebuilt/powervr.ini:system/etc/powervr.ini
+    device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
+    device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
+    device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
+    device/motorola/solana/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
+    device/motorola/solana/prebuilt/etc/gps.conf:system/etc/gps.conf \
+    device/motorola/solana/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    device/motorola/solana/prebuilt/etc/powervr.ini:system/etc/powervr.ini \
+    device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
+    device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
+    device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+    device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -137,12 +138,14 @@ PRODUCT_PACKAGES += \
 
 # FM Radio
 #PRODUCT_PACKAGES += \
+#   libmcphal \
 
 # OMX -- have to copy the following into out/target/product/solana/obj/lib for now
 #   libfmchr.so \ breaking all over
 #   libfm_stack \
-#   libmcphal \
 #   libhdr_interface.so \ requires vendor/arcsoft
+#   libomxcameraadapter \ requires libhdr_interface.so
+
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -164,7 +167,6 @@ PRODUCT_PACKAGES += \
     libomx_proxy_common \
     libomx_rpc \
     libopencore_common \
-    libomxcameraadapter
 
 # Framework
 PRODUCT_PACKAGES += \
@@ -237,7 +239,7 @@ PRODUCT_PACKAGES += \
     libreference-ril \
     libreference-cdma-sms \
     libSR_AudioIn \
-    Usb \
+    Usb
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test

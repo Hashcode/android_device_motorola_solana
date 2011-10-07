@@ -45,8 +45,8 @@ WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_DRIVER_MODULE_ARG      := ""
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
-WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1281.bin"
-WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1281_AP.bin"
+WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1283.bin"
+WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
 
 
 # Audio
@@ -82,7 +82,8 @@ BOARD_SYSTEM_FILESYSTEM := ext3
 
 
 # Graphics
-BOARD_EGL_CFG := device/motorola/solana/prebuilt/egl.cfg
+BOARD_EGL_CFG := device/motorola/solana/prebuilt/etc/egl.cfg
+
 
 # OMX
 HARDWARE_OMX := true
@@ -104,8 +105,10 @@ endif
 # Media / Radio
 BUILD_FM_RADIO := true
 BUILD_TI_FM_APPS := true
+FM_CHR_DEV_ST := true
 #PV_PLAYER := 
 #BOARD_HW_PLAYER :=
+
 
 # OTA Packaging
 TARGET_PROVIDES_RELEASETOOLS := true

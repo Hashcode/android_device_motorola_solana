@@ -327,7 +327,6 @@ adb pull /system/tts/lang_pico/es-ES_zl0_sg.bin ../../../vendor/motorola/$DEVICE
 
 # /system/usr/* (dirs)
 adb pull /system/usr/icu/icudt44l.dat ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/usr/keychars/cdma_solana-keypad.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty2.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/usb_keyboard_102_en_us.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
@@ -650,7 +649,6 @@ vendor/motorola/__DEVICE__/proprietary/en-US_ta.bin:/system/tts/lang_pico/en-US_
 vendor/motorola/__DEVICE__/proprietary/es-ES_ta.bin:/system/tts/lang_pico/es-ES_ta.bin \\
 vendor/motorola/__DEVICE__/proprietary/es-ES_zl0_sg.bin:/system/tts/lang_pico/es-ES_zl0_sg.bin \\
 vendor/motorola/__DEVICE__/proprietary/icudt44l.dat:/system/usr/icu/icudt44l.dat \\
-vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kcm.bin:/system/usr/keychars/cdma_solana-keypad.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kcm.bin:/system/usr/keychars/qwerty.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty2.kcm.bin:/system/usr/keychars/qwerty2.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kcm.bin:/system/usr/keychars/usb_keyboard_102_en_us.kcm.bin \\
