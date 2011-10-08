@@ -33,9 +33,8 @@ loglevel 3
 
 # create mountpoints
     mkdir /mnt 0775 root system
-    mkdir /mnt/emmc 0000 system system      # CM uses /emmc
     mkdir /mnt/sdcard 0000 system system
-#    mkdir /mnt/sdcard-ext 0000 system system      # Feature 34534
+    mkdir /mnt/sdcard-ext 0000 system system      # Feature 34534
     symlink /data/tmp /tmp
 
 # Create cgroup mount point for cpu accounting
@@ -44,9 +43,8 @@ loglevel 3
 #    mkdir /acct/uid
 
 # Backwards Compat - XXX: Going away in G*
-    symlink /mnt/emmc /emmc
     symlink /mnt/sdcard /sdcard
-#    symlink /mnt/sdcard-ext /sdcard-ext
+    symlink /mnt/sdcard-ext /sdcard-ext
 
     mkdir /system
     mkdir /data 0771 system system

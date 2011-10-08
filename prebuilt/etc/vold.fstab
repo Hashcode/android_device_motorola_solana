@@ -23,9 +23,9 @@
 ######################
 
 # external sd card
-dev_mount sdcard /mnt/sdcard:none:lun1 auto /devices/platform/goldfish_mmc.0 /devices/platform/mmci-omap-hs.0/mmc_host/mmc0
+dev_mount sdcard-ext /mnt/sdcard-ext:none:lun1 auto /devices/platform/goldfish_mmc.0 /devices/platform/mmci-omap-hs.0/mmc_host/mmc0
 # internal eMMC
-dev_mount emmc /mnt/emmc 25 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
+dev_mount sdcard /mnt/sdcard 25 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
 
 ## Example of a dual card setup
 # dev_mount left_sdcard  /sdcard1  auto /devices/platform/goldfish_mmc.0 /devices/platform/msm_sdcc.2/mmc_host/mmc1
