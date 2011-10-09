@@ -331,7 +331,6 @@ adb pull /system/usr/keychars/qwerty.kcm.bin ../../../vendor/motorola/$DEVICE/pr
 adb pull /system/usr/keychars/qwerty2.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/usb_keyboard_102_en_us.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/AVRCP.kl ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/usr/keylayout/cdma_solana-keypad.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/cpcap-key.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/qwerty.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/usb_keyboard_102_en_us.kl ../../../vendor/motorola/$DEVICE/proprietary
@@ -653,7 +652,6 @@ vendor/motorola/__DEVICE__/proprietary/qwerty.kcm.bin:/system/usr/keychars/qwert
 vendor/motorola/__DEVICE__/proprietary/qwerty2.kcm.bin:/system/usr/keychars/qwerty2.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kcm.bin:/system/usr/keychars/usb_keyboard_102_en_us.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \\
-vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kl:/system/usr/keylayout/cdma_solana-keypad.kl \\
 vendor/motorola/__DEVICE__/proprietary/cpcap-key.kl:/system/usr/keylayout/cpcap-key.kl \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kl:/system/usr/keylayout/qwerty.kl \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kl:/system/usr/keylayout/usb_keyboard_102_en_us.kl \\
