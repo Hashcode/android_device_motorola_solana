@@ -35,6 +35,8 @@ loglevel 3
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
     mkdir /mnt/sdcard-ext 0000 system system      # Feature 34534
+    mkdir /osh 0755 root root
+    mkdir /preinstall 0755 system system
     symlink /data/tmp /tmp
 
 # Create cgroup mount point for cpu accounting
@@ -117,26 +119,22 @@ on post-fs
     chown system system /data
     chmod 0771 /data
 
-    # Mount compressed filesystems
-#    mount squashfs loop@/system/lib/modules/modules.sqf /system/lib/modules ro
-#    mount squashfs loop@/system/xbin/xbin.sqf /system/xbin ro
-
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
    
     mkdir /data/dontpanic
     chown root log /data/dontpanic
-    chmod 0750 /data/dontpanic
+    chmod 0770 /data/dontpanic
 
     # Collect apanic data, free resources and re-arm trigger
     copy /proc/apanic_console /data/dontpanic/apanic_console
     chown root log /data/dontpanic/apanic_console
-    chmod 0640 /data/dontpanic/apanic_console
+    chmod 0664 /data/dontpanic/apanic_console
 
     copy /proc/apanic_threads /data/dontpanic/apanic_threads
     chown root log /data/dontpanic/apanic_threads
-    chmod 0640 /data/dontpanic/apanic_threads
+    chmod 0664 /data/dontpanic/apanic_threads
 
     write /proc/apanic_console 1
 
@@ -173,8 +171,16 @@ on post-fs
     mkdir /data/misc/wifi 0770 wifi wifi
     chmod 0770 /data/misc/wifi
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    mkdir /data/local 0771 shell shell
-    mkdir /data/local/tmp 0771 shell shell
+    mkdir /data/misc/wifi/hostapd.sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/local/tmp 0771 mot_tcmd shell
+    mkdir /data/local/12m 0771 mot_tcmd shell
+    mkdir /data/local/12m/batch 0771 mot_tcmd shell
+    chown mot_tcmd shell /data/local
+    chown mot_tcmd shell /data/local/12m
+    chown mot_tcmd shell /data/local/12m/batch
+    chown mot_tcmd shell /data/local/tmp
     mkdir /data/local/download 0771 system cache
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
@@ -182,6 +188,9 @@ on post-fs
     mkdir /data/property 0700 root root
 
     mkdir /cache/download 0771 system cache
+
+    chown system system /mnt/sdcard      # Feature 34534
+    chmod 0777 /mnt/sdcard               # Feature 34534
 
     # create dalvik-cache and double-check the perms
     mkdir /data/dalvik-cache 0771 system system
@@ -249,6 +258,8 @@ on boot
     setprop ro.HIDDEN_APP_MEM 7168
     setprop ro.EMPTY_APP_MEM 8192
 
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+
 # Write value must be consistent with the above properties.
 # Note that the driver only supports 6 slots, so we have combined some of
 # the classes into the same memory level; the associated processes of higher
@@ -292,7 +303,7 @@ on boot
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/blue/brightness
-    chown system system /sys/class/leds/red/device/grpfreq
+    chown media media /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
     chown system system /sys/class/timed_output/vibrator/enable
@@ -352,12 +363,17 @@ on property:persist.service.adb.enable=0
 
 service servicemanager /system/bin/servicemanager
     user system
+    group system
     critical
     onrestart restart zygote
     onrestart restart media
 
 service vold /system/bin/vold
     socket vold stream 0660 root mount
+    ioprio be 2
+
+service tund /system/bin/tund
+    socket tund stream 0660 vpn system
     ioprio be 2
 
 service netd /system/bin/netd
@@ -370,7 +386,7 @@ service ril-daemon /system/bin/rild
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw net_admin net_raw
+    group radio cache inet misc audio sdcard_rw net_admin net_raw mot_secclkd mot_pwric
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     socket zygote stream 666
@@ -380,8 +396,8 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
     onrestart restart netd
 
 service media /system/bin/mediaserver
-    user media
-    group system audio camera graphics inet net_bt net_bt_admin net_raw
+    user system
+    group system media audio camera graphics inet net_bt net_bt_admin net_raw mot_drm input mot_tpapi mot_secclkd mot_pwric mot_caif
     ioprio rt 4
 
 service bootanim /system/bin/bootanimation
@@ -453,3 +469,9 @@ service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
+
+service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
+    group wifi
+    disabled
+    oneshot
+

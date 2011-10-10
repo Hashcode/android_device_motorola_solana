@@ -19,3 +19,8 @@ Startup:
 03:03:11.557220 write(2, "Cannot find device \"rmnet0\"\n"..., 28) = 28
 13.  [mediaserver] 03:06:27.463592 open("/system/lib/libittiam_asfextractor.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
 
+
+Bionic Merge:
+X- bionic/libc/arch-x86/string/ssse3-memcpy3-new.S vs. ssse3-memcpy3.S
+X- bionic/libc/arch-x86/string/ssse3-strcmp-latest.S vs. ssse3-strcmp.S
+ - bionic/libc/kernel/common/linux/msm_vidc_enc.h [over-writes different VALUES]

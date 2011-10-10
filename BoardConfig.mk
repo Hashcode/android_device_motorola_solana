@@ -33,13 +33,17 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_PAGE_SIZE := 0x4096
 
 
+# Storage
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+
+
 # Connectivity - Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 HOSTAPD_VERSION             := VER_0_6_X
-BOARD_WLAN_DEVICE           := tiwlan0
-BOARD_SOFTAP_DEVICE         := tiap0
+BOARD_WLAN_DEVICE           := wl1283
+BOARD_SOFTAP_DEVICE         := WiLink_AP
 BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"

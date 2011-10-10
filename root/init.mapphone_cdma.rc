@@ -101,19 +101,17 @@ on post-fs
     chown dhcp dhcp /data/misc/dhcp
     mkdir /pds/wifi 0771 wifi wifi
     chmod 0664 /pds/wifi/nvs_map.bin
-    mkdir /pds/whisper 0770 system system
-    chown system system /pds/whisper
+    mkdir /pds/whisper 0770 mot_whisper mot_whisper
+    chown mot_whisper mot_whisper /pds/whisper
     chmod 0770 /pds/whisper
     mkdir /pds/whisper/whisper_only 0700 system system
     chown system system /pds/whisper/whisper_only
     chmod 0700 /pds/whisper/whisper_only
-    chown system /pds/whisper/whisper_only/vector0.bin
-
+    chown mot_whisper /pds/whisper/whisper_only/vector0.bin
     # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
-
     # create logger folder
     mkdir /data/logger 0770 radio log
     chown radio log /data/logger
@@ -121,32 +119,25 @@ on post-fs
     mkdir /data/panicreports
     chown root radio /data/panicreports
     chmod 0775 /data/panicreports
-
     # Backup ramconsole on abnormal reboot.
     copy /proc/last_kmsg /data/dontpanic/last_kmsg
     chown root log /data/dontpanic/last_kmsg
     chmod 0644 /data/dontpanic/last_kmsg
-
     # workaround: in solana somebody deletes the logfile.
     # we have to back it up.
     copy /data/dontpanic/apanic_console /data/logger/last_apanic_console
     chmod 0700 /data/logger/apanic_console
-
     # create the lost+found directories, so as to enforce our permissions
     mkdir /pds/lost+found 0770
-
     # double check the perms, in case lost+found already exists, and set owner
     chown root root /pds/lost+found
     chmod 0770 /pds/lost+found
-
     #Create location directory
     mkdir /data/location 0771 radio radio
-
     # Create anr directory and change permission to 777 to save trace.txt
     mkdir /data/anr
     chmod 0777 /data/anr
-
-    # create the necessary dirs for tpapi with proper permission
+# create the necessary dirs for tpapi with proper permission
     mkdir /pds/security
     mkdir /data/tpapi
     mkdir /data/tpapi/etc
@@ -157,24 +148,22 @@ on post-fs
     chmod 2770 /data/tpapi/etc
     chmod 2770 /data/tpapi/etc/tpa
     chmod 2770 /data/tpapi/etc/tpa/persistent
-    chown system system /pds/security
-    chown system system /pds/security/counter.bin
-    chown system system /pds/security/system.bin
-    chown system system /pds/security/storage.bin
-    chown system system /pds/security/keymaptable.dat
-    chown system system /data/tpapi
-    chown system system /data/tpapi/etc
-    chown system system /data/tpapi/etc/tpa
-    chown system system /data/tpapi/etc/tpa/persistent
-    chown system system /data/tpapi/storage.bin
-    chown system system /data/tpapi/user.bin
-
-    # directory for encryption management tool, enc_mgt_tool
+    chown mot_tpapi mot_tpapi /pds/security
+    chown mot_tpapi mot_tpapi /pds/security/counter.bin
+    chown mot_tpapi mot_tpapi /pds/security/system.bin
+    chown mot_tpapi mot_tpapi /pds/security/storage.bin
+    chown mot_tpapi mot_tpapi /pds/security/keymaptable.dat
+    chown mot_tpapi mot_tpapi /data/tpapi
+    chown mot_tpapi mot_tpapi /data/tpapi/etc
+    chown mot_tpapi mot_tpapi /data/tpapi/etc/tpa
+    chown mot_tpapi mot_tpapi /data/tpapi/etc/tpa/persistent
+    chown mot_tpapi mot_tpapi /data/tpapi/storage.bin
+    chown mot_tpapi mot_tpapi /data/tpapi/user.bin
+# directory for encryption management tool, enc_mgt_tool
     mkdir /data/emt
     chmod 0700 /data/emt
     # Create wmdrm directory
-    mkdir /pds/wmdrm 0775 system system
-
+    mkdir /pds/wmdrm 0775 mot_drm mot_drm
     # Temp workaround for HP library cleanup
     symlink /dev/hp3a-omap /dev/hp3A-omap
 # Permissions for video
@@ -188,7 +177,6 @@ on post-fs
     chown media camera /dev/video0
     chown media graphics /dev/video1
     chown media graphics /dev/video2
-
     mount rootfs rootfs / ro remount
 
 # Install kernel modules
@@ -268,10 +256,8 @@ on boot
    chown system system /sys/class/backlight/lm3532_bl/brightness
    chmod 0660 /sys/class/backlight/430_540_960_amoled_bl/brightness
    chown system system /sys/class/backlight/430_540_960_amoled_bl/brightness
-
 # Change the ownership of touch screen file
-   chown root system /sys/bus/i2c/drivers/qtouch-obp-ts/2-004a/irq_enable
-
+   chown root mot_tcmd /sys/bus/i2c/drivers/qtouch-obp-ts/2-004a/irq_enable
 # changes for enabling ducati...
    chmod 0660 /dev/syslink-proc4430
    chown media media /dev/syslink-proc4430
@@ -303,8 +289,7 @@ on boot
    chown media media /dev/omap-devh2
    chmod 0660 /sys/devices/platform/omapdss/overlay0/zorder
    chown system system /sys/devices/platform/omapdss/overlay0/zorder
-
-# change permissions for Overlay
+   # change permissions for Overlay
    chmod 0660 /dev/video1
    chmod 0660 /dev/video2
    chmod 0660 /dev/video3
@@ -315,15 +300,12 @@ on boot
    chmod 0660 /sys/bus/usb/devices/usb2/power/control
    chown system radio /sys/bus/usb/devices/usb1/power/control
    chown system radio /sys/bus/usb/devices/usb2/power/control
-
-# change permission/ownership for command sys file of mdm6600 ctrl driver
+   # change permission/ownership for command sys file of mdm6600 ctrl driver
    chown system radio /sys/class/radio/mdm6600/command
-
-# change permissions for display CABC mode
+   # change permissions for display CABC mode
    chmod 0660 /sys/devices/omapdss/display0/cabc_mode
    chown system system /sys/devices/omapdss/display0/cabc_mode
-
-# change permissions for overlay managers and display devices
+   # change permissions for overlay managers and display devices
    chmod 0660 /sys/devices/platform/omapdss/display0/enabled
    chmod 0660 /sys/devices/platform/omapdss/display1/enabled
    chmod 0660 /sys/devices/platform/omapdss/display2/enabled
@@ -356,8 +338,7 @@ on boot
    chown system system /sys/devices/platform/omapdss/overlay1/zorder
    chown system system /sys/devices/platform/omapdss/overlay2/zorder
    chown system system /sys/devices/platform/omapdss/overlay3/zorder
-
-# change permissions for manager tranparency parameters
+   # change permissions for manager tranparency parameters
    chmod 0660 /sys/devices/platform/omapdss/manager0/name
    chmod 0660 /sys/devices/platform/omapdss/manager0/display
    chmod 0660 /sys/devices/platform/omapdss/manager0/trans_key_value
@@ -396,8 +377,7 @@ on boot
    chown system system /sys/devices/platform/omapdss/overlay1/enabled
    chown system system /sys/devices/platform/omapdss/overlay2/enabled
    chown system system /sys/devices/platform/omapdss/overlay3/enabled
-
-# change permissions for display timings to get the resolutions
+   # change permissions for display timings to get the resolutions
    chmod 0660 /sys/devices/platform/omapdss/display0/timings
    chmod 0660 /sys/devices/platform/omapdss/display1/timings
    chmod 0660 /sys/devices/platform/omapdss/display2/timings
@@ -406,8 +386,7 @@ on boot
    chown system system /sys/devices/platform/omapdss/display1/timings
    chown system system /sys/devices/platform/omapdss/display2/timings
    chown system system /sys/devices/platform/omapdss/display3/timings
-
-# change permissions for Tiler driver
+   # change permissions for Tiler driver
    chmod 0660 /dev/tiler
    chmod 0660 /dev/dmm
    chown media media /dev/tiler
@@ -428,7 +407,6 @@ on boot
    chown system system /dev/video1
    chown system system /dev/video2
    chown system system /dev/video3
-
 # Define TCP buffer sizes for various networks
 # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 65536,131072,262144,4096,16384,131072
@@ -436,7 +414,6 @@ on boot
     setprop net.tcp.buffersize.umts 65536,131072,262144,4096,16384,131072
     setprop net.tcp.buffersize.edge 16384,32768,65536,4096,16384,32768
     setprop net.tcp.buffersize.gprs 4096,8192,12288,4096,8192,12288
-
 # Define optimized TCP buffer sizes for various networks
 # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 131072,262144,524288,4096,16384,131072
@@ -444,14 +421,11 @@ on boot
     setprop net.tcp.buffersize.umts 131072,262144,524288,4096,16384,131072
     setprop net.tcp.buffersize.edge 16384,32768,65536,4096,16384,32768
     setprop net.tcp.buffersize.gprs 4096,8192,12288,4096,8192,12288
-
 # Camera related
    chmod 0660 /dev/hplens-omap
    chown media camera /dev/hplens-omap
-
 # Enable panic on softlockup
     write /proc/sys/kernel/softlockup_panic 1
-
 # Load traffic shaping modules
     insmod /system/lib/modules/ifb.ko
     insmod /system/lib/modules/act_mirred.ko
@@ -518,16 +492,13 @@ on property:sys.reboot=1
 on property:sys.shutdown=1
     exec /system/bin/sleep 10
     exec /system/bin/reboot -p
-
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd_tiwlan0
-
 on property:ro.hdcp.support=1
     insmod /system/lib/modules/omap-hdcp.ko
     exec /system/bin/hdcp-mknod
     chown system media /dev/omap-hdcp
     chmod 0660 /dev/omap-hdcp
-
 on property:ro.hdcp.support=2
     insmod /system/lib/modules/omap-hdcp.ko
     exec /system/bin/hdcp-mknod
@@ -562,17 +533,17 @@ service usbd /system/bin/usbd
     group system
 
 service battd /system/bin/battd
-    socket battdsock stream 0660 root mount
+    socket battdsock stream 0660 mot_accy system
     user root
-    group system mount 9001
+    group mot_pwric mot_accy system
     oneshot
 
 service catcommands /system/bin/catcommands
     group radio
 
 service whisperd /system/bin/whisperd /dev/ttyO1
-    user system
-    group system
+    user mot_whisper
+    group mot_whisper mot_pwric
     oneshot
 
 service msp430 /system/bin/msp430 boot
@@ -635,18 +606,46 @@ service map /system/bin/sdptool add --channel=20 --network=2 MAP
     disabled
     oneshot
 
-service tcmd /system/bin/tcmd
-    group radio input system log camera graphics sdcard_rw audio inet bluetooth wifi compass net_bt_admin mount net_raw net_admin media
-    socket local_tcmd stream 0660 system system
-    socket batch_socket stream 0600 system system
-    oneshot
-    disabled
-# change ^^ later
+#service tcmd /system/bin/tcmd
+#    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media
+#    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+#    socket batch_socket stream 0600 mot_tcmd mot_tcmd
+#    oneshot
 
 service tcmdhelp /system/bin/tcmdhelp
-    socket tcmdhelp stream 0600 system system
+    socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
     oneshot
     disabled
+
+# turn on wifi for tcmd step one
+on property:tcmd.load_wlan=1
+    insmod /system/lib/modules/tiwlan_drv.ko
+# turn on wifi for tcmd step two
+on property:tcmd.load_wlan=2
+    start wlan_loader
+# turn on wifi for tcmd step three
+on property:tcmd.load_wlan=3
+    exec /system/bin/ifconfig tiwlan0 up
+# turn on rfmd wifi for tcmd step four
+on property:tcmd.load_wlan=4
+    start wlan_loader_rfmd
+# turn off wifi for tcmd step one
+on property:tcmd.unload_wlan=1
+    exec /system/bin/ifconfig tiwlan0 down
+# turn off wifi for tcmd step two
+on property:tcmd.unload_wlan=2
+    exec /system/bin/rmmod tiwlan_drv
+    setprop wlan.driver.status unloaded
+
+# turn on bluetooth for tcmd
+on property:tcmd.bt_mod=1
+    insmod /system/lib/modules/wl127x_test.ko
+#turn off bluetooth for tcmd
+on property:tcmd.bt_mod=0
+    exec /system/bin/rmmod wl127x_test
+#execute tcmdhelp
+on property:tcmd.start_tcmdhelp=1
+    start tcmdhelp
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
@@ -659,29 +658,25 @@ service wlan_loader /system/bin/wlan_loader \
     disabled
     oneshot
 
-# [HASH] cvpcs has this in his init.mapphone_cdma.rc file but I don't have this file
-#service wlan_loader_rfmd /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    disabled
-#    oneshot
+service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
+        -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini \
+        -e /pds/wifi/nvs_map.bin
+    disabled
+    oneshot
 
-# [HASH] Disable for testing
-#service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
-#        -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    disabled
-#    oneshot
+service wlan_loader_rfmd /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
+    class post-zygote_services
+    disabled
+    oneshot
 
-# [HASH] Another file I don't have.
-#service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    disabled
-#    oneshot
+service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
+        -e /pds/wifi/nvs_map.bin
+    disabled
+    oneshot
 
-service wpa_supplicant /system/bin/wpa_supplicant \
-        -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
 # we will start as root and wpa_supplicant will switch to user wifi
 # after setting up the capabilities required for WEXT
 # user wifi
@@ -689,11 +684,9 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
-
 service dhcpcd_tiwlan0 /system/bin/dhcpcd
     disabled
     oneshot
-
 service dhcpcd_bnep0 /system/bin/dhcpcd
     disabled
     oneshot
@@ -724,8 +717,8 @@ service pppd-ril /system/bin/pppd-ril /dev/ttyUSB0 call pppd-ril.options plugin 
     oneshot
 
 service smc /system/bin/startup_smc.sh
-    user root
-    group root
+    user mot_tpapi
+    group mot_tpapi
     disabled
     oneshot
 
@@ -752,7 +745,7 @@ service qbplogd /system/bin/qbplogd
     disabled
 
 service dlnasrv /system/bin/dlnasrv
-    user mot_dlna
+    user mot_caif
     group system net_admin sdcard_rw new_raw inet mount misc
     oneshot
     disabled
@@ -762,6 +755,10 @@ service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
     disabled
     oneshot
 
+on property:dev.bootcomplete=1
+#    start savebpver
+#    start loadpreinstalls
+
 service mdm_panicd /system/bin/mdm_panicd
     oneshot
 
@@ -770,9 +767,9 @@ service savebpver /system/bin/SaveBPVer
     oneshot
 
 service secclkd /system/bin/secclkd
-    socket secclk_socket stream 660 system system
-    user system
-    group system
+    socket secclk_socket stream 660 mot_secclkd mot_secclkd
+    user mot_tpapi
+    group mot_tpapi mot_sec_rtc mot_secclkd
     oneshot
 
 #start Authentec VPN service
