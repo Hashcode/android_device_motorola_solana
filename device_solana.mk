@@ -125,9 +125,9 @@ PRODUCT_COPY_FILES += \
 # HW Libs
 PRODUCT_PACKAGES += \
     alsa.default \
-    alsa.omap4 \
     acoustics.default \
     overlay.omap4 \
+#    alsa.omap4 \  broken for omap3 vs. omap4 definitions in hardware/alsa-sound
 #    lights.solana \
 #    sensors.solana \
 
@@ -145,7 +145,6 @@ PRODUCT_PACKAGES += \
 #   libfmchr.so \ breaking all over
 #   libfm_stack \
 #   libhdr_interface.so \ requires vendor/arcsoft
-#   libomxcameraadapter \ requires libhdr_interface.so
 
 PRODUCT_PACKAGES += \
     OMXCore \
@@ -167,6 +166,7 @@ PRODUCT_PACKAGES += \
     libVendor_ti_omx_config_parser \
     libomx_proxy_common \
     libomx_rpc \
+    libomxcameraadapter \
     libopencore_common \
 
 # Framework

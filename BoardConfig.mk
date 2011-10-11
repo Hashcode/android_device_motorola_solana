@@ -1,4 +1,4 @@
-# Sandbox Setup: ON
+# Sandbox Setup: ON  ** IF YOU ARE USING THIS AND DON'T KNOW WHAT THAT MEANS: BEWARE **
 # [HASH] I like how cvpcs grouped his settings, using that!
 
 
@@ -34,7 +34,6 @@ BOARD_PAGE_SIZE := 0x4096
 
 
 # Storage
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 
 
 # Connectivity - Wi-Fi
@@ -43,8 +42,8 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 HOSTAPD_VERSION             := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1283
-BOARD_SOFTAP_DEVICE         := WiLink_AP
-BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
+BOARD_SOFTAP_DEVICE         := wl1283
+#BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_DRIVER_MODULE_ARG      := ""
@@ -107,7 +106,7 @@ endif
 
 
 # MOTOROLA
-USE_MOTOROLA_CODE := true
+#USE_MOTOROLA_CODE := true
 ifdef USE_MOTOROLA_CODE
 COMMON_GLOBAL_CFLAGS += -DUSE_MOTOROLA_CODE
 endif
