@@ -67,15 +67,11 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 BOARD_HAS_NO_SELECT_BUTTON := true
-#TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
-#TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 BOARD_ALWAYS_INSECURE := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_MKE2FS := device/motorola/solana/releaseutils/mke2fs
-#BOARD_HAS_WEBTOP := false
-#BOARD_HAS_SDCARD_INTERNAL := true
-#BOARD_HAS_LOCKED_BOOTLOADER := true
-#SYSTEM_BOOT_STATUS_FILE := /systemorig/etc/recovery/flags/alt_system_mode
+#TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
+#TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 
 
 # Sandbox Filesystem Settings
@@ -109,6 +105,10 @@ endif
 #USE_MOTOROLA_CODE := true
 ifdef USE_MOTOROLA_CODE
 COMMON_GLOBAL_CFLAGS += -DUSE_MOTOROLA_CODE
+endif
+USE_MOTOROLA_USERS := true
+ifdef USE_MOTOROLA_USERS
+COMMON_GLOBAL_CFLAGS += -DUSE_MOTOROLA_USERS
 endif
 
 
