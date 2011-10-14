@@ -35,19 +35,10 @@ on boot
 # supported, and arbitrary breakage may result if you specify
 # something else.
 
-# [MOT] Simulator will not start without these changes.
-    class_start default
-    class_start pre-zygote_services
-    class_start zygote_services
-    class_start post-zygote_services
-
-
 service goldfish-setup /system/etc/init.goldfish.sh
-    class pre-zygote_services
     oneshot
 
 service qemud /system/bin/qemud
-    class pre-zygote_services
     socket qemud    stream 666
     oneshot
 
@@ -58,5 +49,4 @@ service qemud /system/bin/qemud
 # if not, is simply exit immediately
 
 service goldfish-logcat /system/bin/logcat -Q
-    class pre-zygote_services
     oneshot

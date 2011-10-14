@@ -41,7 +41,7 @@
 #include <private/android_filesystem_config.h>
 
 #include "property_service.h"
-#include "init2.h"
+#include "init.h"
 #include "util.h"
 #include "log.h"
 
@@ -58,14 +58,24 @@ struct {
     unsigned int uid;
     unsigned int gid;
 } property_perms[] = {
+    { "net.caif0.",       AID_RADIO,    0 },
+    { "net.usb0.",        AID_RADIO,    0 },
+    { "net.usb1.",        AID_RADIO,    0 },
+    { "net.qmi0.",        AID_RADIO,    0 },
+    { "net.qmi1.",        AID_RADIO,    0 },
+    { "net.qmi2.",        AID_RADIO,    0 },
     { "net.rmnet",        AID_RADIO,    0 },
+    { "net.rmnet0.",      AID_RADIO,    0 },
+    { "net.gannet0.",     AID_RADIO,    0 },
     { "net.gprs.",        AID_RADIO,    0 },
     { "net.ppp",          AID_RADIO,    0 },
     { "ril.",             AID_RADIO,    0 },
     { "gsm.",             AID_RADIO,    0 },
     { "persist.radio",    AID_RADIO,    0 },
     { "net.dns",          AID_RADIO,    0 },
-    { "net.gannet",       AID_RADIO,    0 },
+    { "net.dns",          AID_DHCP,     0 },
+    { "serialno",         AID_RADIO,    0 },
+    { "radio.",           AID_RADIO,    0 },
     { "net.",             AID_SYSTEM,   0 },
     { "dev.",             AID_SYSTEM,   0 },
     { "runtime.",         AID_SYSTEM,   0 },
@@ -82,17 +92,20 @@ struct {
     { "service.adb.root", AID_SHELL,    0 },
     { "persist.sys.",     AID_SYSTEM,   0 },
     { "persist.service.", AID_SYSTEM,   0 },
-    { "persist.security.",AID_SYSTEM,   0 },
-    { "wimax.",           AID_SYSTEM,   1000 },
-    { "net.pdp0",         AID_RADIO,    0 },
-    { "net.pdp1",         AID_RADIO,    AID_RADIO },
-    { "net.pdp2",         AID_RADIO,    AID_RADIO },
-    { "net.pdp3",         AID_RADIO,    AID_RADIO },
-    { "net.pdp4",         AID_RADIO,    AID_RADIO },
-    { "net.vsnet0",       AID_RADIO,    AID_RADIO },
-    { "net.vsnet1",       AID_RADIO,    AID_RADIO },
-    { "net.vsnet2",       AID_RADIO,    AID_RADIO },
-    { "net.vsnet3",       AID_RADIO,    AID_RADIO },
+    { "persist.security.", AID_SYSTEM,   0 },
+    // Motorola, w18335, 12-May-2011, IKTCMD-212
+    { "tcmd.",            AID_MOT_TCMD, AID_MOT_WHISPER },
+    { "persist.mot.proximity.", AID_RADIO, 0},
+    { "mot.backup_restore.",AID_MOT_TCMD, 0},
+    { "mot.",             AID_MOT_TCMD, 0 },
+/* BEGIN Motorola, cjg040 */
+    { "sys.",             AID_MOT_OSH,  0 },
+    { "hw.",              AID_MOT_OSH,  0 },
+/* END Motorola */
+    // Motorola, a22976, 20-Oct-2010, IKSTABLETWOV-3218
+    { "cdma.nbpcd.supported", AID_RADIO, AID_RADIO },
+    // Motorola, vrwd38, IKSTABLEFOURV-3408
+    { "hw.",              AID_MOT_WHISPER, 0 },
     { NULL, 0, 0 }
 };
 
@@ -105,12 +118,16 @@ struct {
     unsigned int uid;
     unsigned int gid;
 } control_perms[] = {
-    { "dumpstate",   AID_SHELL, AID_LOG   },
-    { "rawip_vsnet1",AID_RADIO, AID_RADIO },
-    { "rawip_vsnet2",AID_RADIO, AID_RADIO },
-    { "rawip_vsnet3",AID_RADIO, AID_RADIO },
-    { "rawip_vsnet4",AID_RADIO, AID_RADIO },
-     {NULL, 0, 0 }
+    { "dumpstate",AID_SHELL, AID_LOG },
+    { "hciattach", AID_MOT_TCMD, AID_MOT_TCMD },
+    { "bluetoothd",AID_MOT_TCMD, AID_MOT_TCMD },
+    { "whisperd", AID_MOT_TCMD, AID_MOT_TCMD },
+    { "gadget-lte-modem", AID_RADIO, AID_RADIO },
+    { "gadget-qbp-modem", AID_RADIO, AID_RADIO },
+    { "gadget-qbp-diag", AID_RADIO, AID_RADIO },
+    { "ftmipcd", AID_RADIO, AID_RADIO },
+    { "mdm_usb_suspend", AID_RADIO, AID_RADIO },
+    {NULL, 0, 0 }
 };
 
 typedef struct {
@@ -156,23 +173,22 @@ out:
     return -1;
 }
 
-/* (8 header words + 247 toc words) = 1020 bytes */
-/* 1024 bytes header and toc + 247 prop_infos @ 128 bytes = 32640 bytes */
-
-#ifdef BOARD_HAS_EXTRA_SYS_PROPS
-/* This is for boards that have an excessive number of system props set. */
-
-#define PA_COUNT_MAX  494
-#define PA_INFO_START 2048
-#define PA_SIZE       65536
-
-#else
-
-#define PA_COUNT_MAX  247
-#define PA_INFO_START 1024
-#define PA_SIZE       32768
-
-#endif
+/* BEGIN MOT IKSTABLEFIVE-7903, XDTQ47, 13-May-2011
+ * PA_COUNT_MAX formula:
+ * PA_COUNT_MAX * 128 + PA_COUNT_MAX * 4 + 32 + 4 <= Allocation memory
+ * Where:
+ *     Allocate memory = 17 * 4096 = 69632 bytes
+ * PA_COUNT_MAX = 527
+ */
+#define PA_COUNT_MAX   527
+/* PA_INFO_START = 8 header words(32 bytes)
+ *               + 527 toc words(2108 bytes)
+ *               + 4 bytes
+ *               = 2144 bytes
+ */
+#define PA_INFO_START  2144
+#define PA_SIZE        69632
+/* END MOT IKSTABLEFIVE-7903 */
 
 static workspace pa_workspace;
 static prop_info *pa_info_array;
@@ -407,21 +423,34 @@ void handle_property_set_fd()
     }
 
     r = recv(s, &msg, sizeof(msg), 0);
+    //BEGIN, Motorola, e7976c, 04/21/2011, IKSTABLEFOURV-7621:
+    //Add a new API which property_set_sync, it can ensure the
+    //property is set correctly before reading it.
     if(msg.cmd != PROP_MSG_SETPROP_SYNC) {
         close(s);
     }
+    //END, IKSTABLEFOURV-7621:
     if(r != sizeof(prop_msg)) {
         ERROR("sys_prop: mis-match msg size recieved: %d expected: %d\n",
               r, sizeof(prop_msg));
+    //BEGIN, Motorola, e7976c, 04/21/2011, IKSTABLEFOURV-7621:
+    //Add a new API which property_set_sync, it can ensure the
+    //property is set correctly before reading it.
         if(msg.cmd == PROP_MSG_SETPROP_SYNC) {
             close(s);
         }
+    //END, IKSTABLEFOURV-7621:
         return;
     }
 
     switch(msg.cmd) {
     case PROP_MSG_SETPROP:
+    //BEGIN, Motorola, e7976c, 04/21/2011, IKSTABLEFOURV-7621:
+    //Add a new API which property_set_sync, it can ensure the
+    //property is set correctly before reading it.
     case PROP_MSG_SETPROP_SYNC:
+        msg.name[PROP_NAME_MAX-1] = 0;
+    //END, IKSTABLEFOURV-7621:
         msg.name[PROP_NAME_MAX-1] = 0;
         msg.value[PROP_VALUE_MAX-1] = 0;
 
@@ -445,11 +474,14 @@ void handle_property_set_fd()
     default:
         break;
     }
-
+    //BEGIN, Motorola, e7976c, 04/21/2011, IKSTABLEFOURV-7621:
+    //Add a new API which property_set_sync, it can ensure the
+    //property is set correctly before reading it.
     //close socket until we've fnished setting property
     if(msg.cmd == PROP_MSG_SETPROP_SYNC) {
         close(s);
     }
+    //END, IKSTABLEFOURV-7621:
 }
 
 void get_property_workspace(int *fd, int *sz)

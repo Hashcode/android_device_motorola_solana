@@ -42,6 +42,19 @@ static int log_fd = -1;
 static int log_level = LOG_DEFAULT_LEVEL;
 
 
+/* writes to /osh/log.txt */
+void save_to_logfile(char *data)
+{
+    int sz;
+    int fd;
+    fd = open("/data/trace/log.txt", (O_WRONLY | O_APPEND | O_CREAT));
+    if(fd >= 0) {
+        write(fd, data, sz);
+        write(fd, "\n", sz);
+        close(fd);
+    }
+}
+
 void log_set_level(int level) {
     log_level = level;
 }
@@ -79,11 +92,12 @@ void log_write(int level, const char *fmt, ...)
  */
 static unsigned int android_name_to_id(const char *name)
 {
+    struct android_id_info *info = android_ids;
     unsigned int n;
 
     for (n = 0; n < android_id_count; n++) {
-        if (!strcmp(android_ids[n].name, name))
-            return android_ids[n].aid;
+        if (!strcmp(info[n].name, name))
+            return info[n].aid;
     }
 
     return -1U;

@@ -29,10 +29,10 @@
 #include <stdlib.h>
 #include <sys/mount.h>
 #include <sys/resource.h>
-#include <sys/wait.h>
 #include <linux/loop.h>
+#include <sys/wait.h>
 
-#include "init2.h"
+#include "init.h"
 #include "keywords.h"
 #include "property_service.h"
 #include "devices.h"
@@ -168,41 +168,55 @@ int do_domainname(int nargs, char **args)
     return write_file("/proc/sys/kernel/domainname", args[1]);
 }
 
-/*exec <path> <arg1> <arg2> ... */
-#define MAX_PARAMETERS 64
 int do_exec(int nargs, char **args)
 {
-    pid_t pid;
-    int status, i, j;
-    char *par[MAX_PARAMETERS];
-    if (nargs > MAX_PARAMETERS)
+    int status;
+
+    if(nargs < 2)
     {
-        return -1;
+        INFO("builtins : do_exec param error!\n");
+        exit(EXIT_FAILURE);
     }
-    for(i=0, j=1; i<(nargs-1) ;i++,j++)
-    {
-        par[i] = args[j];
-    }
-    par[i] = (char*)0;
-    pid = fork();
-    if (!pid)
+    INFO("builtins : do_exec beginning... program is : %s\n", args[1]);
+
+    int pid = fork();
+
+    if(pid == 0)
     {
         char tmp[32];
         int fd, sz;
+        static const char *ENV[2];
+        const char *key = "ANDROID_PROPERTY_WORKSPACE";
+
         get_property_workspace(&fd, &sz);
         sprintf(tmp, "%d,%d", dup(fd), sz);
-        setenv("ANDROID_PROPERTY_WORKSPACE", tmp, 1);
-        execve(par[0],par,environ);
-        exit(0);
-    }
-    else
-    {
-        waitpid(pid, &status, 0);
-        if (WEXITSTATUS(status) != 0) {
-            ERROR("exec: pid %1d exited with return code %d: %s", (int)pid, WEXITSTATUS(status), strerror(status));
+
+        size_t len = strlen(key) + strlen(tmp) + 2;
+        char *entry = malloc(len);
+        snprintf(entry, len, "%s=%s", key, tmp);
+        ENV[0] = entry;
+
+        if(nargs >= 2)
+        {
+            INFO("builtins : do_exec child process %s running \n", args[1]);
+            if(execve(args[1], &(args[1]), (char**) ENV))
+            {
+                INFO("builtins : do_exec execv error!\n");
+                exit(EXIT_FAILURE);
+            }
         }
-        
     }
+    else if (pid > 0)
+    {
+        int r;
+        do
+        {
+            r = waitpid(pid, &status, 0);
+        }
+        while ( r != pid && errno == EINTR );
+    }
+
+    INFO("builtins : do_exec returned! \n");
     return 0;
 }
 
@@ -346,6 +360,24 @@ int do_mount(int nargs, char **args)
         if (wait)
             wait_for_file(tmp, COMMAND_RETRY_TIMEOUT);
         if (mount(tmp, target, system, flags, options) < 0) {
+            return -1;
+        }
+
+        return 0;
+    } else if (!strncmp(source, "mmc@", 4)) {
+        sprintf(tmp, "/dev/block/%s", source + 4);
+
+        if (wait) {
+            wait_for_file(tmp, COMMAND_RETRY_TIMEOUT);
+            /*
+             * Seeing system doesn't guarantee we see userdata
+             * For now, we don't wait in the mount script, so
+             *    need to make sure userdata show up here
+             */
+            wait_for_file("/dev/block/userdata", COMMAND_RETRY_TIMEOUT);
+        }
+        if (mount(tmp, target, system, flags, options) < 0) {
+            ERROR("mount device (%s) to point (%s) failed", tmp, target);
             return -1;
         }
 
@@ -552,10 +584,10 @@ out:
 int do_chown(int nargs, char **args) {
     /* GID is optional. */
     if (nargs == 3) {
-        if (chown(args[2], decode_uid(args[1]), -1) < 0)
+        if (lchown(args[2], decode_uid(args[1]), -1) < 0)
             return -errno;
     } else if (nargs == 4) {
-        if (chown(args[3], decode_uid(args[1]), decode_uid(args[2])))
+        if (lchown(args[3], decode_uid(args[1]), decode_uid(args[2])))
             return -errno;
     } else {
         return -1;
@@ -599,8 +631,3 @@ int do_wait(int nargs, char **args)
     }
     return -1;
 }
-
-int do_umount(int nargs, char **args) {
-    return umount(args[1]);
-}
-

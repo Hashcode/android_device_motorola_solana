@@ -25,7 +25,7 @@
 #include <cutils/sockets.h>
 #include <sys/reboot.h>
 
-#include "init2.h"
+#include "init.h"
 #include "list.h"
 #include "util.h"
 #include "log.h"
@@ -97,9 +97,6 @@ static int wait_for_one_process(int block)
                       "rebooting into recovery mode\n", svc->name,
                       CRITICAL_CRASH_THRESHOLD, CRITICAL_CRASH_WINDOW / 60);
                 sync();
-#ifdef RECOVERY_PRE_COMMAND
-                system( RECOVERY_PRE_COMMAND );
-#endif
                 __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2,
                          LINUX_REBOOT_CMD_RESTART2, "recovery");
                 return 0;

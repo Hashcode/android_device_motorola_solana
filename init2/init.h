@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef _INIT_INIT2_H
-#define _INIT_INIT2_H
+#ifndef _INIT_INIT_H
+#define _INIT_INIT_H
 
 #include "list.h"
 
@@ -70,7 +70,7 @@ struct svcenvinfo {
 #define SVC_CONSOLE     0x10  /* requires console */
 #define SVC_CRITICAL    0x20  /* will reboot into recovery if keeps crashing */
 
-#define NR_SVC_SUPP_GIDS 12    /* twelve supplementary groups */
+#define NR_SVC_SUPP_GIDS 22    /* twenty-two supplementary groups */
 
 #define COMMAND_RETRY_TIMEOUT 5
 
@@ -122,10 +122,11 @@ void service_for_each_flags(unsigned matchflags,
                             void (*func)(struct service *svc));
 void service_stop(struct service *svc);
 void service_start(struct service *svc, const char *dynamic_args);
+void device_changed(const char *name, int is_add);
 void property_changed(const char *name, const char *value);
 
 #define INIT_IMAGE_FILE	"/initlogo.rle"
 
 int load_565rle_image( char *file_name );
 
-#endif	/* _INIT_INIT2_H */
+#endif	/* _INIT_INIT_H */
