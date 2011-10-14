@@ -64,6 +64,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 
 
 # Recovery
+BOARD_HAS_LOCKED_BOOTLOADER := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
 BOARD_HAS_NO_SELECT_BUTTON := true
