@@ -119,8 +119,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
-    device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
-    device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -139,7 +137,7 @@ PRODUCT_PACKAGES += \
 
 # OMX -- have to copy the following into out/target/product/solana/obj/lib for now
 #   libhdr_interface.so \ requires vendor/arcsoft
-
+#   libopencore_common \  OLD
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -161,7 +159,9 @@ PRODUCT_PACKAGES += \
     libomx_proxy_common \
     libomx_rpc \
     libomxcameraadapter \
-    libopencore_common \
+
+# FM Radio
+PRODUCT_PACKAGES += \
     libfmchr.so \
     libfm_stack \
     libmcphal \
@@ -235,9 +235,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libreference-ril \
     libreference-cdma-sms \
-    librs_jni \
     libSR_AudioIn \
-    init2 \
+    Usb \
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test

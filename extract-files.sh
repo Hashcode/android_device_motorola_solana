@@ -20,7 +20,7 @@ mkdir -p ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/app
 adb pull /system/app/ChargeOnlyMode.apk ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/app/GlobalNewSwitch.apk ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/app/GlobalNwSwitch.apk ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/app/GlobalUnplug.apk ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/app/PhoneConfig.apk ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/app/ProgramMenu.apk ../../../vendor/motorola/$DEVICE/proprietary
@@ -279,6 +279,7 @@ adb pull /system/lib/libomx_mp3dec_sharedlibrary.so ../../../vendor/motorola/$DE
 adb pull /system/lib/libomx_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libomxcameraadapter.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libopencore_author.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libopencore_common.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libopencore_download.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libopencore_downloadreg.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libopencore_mp4local.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -332,10 +333,12 @@ adb pull /system/tts/lang_pico/es-ES_zl0_sg.bin ../../../vendor/motorola/$DEVICE
 
 # /system/usr/* (dirs)
 adb pull /system/usr/icu/icudt44l.dat ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/usr/keychars/cdma_solana-keypad.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty2.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/usb_keyboard_102_en_us.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/AVRCP.kl ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/usr/keylayout/cdma_solana-keypad.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/cpcap-key.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/qwerty.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/usb_keyboard_102_en_us.kl ../../../vendor/motorola/$DEVICE/proprietary
@@ -606,6 +609,7 @@ vendor/motorola/__DEVICE__/proprietary/libomx_mp3dec_sharedlibrary.so:/system/li
 vendor/motorola/__DEVICE__/proprietary/libomx_sharedlibrary.so:/system/lib/libomx_sharedlibrary.so \\
 vendor/motorola/__DEVICE__/proprietary/libomxcameraadapter.so:/system/lib/libomxcameraadapter.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_author.so:/system/lib/libopencore_author.so \\
+vendor/motorola/__DEVICE__/proprietary/libopencore_common.so:/system/lib/libopencore_common.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_download.so:/system/lib/libopencore_download.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_downloadreg.so:/system/lib/libopencore_downloadreg.so \\
 vendor/motorola/__DEVICE__/proprietary/libopencore_mp4local.so:/system/lib/libopencore_mp4local.so \\
@@ -647,6 +651,8 @@ vendor/motorola/__DEVICE__/proprietary/libvpnclient_jni.so:/system/lib/libvpncli
 vendor/motorola/__DEVICE__/proprietary/libvsuite_mot_vs32_cmb103.so:/system/lib/libvsuite_mot_vs32_cmb103.so \\
 vendor/motorola/__DEVICE__/proprietary/libwbxmlparser.so:/system/lib/libwbxmlparser.so \\
 vendor/motorola/__DEVICE__/proprietary/libxmpcore.so:/system/lib/libxmpcore.so \\
+
+# system/lib/(others)
 vendor/motorola/__DEVICE__/proprietary/Notify_MPUAPP_reroute_Test_Core1.xem3:/system/lib/ducati/Notify_MPUAPP_reroute_Test_Core1.xem3 \\
 vendor/motorola/__DEVICE__/proprietary/Notify_MPUSYS_Test_Core0.xem3:/system/lib/ducati/Notify_MPUSYS_Test_Core0.xem3 \\
 vendor/motorola/__DEVICE__/proprietary/Notify_MPUSYS_reroute_Test_Core0.xem3:/system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 \\
@@ -670,10 +676,12 @@ vendor/motorola/__DEVICE__/proprietary/en-US_ta.bin:/system/tts/lang_pico/en-US_
 vendor/motorola/__DEVICE__/proprietary/es-ES_ta.bin:/system/tts/lang_pico/es-ES_ta.bin \\
 vendor/motorola/__DEVICE__/proprietary/es-ES_zl0_sg.bin:/system/tts/lang_pico/es-ES_zl0_sg.bin \\
 vendor/motorola/__DEVICE__/proprietary/icudt44l.dat:/system/usr/icu/icudt44l.dat \\
+vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kcm.bin:/system/usr/keychars/cdma_solana-keypad.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kcm.bin:/system/usr/keychars/qwerty.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty2.kcm.bin:/system/usr/keychars/qwerty2.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kcm.bin:/system/usr/keychars/usb_keyboard_102_en_us.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \\
+vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kl:/system/usr/keylayout/cdma_solana-keypad.kl \\
 vendor/motorola/__DEVICE__/proprietary/cpcap-key.kl:/system/usr/keylayout/cpcap-key.kl \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kl:/system/usr/keylayout/qwerty.kl \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kl:/system/usr/keylayout/usb_keyboard_102_en_us.kl \\

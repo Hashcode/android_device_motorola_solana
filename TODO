@@ -2,6 +2,9 @@ Build:
 Add to update-script
 symlink("motobox", "/system/bin/getconfig", "/system/bin/masterclear", "/system/bin/ptf", "/system/bin/setconfig", "/system/bin/test");
 
+Turns out moto init handles char device symlinks and stock CM init doesn't:
+/dev/
+
 Startup:
  1.X [akmd2] Looks good
  2.D [tcmd] /system/lib/libhdmi.so doesn't exist? (Check boot permissions): android_createDisplaySurfaceOnFB_HDMI can't be found.
@@ -18,43 +21,5 @@ Startup:
 03:03:11.623840 write(2, "Cannot find device \"ifb0\"\n"..., 26) = 26
 03:03:11.557220 write(2, "Cannot find device \"rmnet0\"\n"..., 28) = 28
 13.  [mediaserver] 03:06:27.463592 open("/system/lib/libittiam_asfextractor.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
-
-Error in network attributes
-ignoring attempt to define type 10
-ignoring attempt to define type 11
-error mapping network type 9 to apnType
-error mapping network type 8 to apnType
-error mapping network type 7 to apnType
-
-MountService unexpected state 2
-
-Unknown Permissions:
-
-android.permission.ADD_SYSTEM_SERVICE
-android.permission.READ_EXTERNAL_STORAGE
-android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS
-android.permission.READ_OWNER_DATA
-android.permission.DEVICE_POWER
-
-com.google.android.googleapps.permission.GOOGLE_AUTH
-com.google.android.googleapps.permission.GOOGLE_AUTH.ALL_SERVICES
-com.google.android.googleapps.permission.GOOGLE_AUTH.YouTubeUser
-com.google.android.googleapps.permission.ACCESS_GOOGLE_PASSWORD
-
-com.google.android.gm.permission.READ_GMAIL
-com.google.android.gm.permission.WRITE_GMAIL
-
-com.google.android.c2dm.permission.RECEIVE
-
-
-ASFDummyExtractor: ASF parser is not available
-MPEG4Extractor both mdat,ftyp not found
-
-AudioPolicyManagerBase getOutput() could not find output for stream for stream 0, samplingRate 0, format 0, channels c, flags 0
-ToneGenerator: Unable to marshal AudioFlinger
-ToneGenerator: Init failed
-
-
-system/bin/tc Cannot find rmnet0
 
 

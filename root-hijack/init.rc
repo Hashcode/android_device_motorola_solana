@@ -468,13 +468,13 @@ service mtpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mtpd.pid /syste
     disabled
     oneshot
 
-service keystore /system/bin/strace -ff -F -tt -s 200 -o /data/trace/keystore.pid /system/bin/keystore /data/misc/keystore
+service keystore /system/bin/keystore /data/misc/keystore
     class post-zygote_services
     user keystore
     group keystore
     socket keystore stream 666
 
-service dumpstate /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dumpstate.pid /system/bin/dumpstate -s
+service dumpstate /system/bin/dumpstate -s
     class post-zygote_services
     socket dumpstate stream 0660 shell log
     disabled
