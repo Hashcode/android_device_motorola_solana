@@ -3,7 +3,7 @@
 #
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
@@ -17,18 +17,12 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
-#    ro.media.enc.aud.fileformat=qcp \
-#    ro.media.enc.aud.codec=qcelp \
-#    ro.media.enc.aud.bps=13300 \
-#    ro.media.enc.aud.ch=1 \
-#    ro.media.enc.aud.hz=8000 \
-#    ro.com.google.clientidbase=android-motorola \
-#    ro.com.google.clientidbase.ms=android-verizon \
-#    ro.com.google.clientidbase.am=android-verizon \
-#    ro.com.google.clientidbase.gmm=android-motorola \
-#    ro.com.google.clientidbase.yt=android-verizon \
-#    persist.mot.mdm_panicd.nopanic=no \
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.google.clientidbase=android-motorola \
+    ro.com.google.clientidbase.ms=android-verizon \
+    ro.com.google.clientidbase.am=android-verizon \
+    ro.com.google.clientidbase.gmm=android-motorola \
+    ro.com.google.clientidbase.yt=android-verizon \
     ro.kernel.android.ril=yes \
     persist.ril.mux.noofchannels=8 \
     persist.ril.mux.ttydevice=/dev/ttyO0 \
@@ -36,13 +30,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.ril.features=0x30E \
     persist.ril.mux.retries=500 \
     persist.ril.mux.sleep=2 \
-    ro.default_usb_mode=4 \
+    persist.mot.mdm_panicd.nopanic=no \
+    ro.default_usb_mode=0 \
+    ro.media.enc.aud.fileformat=qcp \
+    ro.media.enc.aud.codec=qcelp \
+    ro.media.enc.aud.bps=13300 \
+    ro.media.enc.aud.ch=1 \
+    ro.media.enc.aud.hz=8000 \
     ro.com.google.gmsversion=2.3_r6 \
     ro.telephony.call_ring.multiple=false \
-    ro.telephony.call_ring.delay=1000 \
+    ro.telephony.call_ring.delay=3000 \
+    ro.setupwizard.enable_bypass=1 \
     ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
     ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
-    ro.setupwizard.enable_bypass=1 \
     ro.media.camcorder.1080p=mp4,h264,30,15000000,aac,128000,44100,2 \
     ro.media.camcorder.720p=mp4,h264,30,10000000,aac,128000,44100,2 \
     ro.media.camcorder.d1NTSC=mp4,h264,30,6000000,aac,128000,44100,2 \
@@ -127,7 +127,7 @@ PRODUCT_PACKAGES += \
     alsa.default \
     acoustics.default \
     overlay.omap4 \
-    alsa.omap4 \ 
+#    alsa.omap4 \  broken for omap3 vs. omap4 definitions in hardware/alsa-sound
 #    lights.solana \
 #    sensors.solana \
 
@@ -137,7 +137,13 @@ PRODUCT_PACKAGES += \
     libreverbwrapper \
     libvisualizer \
 
+# FM Radio
+#PRODUCT_PACKAGES += \
+#   libmcphal \
+
 # OMX -- have to copy the following into out/target/product/solana/obj/lib for now
+#   libfmchr.so \ breaking all over
+#   libfm_stack \
 #   libhdr_interface.so \ requires vendor/arcsoft
 
 PRODUCT_PACKAGES += \
@@ -162,9 +168,6 @@ PRODUCT_PACKAGES += \
     libomx_rpc \
     libomxcameraadapter \
     libopencore_common \
-    libfmchr.so \
-    libfm_stack \
-    libmcphal \
 
 # Framework
 PRODUCT_PACKAGES += \
@@ -233,11 +236,11 @@ PRODUCT_PACKAGES += \
 
 # Misc
 PRODUCT_PACKAGES += \
+    librs_jni \
     libreference-ril \
     libreference-cdma-sms \
-    librs_jni \
     libSR_AudioIn \
-    init2 \
+    Usb
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
@@ -283,7 +286,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
 # stuff common to all Motorola phones -- disabled for Sandbox
-$(call inherit-product, device/motorola/common/common_hijack.mk)
+#$(call inherit-product, device/motorola/common/common_hijack.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 

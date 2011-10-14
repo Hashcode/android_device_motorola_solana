@@ -21,7 +21,7 @@
 #include <sys/types.h>
 #include <linux/keychord.h>
 
-#include "init.h"
+#include "init2.h"
 #include "log.h"
 #include "property_service.h"
 

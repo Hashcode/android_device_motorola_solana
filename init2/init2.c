@@ -41,7 +41,7 @@
 #include <sys/system_properties.h>
 
 #include "devices.h"
-#include "init.h"
+#include "init2.h"
 #include "list.h"
 #include "log.h"
 #include "property_service.h"
@@ -53,7 +53,6 @@
 #include "ueventd.h"
 
 static int property_triggers_enabled = 0;
-static int device_triggers_enabled = 0;
 
 #if BOOTCHART
 static int   bootchart_count;
@@ -66,10 +65,8 @@ static char baseband[32];
 static char carrier[32];
 static char bootloader[32];
 static char hardware[32];
-static char usbmode[32];
 static unsigned revision = 0;
 static char qemu[32];
-static char memsize[32];
 
 static struct action *cur_action = NULL;
 static struct command *cur_command = NULL;
@@ -315,14 +312,6 @@ void service_stop(struct service *svc)
     }
 }
 
-void device_changed(const char *name, int is_add)
-{
-    if (device_triggers_enabled) {
-        queue_device_triggers(name, is_add);
-	execute_one_command();
-    }
-}
-
 void property_changed(const char *name, const char *value)
 {
     if (property_triggers_enabled)
@@ -417,10 +406,11 @@ static void import_kernel_nv(char *name, int in_qemu)
             strlcpy(console, value, sizeof(console));
         } else if (!strcmp(name,"androidboot.mode")) {
             strlcpy(bootmode, value, sizeof(bootmode));
+        /* Samsung Bootloader recovery cmdline */
+        } else if (!strcmp(name,"bootmode")) {
+            strlcpy(bootmode, value, sizeof(bootmode));
         } else if (!strcmp(name,"androidboot.serialno")) {
             strlcpy(serialno, value, sizeof(serialno));
-        } else if (!strcmp(name,"androidboot.usbmode")) {
-            strlcpy(usbmode, value, sizeof(usbmode));
         } else if (!strcmp(name,"androidboot.baseband")) {
             strlcpy(baseband, value, sizeof(baseband));
         } else if (!strcmp(name,"androidboot.carrier")) {
@@ -429,8 +419,6 @@ static void import_kernel_nv(char *name, int in_qemu)
             strlcpy(bootloader, value, sizeof(bootloader));
         } else if (!strcmp(name,"androidboot.hardware")) {
             strlcpy(hardware, value, sizeof(hardware));
-        } else if (!strcmp(name,"mem")) {
-            strlcpy(memsize, value, sizeof(memsize));
         }
     } else {
         /* in the emulator, export any kernel option with the
@@ -520,7 +508,6 @@ void execute_one_command(void)
     if (!cur_command)
         return;
 
-    save_to_logfile(cur_command->args[0]);
     ret = cur_command->func(cur_command->nargs, cur_command->args);
     INFO("command '%s' r=%d\n", cur_command->args[0], ret);
 }
@@ -603,17 +590,7 @@ static int set_init_properties_action(int nargs, char **args)
     else
         property_set("ro.factorytest", "0");
 
-    if (!strcmp(usbmode,"debug"))
-        property_set("ro.usb_mode", "debug");
-    else
-        property_set("ro.usb_mode", "normal");
-
-    /* Don't set ro.serialno if it wasn't passed on the command line
-     * so that the NVM daemon can do it later.
-     */
-    if(serialno[0])
-        property_set("ro.serialno", serialno);
-
+    property_set("ro.serialno", serialno[0] ? serialno : "");
     property_set("ro.bootmode", bootmode[0] ? bootmode : "unknown");
     property_set("ro.baseband", baseband[0] ? baseband : "unknown");
     property_set("ro.carrier", carrier[0] ? carrier : "unknown");
@@ -622,12 +599,6 @@ static int set_init_properties_action(int nargs, char **args)
     property_set("ro.hardware", hardware);
     snprintf(tmp, PROP_VALUE_MAX, "%d", revision);
     property_set("ro.revision", tmp);
-
-    if(strstr(memsize, "512M"))
-        property_set("ro.kernel.memsize", "512M");
-    else
-        property_set("ro.kernel.memsize", "1024M");
-
     return 0;
 }
 
@@ -678,9 +649,10 @@ static int bootchart_init_action(int nargs, char **args)
     } else {
         NOTICE("bootcharting ignored\n");
     }
+
+    return 0;
 }
 #endif
-
 
 int main(int argc, char **argv)
 {
@@ -692,8 +664,6 @@ int main(int argc, char **argv)
     int property_set_fd_init = 0;
     int signal_fd_init = 0;
     int keychord_fd_init = 0;
-    struct rlimit rlim;
-    struct rlimit rlim_new;
 
     if (!strcmp(basename(argv[0]), "ueventd"))
         return ueventd_main(argc, argv);
@@ -701,20 +671,18 @@ int main(int argc, char **argv)
     /* clear the umask */
     umask(0);
 
-        /* Get the basic filesystem setup we need put
-         * together in the initramdisk on / and then we'll
-         * let the rc file figure out the rest.
-         */
-    // mkdir("/dev", 0755);
-    // mkdir("/proc", 0755);
-    // mkdir("/sys", 0755);
+	/* Using this for 2nd-init -- SKIP
+    mkdir("/dev", 0755);
+    mkdir("/proc", 0755);
+    mkdir("/sys", 0755);
 
-    // mount("tmpfs", "/dev", "tmpfs", 0, "mode=0755");
-    // mkdir("/dev/pts", 0755);
-    // mkdir("/dev/socket", 0755);
-    // mount("devpts", "/dev/pts", "devpts", 0, NULL);
-    // mount("proc", "/proc", "proc", 0, NULL);
-    // mount("sysfs", "/sys", "sysfs", 0, NULL);
+    mount("tmpfs", "/dev", "tmpfs", 0, "mode=0755");
+    mkdir("/dev/pts", 0755);
+    mkdir("/dev/socket", 0755);
+    mount("devpts", "/dev/pts", "devpts", 0, NULL);
+    mount("proc", "/proc", "proc", 0, NULL);
+    mount("sysfs", "/sys", "sysfs", 0, NULL);
+*/
 
         /* We must have some place other than / to create the
          * device nodes for kmsg and null, otherwise we won't
@@ -722,8 +690,8 @@ int main(int argc, char **argv)
          * Now that tmpfs is mounted on /dev, we can actually
          * talk to the outside world.
          */
-    //open_devnull_stdio();
-    //log_init();
+    open_devnull_stdio();
+    log_init();
     
     INFO("reading config file\n");
     init_parse_config_file("/init.rc");
@@ -731,9 +699,20 @@ int main(int argc, char **argv)
     /* pull the kernel commandline and ramdisk properties file in */
     import_kernel_cmdline(0);
 
-    get_hardware_name(hardware, &revision);
-    snprintf(tmp, sizeof(tmp), "/init.%s.rc", hardware);
-    init_parse_config_file(tmp);
+#ifdef BOARD_PROVIDES_BOOTMODE
+    /* Samsung Galaxy S: special bootmode for recovery
+     * Samsung Bootloader only knows one Kernel, which has to detect
+     * from bootmode if it should run recovery. */
+    if (!strcmp(bootmode, "2"))
+        init_parse_config_file("/recovery.rc");
+    else
+#endif
+     {
+        get_hardware_name(hardware, &revision);
+        snprintf(tmp, sizeof(tmp), "/init.%s.rc", hardware);
+        init_parse_config_file(tmp);
+     }
+
 
     action_for_each_trigger("early-init", action_add_queue_tail);
 
@@ -743,37 +722,19 @@ int main(int argc, char **argv)
     queue_builtin_action(console_init_action, "console_init");
     queue_builtin_action(set_init_properties_action, "set_init_properties");
 
-    /* Hongmei : Google is simplying init code, should we add this kind of code here?*/
-    if (getrlimit(RLIMIT_CORE, &rlim)==0) {
-            rlim_new.rlim_cur = rlim_new.rlim_max = RLIM_INFINITY;
-            if (setrlimit(RLIMIT_CORE, &rlim_new)!=0) {
-                 /* failed. try raising just to the old max */
-                 rlim_new.rlim_cur = rlim_new.rlim_max =  rlim.rlim_max;
-                 (void) setrlimit(RLIMIT_CORE, &rlim_new);
-             }
-    }
         /* execute all the boot actions to get us started */
     action_for_each_trigger("init", action_add_queue_tail);
     action_for_each_trigger("early-fs", action_add_queue_tail);
     action_for_each_trigger("fs", action_add_queue_tail);
     action_for_each_trigger("post-fs", action_add_queue_tail);
-    save_to_logfile("post-fs complete.");
 
     queue_builtin_action(property_service_init_action, "property_service_init");
     queue_builtin_action(signal_init_action, "signal_init");
     queue_builtin_action(check_startup_action, "check_startup");
 
     /* execute all the boot actions to get us started */
-    save_to_logfile("early-boot begin");
     action_for_each_trigger("early-boot", action_add_queue_tail);
-    save_to_logfile("early-boot end");
-    save_to_logfile("boot begin");
     action_for_each_trigger("boot", action_add_queue_tail);
-    save_to_logfile("boot end");
-
-    queue_all_device_triggers();
-    execute_one_command();
-    device_triggers_enabled = 1;
 
         /* run all property triggers based on current state of the properties */
     queue_builtin_action(queue_property_triggers_action, "queue_propety_triggers");

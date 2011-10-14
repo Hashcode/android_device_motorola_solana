@@ -32,7 +32,6 @@
 #include <sys/time.h>
 #include <asm/page.h>
 #include <sys/wait.h>
-#include <sys/poll.h>
 
 #include "devices.h"
 #include "util.h"
@@ -42,12 +41,6 @@
 #define SYSFS_PREFIX    "/sys"
 #define FIRMWARE_DIR1   "/etc/firmware"
 #define FIRMWARE_DIR2   "/vendor/firmware"
-
-#define MAX_MMC_PARTITIONS 32
-#define NAME_LEN 32
-#define ALIAS_LEN 32
-#define PATH_LEN 64
-#define BUF_SIZE MAX_MMC_PARTITIONS*128
 
 static int device_fd = -1;
 
@@ -61,9 +54,6 @@ struct uevent {
     int major;
     int minor;
 };
-
-static void add_mmc_alias(char *dev_name, char *dev_alias);
-static void get_partition_alias_name(char *devname, char *alias);
 
 static int open_uevent_socket(void)
 {
@@ -351,57 +341,6 @@ err:
     return NULL;
 }
 
-static char **get_character_device_symlinks(struct uevent *uevent)
-{
-    const char *parent;
-    char *slash;
-    char **links;
-    int link_num = 0;
-    int width;
-
-    if (strncmp(uevent->path, "/devices/platform/", 18))
-        return NULL;
-
-    links = malloc(sizeof(char *) * 2);
-    if (!links)
-        return NULL;
-    memset(links, 0, sizeof(char *) * 2);
-
-    /* skip "/devices/platform/<driver>" */
-    parent = strchr(uevent->path + 18, '/');
-    if (!parent)
-        goto err;
-
-    if (!strncmp(parent, "/usb", 4)) {
-        /* skip root hub name and device. use device interface */
-        while (*++parent && *parent != '/');
-        if (*parent)
-            while (*++parent && *parent != '/');
-        if (!*parent)
-            goto err;
-        slash = strchr(++parent, '/');
-        if (!slash)
-            goto err;
-        width = slash - parent;
-        if (width <= 0)
-            goto err;
-
-        if (asprintf(&links[link_num], "/dev/usb/%s%.*s", uevent->subsystem, width, parent) > 0)
-            link_num++;
-        else
-            links[link_num] = NULL;
-        mkdir("/dev/usb", 0755);
-    }
-    else {
-        goto err;
-    }
-
-    return links;
-err:
-    free(links);
-    return NULL;
-}
-
 static void handle_device_event(struct uevent *uevent)
 {
     char devpath[96];
@@ -466,9 +405,11 @@ static void handle_device_event(struct uevent *uevent)
         } else if (!strncmp(uevent->subsystem, "adsp", 4)) {
             base = "/dev/adsp/";
             mkdir(base, 0755);
+#ifndef NO_MSM_CAMDIR
         } else if (!strncmp(uevent->subsystem, "msm_camera", 10)) {
             base = "/dev/msm_camera/";
             mkdir(base, 0755);
+#endif
         } else if(!strncmp(uevent->subsystem, "input", 5)) {
             base = "/dev/input/";
             mkdir(base, 0755);
@@ -478,12 +419,6 @@ static void handle_device_event(struct uevent *uevent)
         } else if(!strncmp(uevent->subsystem, "sound", 5)) {
             base = "/dev/snd/";
             mkdir(base, 0755);
-        } else if(!strncmp(uevent->subsystem, "SMSMdtv", 7)) {
-            base = "/dev/mdtv/";
-            mkdir(base, 0777);
-        } else if(!strncmp(uevent->subsystem, "drm", 3)) {
-            base = "/dev/dri/";
-            mkdir(base, 0775);
         } else if(!strncmp(uevent->subsystem, "misc", 4) &&
                     !strncmp(name, "log_", 4)) {
             base = "/dev/log/";
@@ -491,7 +426,6 @@ static void handle_device_event(struct uevent *uevent)
             name += 4;
         } else
             base = "/dev/";
-        links = get_character_device_symlinks(uevent);
     }
 
     if (!devpath_ready)
@@ -499,25 +433,13 @@ static void handle_device_event(struct uevent *uevent)
 
     if(!strcmp(uevent->action, "add")) {
         make_device(devpath, uevent->path, block, uevent->major, uevent->minor);
-	device_changed(devpath, 1);
         if (links) {
             for (i = 0; links[i]; i++)
                 make_link(devpath, links[i]);
         }
-        /* make Moto specific /dev/block/alias link */
-        if(!strncmp(uevent->subsystem, "block", 5)) {
-            char dev_alias[ALIAS_LEN]={'\0'};
-            char *basename;
-
-            basename = strrchr(devpath, '/') + 1;
-            get_partition_alias_name(basename, dev_alias);
-            if (strlen(dev_alias))
-                add_mmc_alias(basename, dev_alias);
-        }
     }
 
     if(!strcmp(uevent->action, "remove")) {
-	device_changed(devpath, 0);
         if (links) {
             for (i = 0; links[i]; i++)
                 remove_link(devpath, links[i]);
@@ -594,50 +516,32 @@ static void process_firmware_event(struct uevent *uevent)
     if (l == -1)
         goto root_free_out;
 
+    l = asprintf(&data, "%sdata", root);
+    if (l == -1)
+        goto loading_free_out;
+
+    l = asprintf(&file1, FIRMWARE_DIR1"/%s", uevent->firmware);
+    if (l == -1)
+        goto data_free_out;
+
+    l = asprintf(&file2, FIRMWARE_DIR2"/%s", uevent->firmware);
+    if (l == -1)
+        goto data_free_out;
+
     loading_fd = open(loading, O_WRONLY);
     if(loading_fd < 0)
         goto file_free_out;
 
-    /* cdo021c start Motorola changes to handle missing files right away */
-
-    l = asprintf(&data, "%sdata", root);
-    if (l == -1) {
-        write(loading_fd, "-1", 2); /* abort transfer */
-        goto loading_free_out;
-    }
-
-    l = asprintf(&file1, FIRMWARE_DIR1"/%s", uevent->firmware);
-    if (l == -1) {
-        write(loading_fd, "-1", 2); /* abort transfer */
-        goto data_free_out;
-    }
-
-    l = asprintf(&file2, FIRMWARE_DIR2"/%s", uevent->firmware);
-    if (l == -1) {
-        write(loading_fd, "-1", 2); /* abort transfer */
-        goto data_free_out;
-    }
-
     data_fd = open(data, O_WRONLY);
-    if(data_fd < 0) {
-       log_event_print("Could not open  data file\n");
-        write(loading_fd, "-1", 2); /* abort transfer */
+    if(data_fd < 0)
         goto loading_close_out;
-    }
 
     fw_fd = open(file1, O_RDONLY);
     if(fw_fd < 0) {
-       log_event_print("Could not open firmware file\n");
-        write(loading_fd, "-1", 2); /* abort transfer */
         fw_fd = open(file2, O_RDONLY);
-        if(fw_fd < 0) {
-           log_event_print("Could not open firmware file\n");
-            write(loading_fd, "-1", 2); /* abort transfer */
+        if(fw_fd < 0)
             goto data_close_out;
-        }
     }
-
-    /* cdo021c end  Motorola changes to handle missing files right away */
 
     if(!load_firmware(fw_fd, loading_fd, data_fd))
         log_event_print("firmware copy success { '%s', '%s' }\n", root, uevent->firmware);
@@ -812,79 +716,4 @@ void device_init(void)
 int get_device_fd()
 {
     return device_fd;
-}
-
-static void add_mmc_alias(char *dev_name, char *dev_alias)
-{
-    int ret = 0;
-    struct stat buf;
-    char dev_path[PATH_LEN]={'\0'};
-    char dev_link[PATH_LEN]={'\0'};
-    unsigned uid = 0;
-    unsigned gid = 0;
-    mode_t mode = 0;
-
-    if (dev_alias[0] == '\0')
-        return;
-
-    sprintf(dev_path, "/dev/block/%s", dev_name);
-
-    ret = stat(dev_link, &buf);
-    if (!ret)
-        ERROR("The name exist, will not create mmc alias link!\n");
-
-    sprintf(dev_link, "/dev/block/%s", dev_alias);
-
-    mode = get_device_perm(dev_link, &uid, &gid);
-
-    if (!symlink(dev_path, dev_link)) {
-        if (uid != 0 || gid != 0 || mode != 0600) {
-            chown(dev_link, uid, gid);
-            chmod(dev_link, mode | S_IFBLK);
-        }
-    } else if (errno != EEXIST) {
-        ERROR("Create mmc alias link %s->%s error (%s)!\n",
-            dev_path, dev_link, strerror(errno));
-    }
-}
-
-static void get_partition_alias_name(char *devname, char *alias)
-{
-    int fd;
-    char buf[BUF_SIZE];
-    char *data_ptr;
-    char *data_end;
-    ssize_t data_size;
-
-    if (!alias)
-        return;
-
-    fd = open("/proc/partitions", O_RDONLY);
-    if (fd < 0)
-        return;
-
-    buf[sizeof(buf) - 1] = '\0';
-    data_size = read(fd, buf, sizeof(buf) - 1);
-    data_ptr = buf;
-    data_end = buf + data_size;
-    *data_end = '\0';
-    while (data_ptr < data_end) {
-        int dev_major, dev_minor;
-        unsigned long long blocks_num;
-        char dev_name[NAME_LEN]={'\0'};
-        char dev_alias[ALIAS_LEN]={'\0'};
-
-        int r = sscanf(data_ptr, "%4d  %7d %10llu %31s%*['\t']%31[^'\n']\n",
-                   &dev_major, &dev_minor, &blocks_num, dev_name, dev_alias);
-
-        if (r == 5 && !strncmp(dev_name, devname, NAME_LEN)) {
-            strncpy(alias, dev_alias, ALIAS_LEN);
-            break;
-        }
-
-        /* Advance cursor to next line */
-        while (data_ptr < data_end && *data_ptr != '\n') data_ptr++;
-        while (data_ptr < data_end && *data_ptr == '\n') data_ptr++;
-    }
-    close(fd);
 }
