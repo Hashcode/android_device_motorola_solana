@@ -1,37 +1,24 @@
 
-
-
-
-
-
 on post-fs
-
-
-
-
-
-# prepare generic keypad name
-    exec /init_prep_keypad.sh
-    mount yaffs2 mtd@system /system ro remount
-    mount ext3 mmc@system /system ro noatime nodiratime remount
+    mount yaffs2 /dev/block/mmcblk1p23 /system ro remount
+    mount ext3 /dev/block/mmcblk1p23 ro noatime nodiratime remount
 
     mount rootfs rootfs / rw remount
 
     mkdir /cdrom 0770 system system
-    mount yaffs2 mtd@cdrom /cdrom ro
+    mount yaffs2 /dev/block/mmcblk1p17 /cdrom ro
 
     symlink /dev/ttyGS0 /dev/acm0
 
 # Create mountpoints and mount tmpfs
     mkdir /pds 0775 system system
 
-    mkdir /tmp 0777 system system
-    mount tmpfs tmpfs /tmp size=2m
+    mkdir /data/tmp 0777 system system
+    mount tmpfs tmpfs /tmp
 
-
-
-
-
+#Set the default value for bluedroid_ref
+    write /data/tmp/bluedroid_ref 0
+    chown system system /data/tmp/bluedroid_ref
 
 # Configure kernel options
 
@@ -80,15 +67,15 @@ on post-fs
 # Mount mtd partitions
     # mount /pds as r/w
     # We chown/chmod /pds again so because mount is run as root + defaults
-    mount yaffs2 mtd@pds /pds nosuid nodev no-checkpoint
-    exec /system/bin/logwrapper /system/bin/mount_ext3.sh pds /pds
+    mount yaffs2 /dev/block/mmcblk1p7 /pds nosuid nodev no-checkpoint
+    mount ext3 /dev/block/mmcblk1p7 /pds nosuid nodev noatime nodiratime
     chown system system /pds
     chmod 0775 /pds
     mkdir /pds/public 0775 system shell
     chown system shell /pds/public
     chmod 0775 /pds/public
-    mkdir /pds/factory 0740 mot_tcmd shell
-    chown mot_tcmd shell /pds/factory
+    mkdir /pds/factory 0740 system shell
+    chown system shell /pds/factory
     chmod 0740 /pds/factory
     mkdir /pds/camera 0775 system media
     chown system media /pds/camera
@@ -97,10 +84,10 @@ on post-fs
     chown system media /pds/camera/module1
     chmod 0775 /pds/camera/module1
 # Mount preinstall partition
-    mkdir /preinstall 0771 system system
-    exec /system/bin/logwrapper /system/bin/mount_ext3.sh preinstall /preinstall
-    chmod 0771 /preinstall
-    chown system system /preinstall
+#    mkdir /preinstall 0771 system system
+#    mount ext3 /dev/block/mmcblk1p23 /preinstall nosuid nodev noatime nodiratime
+#    chmod 0771 /preinstall
+#    chown system system /preinstall
 # Create basic filesystem structure
     # create moto specific dirs for mystuff
     mkdir /data/download 0775 system system
@@ -117,8 +104,8 @@ on post-fs
     mkdir /pds/whisper 0770 mot_whisper mot_whisper
     chown mot_whisper mot_whisper /pds/whisper
     chmod 0770 /pds/whisper
-    mkdir /pds/whisper/whisper_only 0700 mot_whisper mot_whisper
-    chown mot_whisper mot_whisper /pds/whisper/whisper_only
+    mkdir /pds/whisper/whisper_only 0700 system system
+    chown system system /pds/whisper/whisper_only
     chmod 0700 /pds/whisper/whisper_only
     chown mot_whisper /pds/whisper/whisper_only/vector0.bin
     # bluetooth power up/down interface
@@ -191,33 +178,42 @@ on post-fs
     chown media graphics /dev/video1
     chown media graphics /dev/video2
     mount rootfs rootfs / ro remount
+
 # Install kernel modules
     insmod /system/lib/modules/sec.ko
+
 # Install product specific kernel modules
     exec /system/bin/load_modules.sh
+
 # chown/chmod for FOTA
     chown system system /cache/fota
     chmod 0770 /cache/fota
+
 # MTU for USB tethering
     write /sys/class/net/gether0/mtu 1428
+
 on early-boot
 # Define the BLAN interface
     setprop ro.blan.interface usb0
+
 # mount eCryptFS if required
     start smc
     exec /system/bin/enc_mgt_tool
     class_start media_early_init
+
 on boot
+
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
     setprop ro.sys.atvc_allow_netmon_usb 0
     setprop ro.sys.atvc_allow_netmon_ih 0
     setprop ro.sys.atvc_allow_res_core 0
     setprop ro.sys.atvc_allow_res_panic 0
-    setprop ro.sys.atvc_allow_all_adb 0
+    setprop ro.sys.atvc_allow_all_adb 1
     setprop ro.sys.atvc_allow_all_core 0
     setprop ro.sys.atvc_allow_efem 0
     setprop ro.sys.atvc_allow_bp_log 0
     setprop ro.sys.atvc_allow_ap_mot_log 0
+
 # Change the ownership of led files.
    chown system system /sys/class/leds/lcd-backlight/als
    chown system system /sys/class/leds/lcd-backlight/pwm_mode
@@ -262,7 +258,7 @@ on boot
    chown system system /sys/class/backlight/430_540_960_amoled_bl/brightness
 # Change the ownership of touch screen file
    chown root mot_tcmd /sys/bus/i2c/drivers/qtouch-obp-ts/2-004a/irq_enable
-   # changes for enabling ducati...
+# changes for enabling ducati...
    chmod 0660 /dev/syslink-proc4430
    chown media media /dev/syslink-proc4430
    chmod 0660 /dev/syslink-procmgr
@@ -418,6 +414,13 @@ on boot
     setprop net.tcp.buffersize.umts 65536,131072,262144,4096,16384,131072
     setprop net.tcp.buffersize.edge 16384,32768,65536,4096,16384,32768
     setprop net.tcp.buffersize.gprs 4096,8192,12288,4096,8192,12288
+# Define optimized TCP buffer sizes for various networks
+# ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 131072,262144,524288,4096,16384,131072
+    setprop net.tcp.buffersize.wifi 131072,262144,524288,4096,16384,131072
+    setprop net.tcp.buffersize.umts 131072,262144,524288,4096,16384,131072
+    setprop net.tcp.buffersize.edge 16384,32768,65536,4096,16384,32768
+    setprop net.tcp.buffersize.gprs 4096,8192,12288,4096,8192,12288
 # Camera related
    chmod 0660 /dev/hplens-omap
    chown media camera /dev/hplens-omap
@@ -431,14 +434,16 @@ on boot
     insmod /system/lib/modules/cls_u32.ko
     insmod /system/lib/modules/sch_htb.ko
     insmod /system/lib/modules/em_u32.ko
+
 # Load Authentec VPN kernel module
     insmod /system/lib/modules/vpnclient.ko
+
 # Enable hardware watchdog
     write /sys/devices/platform/omap_wdt/enabled on
-# Start services
-    exec /system/bin/mot_boot_mode
+
 # Set core max size (2G)
     setrlimit 4 2147483648 2147483648
+
 # The properties introduced by moto
 # Adjust the out of memory thresholds to account for the larget
 # space on sholes. These numbers are in pages (4k). Must be kept
@@ -466,28 +471,20 @@ on property:ro.kernel.memsize=1024M
     setprop ro.HOME_APP_MEM 11776
     setprop ro.HIDDEN_APP_MEM 17408
     setprop ro.EMPTY_APP_MEM 21000
+
 # Overwrite what init.rc selected for the memory killer params to match above.
     write /sys/module/lowmemorykiller/parameters/minfree 3072,4608,7200,11776,17408,21000
+
 on property:sys.chargeonly.mode=1
     start battd
     start console
     write /data/chargeonlymode charging
     exec /system/bin/charge_only_mode
-# Power up to normal
-on property:tcmd.suspend=0
-    class_start pre-zygote_services
-    class_start zygote_services
-    class_start post-zygote_services
-# Power up to suspend
-on property:tcmd.suspend=1
-    class_start pre-zygote_services
-    class_start post-zygote_services
-# Normal to suspend
-on property:tcmd.suspend=2
-    class_stop zygote_services
+
 #start console for userdebug and eng builds
 on property:ro.debuggable=1
     start console
+
 # Moto safe power down
 on property:sys.reboot=1
     exec /system/bin/sleep 10
@@ -507,6 +504,7 @@ on property:ro.hdcp.support=2
     exec /system/bin/hdcp-mknod
     chown system media /dev/omap-hdcp
     chmod 0660 /dev/omap-hdcp
+
 # The following services are added by moto
 # Set property strings for ATVC logging
 # This conditionally sets :
@@ -520,103 +518,105 @@ on property:ro.hdcp.support=2
 # ro.sys.atvc_allow_netmon_usb
 # ro.sys.atvc_allow_netmon_ih
 # ro.sys.atvc_allow_all_adb
-service atvc /system/bin/strace -ff -F -tt -s 200 -o /data/trace/atvc.pid /system/bin/dbvc_atvc_property_set
-    class pre-zygote_services
+service atvc /system/bin/dbvc_atvc_property_set
     user system
     group system
     oneshot
+
 #service watchdogd /system/bin/watchdogd
-# class pre-zygote_services
-service telnet /system/bin/strace -ff -F -tt -s 200 -o /data/trace/telnetd.pid /system/bin/telnetd
-    class pre-zygote_services
+
+service telnet /system/bin/telnetd
     oneshot
-service usbd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/usbd.pid /system/bin/usbd
-    class pre-zygote_services
-service battd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/battd.pid /system/bin/battd
-    class pre-zygote_services
-    socket battdsock stream 0660 mot_accy mot_accy
+
+service usbd /system/bin/usbd
     user root
-    group mot_accy mot_pwric
+    group system
+
+service battd /system/bin/battd
+    socket battdsock stream 0660 mot_accy system
+    user root
+    group mot_pwric mot_accy system
     oneshot
+
 service catcommands /system/bin/catcommands
-    class pre-zygote_services
     group radio
+
 service whisperd /system/bin/whisperd /dev/ttyO1
-    class post-zygote_services
     user mot_whisper
     group mot_whisper mot_pwric
     oneshot
-service msp430 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/msp430.pid /system/bin/msp430 boot
-    class pre-zygote_services
+
+service msp430 /system/bin/msp430 boot
     user compass
     group compass misc input
     oneshot
-service uim /system/bin/strace -ff -F -tt -s 200 -o /data/trace/uim.pid /system/bin/uim-sysfs
-    class pre-zygote_services
+
+service uim /system/bin/uim-sysfs
     user root
     group media bluetooth
     oneshot
-service hostapd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/hostapd.pid /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
-    class post-zygote_services
+
+service hostapd /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
     socket hostapd_tiap0 dgram 660 wifi wifi
     disabled
     oneshot
-service hciattach /system/bin/strace -ff -F -tt -s 200 -o /data/trace/hciattach.pid /system/bin/hciattach -l
-    class post-zygote_services
+
+service hciattach /system/bin/hciattach -l
     user bluetooth
     group bluetooth net_bt_admin
     disabled
-service nap /system/bin/strace -ff -F -tt -s 200 -o /data/trace/nap.pid /system/bin/sdptool add NAP
-    class post-zygote_services
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-service del_nap /system/bin/strace -ff -F -tt -s 200 -o /data/trace/del_nap.pid /system/bin/sdptool remove NAP
-    class post-zygote_services
+
+service nap /system/bin/sdptool add NAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-service panu /system/bin/strace -ff -F -tt -s 200 -o /data/trace/panu.pid /system/bin/sdptool add PANU
-    class post-zygote_services
+
+service del_nap /system/bin/sdptool remove NAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-service del_panu /system/bin/strace -ff -F -tt -s 200 -o /data/trace/del_panu.pid /system/bin/sdptool remove PANU
-    class post-zygote_services
+
+service panu /system/bin/sdptool add PANU
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-service napics /system/bin/strace -ff -F -tt -s 200 -o /data/trace/napics.pid /system/bin/sh /system/bin/napics.sh
-    class post-zygote_services
+
+service del_panu /system/bin/sdptool remove PANU
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service napics /system/bin/napics.sh
     user root
     disabled
     oneshot
-service btdhcpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/btdhcpd.pid /system/bin/dnsmasq -C /system/etc/btpan.conf
-    class post-zygote_services
+
+service btdhcpd /system/bin/dnsmasq -C /system/etc/btpan.conf
     user root
     disabled
     oneshot
-service map /system/bin/strace -ff -F -tt -s 200 -o /data/trace/map.pid /system/bin/sdptool add --channel=20 --network=2 MAP
-    class post-zygote_services
+
+service map /system/bin/sdptool add --channel=20 --network=2 MAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-service tcmd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/tcmd.pid /system/bin/tcmd
-    class post-zygote_services
-    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media
-    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
-    socket batch_socket stream 0600 mot_tcmd mot_tcmd
-    oneshot
-service tcmdhelp /system/bin/strace -ff -F -tt -s 200 -o /data/trace/tcmdhelp.pid /system/bin/tcmdhelp
-    class post-zygote_services
+
+#service tcmd /system/bin/tcmd
+#    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media
+#    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+#    socket batch_socket stream 0600 mot_tcmd mot_tcmd
+#    oneshot
+
+service tcmdhelp /system/bin/tcmdhelp
     socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
     oneshot
     disabled
+
 # turn on wifi for tcmd step one
 on property:tcmd.load_wlan=1
     insmod /system/lib/modules/tiwlan_drv.ko
@@ -636,6 +636,7 @@ on property:tcmd.unload_wlan=1
 on property:tcmd.unload_wlan=2
     exec /system/bin/rmmod tiwlan_drv
     setprop wlan.driver.status unloaded
+
 # turn on bluetooth for tcmd
 on property:tcmd.bt_mod=1
     insmod /system/lib/modules/wl127x_test.ko
@@ -645,29 +646,37 @@ on property:tcmd.bt_mod=0
 #execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
+
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
-    class post-zygote_services
     user compass
     group compass misc input
-service wlan_loader /system/bin/strace -ff -F -tt -s 200 -o /data/trace/wlan_loader.pid /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1281.bin -i /system/etc/wifi/tiwlan.ini -e /pds/wifi/nvs_map.bin
+
+service wlan_loader /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1281.bin -i /system/etc/wifi/tiwlan.ini \
+        -e /pds/wifi/nvs_map.bin
+    disabled
+    oneshot
+
+service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
+        -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini \
+        -e /pds/wifi/nvs_map.bin
+    disabled
+    oneshot
+
+service wlan_loader_rfmd /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
     class post-zygote_services
     disabled
     oneshot
-service ap_fmloader /system/bin/strace -ff -F -tt -s 200 -o /data/trace/ap_fmloader.pid /system/bin/logwrapper /system/bin/tiap_loader -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
-    class post-zygote_services
+
+service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
+        -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
-service ap_fmloader_rfmd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/ap_fmloader_rfmd.pid /system/bin/logwrapper /system/bin/wlan_loader -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini -e /pds/wifi/nvs_map.bin
-    class post-zygote_services
-    disabled
-    oneshot
-service wlan_loader_rfmd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/wlan_loader_rfmd.pid /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
-    class post-zygote_services
-    disabled
-    oneshot
-service wpa_supplicant /system/bin/strace -ff -F -tt -s 200 -o /data/trace/wpa_supplicant.pid /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-    class post-zygote_services
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
 # we will start as root and wpa_supplicant will switch to user wifi
 # after setting up the capabilities required for WEXT
 # user wifi
@@ -675,158 +684,141 @@ service wpa_supplicant /system/bin/strace -ff -F -tt -s 200 -o /data/trace/wpa_s
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
-service dhcpcd_tiwlan0 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dhcpcd_tiwlan0.pid /system/bin/dhcpcd
-    class post-zygote_services
+service dhcpcd_tiwlan0 /system/bin/dhcpcd
     disabled
     oneshot
-service dhcpcd_bnep0 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dhcpcd_bnep0.pid /system/bin/dhcpcd
-    class post-zygote_services
+service dhcpcd_bnep0 /system/bin/dhcpcd
     disabled
     oneshot
-service dhcpcd_usbeth0 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dhcpd_usbeth0.pid /system/bin/dhcpcd
-    class post-zygote_services
+
+service dhcpcd_usbeth0 /system/bin/dhcpcd
     disabled
     oneshot
-service baseimage /system/bin/strace -ff -F -tt -s 200 -o /data/trace/baseimage.pid /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
+
+service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
     class media_early_init
     user media
     group media graphics
     oneshot
-service pvrsrv /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pvrsrv.pid /system/bin/pvrsrvinit
-    class post-zygote_services
+
+service pvrsrv /system/bin/pvrsrvinit
     user root
     oneshot
+
 service bugtogo /system/bin/bugtogo.sh
-    class post-zygote_services
     disabled
     user root
     oneshot
     keycodes 114 115 # default to VOLUME_DOWN + VOLUME_UP
-service pppd-ril /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pppd-ril.pid /system/bin/pppd-ril /dev/ttyUSB0 call pppd-ril.options plugin /system/lib/libpppd_plugin-ril.so
-    class post-zygote_services
+
+service pppd-ril /system/bin/pppd-ril /dev/ttyUSB0 call pppd-ril.options plugin /system/lib/libpppd_plugin-ril.so
     user root
     disabled
     oneshot
-service smc /system/bin/strace -ff -F -tt -s 200 -o /data/trace/smc.pid /system/bin/startup_smc.sh
-    class pre-zygote_services
+
+service smc /system/bin/startup_smc.sh
     user mot_tpapi
     group mot_tpapi
     disabled
     oneshot
-service pm_init /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pm_init.pid /system/bin/sh /system/usr/bin/pm_init.sh
-    class post-zygote_services
+
+service pm_init /system/bin/sh /system/usr/bin/pm_init.sh
     oneshot
-service modemlog /system/bin/strace -ff -F -tt -s 200 -o /data/trace/modemlog.pid /system/bin/modemlog
-   class pre-zygote_services
+
+service modemlog /system/bin/modemlog
    oneshot
-service fmradio /system/bin/strace -ff -F -tt -s 200 -o /data/trace/fmradio.pid /system/bin/fmradioserver
-    class post-zygote_services
+
+service fmradio /system/bin/fmradioserver
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
     disabled
-service ftmipcd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/ftmipcd.pid /system/bin/ftmipcd
-    class post-zygote_services
+
+service ftmipcd /system/bin/ftmipcd
     user radio
     group radio inet
     oneshot
-service qbplogd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/qbplogd.pid /system/bin/qbplogd
-    class post-zygote_services
+
+service qbplogd /system/bin/qbplogd
     user radio
     group sdcard_rw radio inet
     oneshot
     disabled
-service dlnasrv /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dlnasrv.pid /system/bin/dlnasrv
-    class post-zygote_services
-    user mot_dlna
+
+service dlnasrv /system/bin/dlnasrv
+    user mot_caif
     group system net_admin sdcard_rw new_raw inet mount misc
     oneshot
     disabled
-service dund_dialup /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dund.pid /system/bin/dund --listen --channel=6 --nodetach --dialup
-    class post-zygote_services
+
+service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
     group net_bt net_bt_admin
     disabled
     oneshot
+
 on property:dev.bootcomplete=1
-    start savebpver
-    start loadpreinstalls
-service mdm_panicd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mdm_panicd.pid /system/bin/mdm_panicd
-    class post-zygote_services
+#    start savebpver
+#    start loadpreinstalls
+
+service mdm_panicd /system/bin/mdm_panicd
     oneshot
+
 #get BP version and save to misc
-service savebpver /system/bin/strace -ff -F -tt -s 200 -o /data/trace/SaveBPVer.pid /system/bin/SaveBPVer
-    class post-zygote_services
+service savebpver /system/bin/SaveBPVer
     oneshot
-# Backup/Restore Feature
-on property:mot.backup_restore.status="Finished"
-    start zygote
-service mot_backup /system/bin/logwrapper /system/xbin/run_backup /system/etc/backup_targets.csv
-    disabled
-    user root
-    oneshot
-service mot_restore /system/bin/logwrapper /system/xbin/run_restore /system/etc/backup_targets.csv
-    disabled
-    user root
-    oneshot
-on property:mot.backup_restore.action="run_backup"
-    setprop mot.backup_restore.status "Running"
-    stop zygote
-    start mot_backup
-on property:mot.backup_restore.action="run_restore"
-    setprop mot.backup_restore.status "Running"
-    stop zygote
-    start mot_restore
+
 service secclkd /system/bin/secclkd
-    class post-zygote_services
     socket secclk_socket stream 660 mot_secclkd mot_secclkd
     user mot_tpapi
     group mot_tpapi mot_sec_rtc mot_secclkd
     oneshot
-on property:tcmd.ctrl_adb=1
-    setprop persist.service.adb.enable 1
-    setprop persist.factory.allow_adb 1
-    stop usbd
-    start usbd
-on property:tcmd.ctrl_adb=0
-    setprop persist.service.adb.enable 0
-    setprop persist.factory.allow_adb 0
-    stop usbd
-    start usbd
+
 #start Authentec VPN service
-service vpnclientpm /system/bin/strace -ff -F -tt -s 200 -o /data/trace/vpnclientpm.pid /system/bin/vpnclientpm
-    class post-zygote_services
+service vpnclientpm /system/bin/vpnclientpm
     oneshot
     user root
-service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
-    user system
-    group system
-    disabled
-    oneshot
+
+#service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
+#    user system
+#    group system
+#    disabled
+#    oneshot
+
 # start syslink daemon
-service syslinkdaemon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/syslinkdaemon.pid /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
-    class pre-zygote_services
+service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
     user media
     group video
+
 #IKCBS-229 start RescueStarter for MobileRescue
-service RescueStarter /system/bin/strace -ff -F -tt -s 200 -o /data/trace/RescueStarter.pid /system/bin/RescueStarter
+service RescueStarter /system/bin/RescueStarter
     user nobody
     group input graphics
-    class post-zygote_services
-service gadget-qbp-modem /system/bin/strace -ff -F -tt -s 200 -o /data/trace/gadget-qbp-modem.pid /system/bin/tty2ttyd /dev/ttyUSB4 /dev/ttyGS2 0 1024
+
+service gadget-qbp-modem /system/bin/tty2ttyd /dev/ttyUSB4 /dev/ttyGS2 0 1024
     user radio
     group radio
     disabled
-service gadget-qbp-diag /system/bin/strace -ff -F -tt -s 200 -o /data/trace/gadget-qbp-diag.pid /system/bin/tty2ttyd /dev/ttyUSB0 /dev/ttyGS3 0 1024
+
+service gadget-qbp-diag /system/bin/tty2ttyd /dev/ttyUSB0 /dev/ttyGS3 0 1024
     user radio
     group radio
     disabled
+
 on property:ro.bootmode=bp-tools
     start tcmd
     start gadget-qbp-diag
+
+on property:ro.bootmode=ap-bp-bypass
+    stop ril-daemon
+
+on property:dev.bootcomplete=1
+    start savebpver
+#    start loadpreinstalls
 #Check available storage space to execute device encryption or decryprion
+
 on property:sys.mot.encrypt.test=1
     exec /system/bin/encryption_test
     exec /system/bin/setprop sys.mot.encrypt.test ""
-service mdm_usb_suspend /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mdm_usb_suspend.pid /system/bin/enable_mdm_usb_suspend.sh
-    class pre-zygote_services
+
+service mdm_usb_suspend /system/bin/enable_mdm_usb_suspend.sh
     group radio
     oneshot

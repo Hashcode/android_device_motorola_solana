@@ -2,7 +2,6 @@ on early-init
     start ueventd
 
 on init
-    exec /sbin/fixboot.sh
 
 sysclktz 0
 
@@ -12,16 +11,14 @@ loglevel 3
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
-    export ANDROID_CACHE /cache
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
-    export DOWNLOAD_CACHE /cache/download
     export EXTERNAL_STORAGE /mnt/sdcard
+    export EXTERNAL_ALT_STORAGE /mnt/sdcard-ext      # Feature 34534
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-    export SD_EXT_DIRECTORY /sd-ext
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar:/system/framework/com.motorola.android.frameworks.jar:/system/framework/com.motorola.android.widget.jar
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -33,8 +30,8 @@ loglevel 3
 
 # create mountpoints
     mkdir /mnt 0775 root system
-    mkdir /mnt/emmc 0000 system system
-    mkdir /mnt/sdcard 0000 system system      # Feature 34534
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/sdcard-ext 0000 system system      # Feature 34534
     mkdir /osh 0755 root root
     mkdir /preinstall 0755 system system
     symlink /data/tmp /tmp
@@ -45,12 +42,12 @@ loglevel 3
 #    mkdir /acct/uid
 
 # Backwards Compat - XXX: Going away in G*
-    symlink /mnt/emmc /emmc
     symlink /mnt/sdcard /sdcard
+    symlink /mnt/sdcard-ext /sdcard-ext      # Feature 34534
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0771 system cache
+    mkdir /cache 0770 system cache
     mkdir /config 0500 root root
     mkdir /pds 0755 root root
     mkdir /misc 0770 system misc
@@ -73,8 +70,6 @@ loglevel 3
 #    mkdir /mnt/obb 0700 root system
 #    mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
-    mkdir /sd-ext 0771 system system
-
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
@@ -87,8 +82,8 @@ loglevel 3
 #    mkdir /dev/cpuctl
 #    mount cgroup none /dev/cpuctl cpu
 #    chown system system /dev/cpuctl
-#   chown system system /dev/cpuctl/tasks
-#   chmod 0777 /dev/cpuctl/tasks
+#    chown system system /dev/cpuctl/tasks
+#    chmod 0777 /dev/cpuctl/tasks
     write /dev/cpuctl/cpu.shares 1024
 
     mkdir /dev/cpuctl/fg_boost
@@ -103,13 +98,14 @@ loglevel 3
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
 on fs
-
-    mount yaffs2 /dev/block/mmcblk1p23 /system
-    mount ext3 /dev/block/mmcblk1p23 /system wait noatime nodiratime barrier=1
-    mount yaffs2 /dev/block/mmcblk1p24 /data nosuid nodev
-    mount ext3 /dev/block/mmcblk1p24 /data nosuid nodev noatime nodiratime
-    mount yaffs2 /dev/block/mmcblk1p22 /cache nosuid nodev
-    mount ext3 /dev/block/mmcblk1p22 /cache nosuid nodev noatime nodiratime
+# mount mtd partitions
+    # Mount /system rw first to give the filesystem a chance to save a checkpoint
+    mount yaffs2 mtd@system /system
+    mount ext3 mmc@system /system wait noatime nodiratime barrier=1
+    mount yaffs2 mtd@userdata /data nosuid nodev
+    exec /system/bin/logwrapper /system/bin/mount_ext3.sh userdata /data
+    mount yaffs2 mtd@cache /cache nosuid nodev
+    exec /system/bin/logwrapper /system/bin/mount_ext3.sh cache /cache
 
 on post-fs
     # once everything is setup, no need to modify /
@@ -140,7 +136,7 @@ on post-fs
 
     # Same reason as /data above
     chown system cache /cache
-    chmod 0771 /cache
+    chmod 0770 /cache
 
     chown system misc /misc
     chmod 0770 /misc
@@ -174,6 +170,7 @@ on post-fs
     mkdir /data/misc/wifi/hostapd.sockets 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/local 0771 mot_tcmd shell
     mkdir /data/local/tmp 0771 mot_tcmd shell
     mkdir /data/local/12m 0771 mot_tcmd shell
     mkdir /data/local/12m/batch 0771 mot_tcmd shell
@@ -181,13 +178,11 @@ on post-fs
     chown mot_tcmd shell /data/local/12m
     chown mot_tcmd shell /data/local/12m/batch
     chown mot_tcmd shell /data/local/tmp
-    mkdir /data/local/download 0771 system cache
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
     mkdir /data/app 0771 system system
     mkdir /data/property 0700 root root
-
-    mkdir /cache/download 0771 system cache
+    mkdir /data/tmp 0777 system system
 
     chown system system /mnt/sdcard      # Feature 34534
     chmod 0777 /mnt/sdcard               # Feature 34534
@@ -196,10 +191,6 @@ on post-fs
     mkdir /data/dalvik-cache 0771 system system
     chown system system /data/dalvik-cache
     chmod 0771 /data/dalvik-cache
-
-    mkdir /cache/dalvik-cache 0771 system system
-    chown system system /cache/dalvik-cache
-    chmod 0771 /cache/dalvik-cache
 
     # create the lost+found directories, so as to enforce our permissions
     mkdir /data/lost+found 0770
@@ -211,21 +202,7 @@ on post-fs
     chown root root /cache/lost+found
     chmod 0770 /cache/lost+found
 
-    # allow net_raw to have access to /dev/socket directory
-    chown root net_raw /dev/socket
-    chmod 0775 /dev/socket
-
-    # allow system to modify cpufreq control files
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-
 on boot
-    setprop persist.service.adb.enable 1
-
 # basic network init
     ifup lo
     hostname localhost
@@ -234,8 +211,12 @@ on boot
 # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit 13 40 40
 
+# set RLIMIT_NOFILE to allow maximum num of file open to be 2048
+    setrlimit 7 2048 2048
+
 # Define the oom_adj values for the classes of processes that can be
 # killed by the kernel.  These are used in ActivityManagerService.
+# The corresponding memory thresholds will be set at product specific rc.
     setprop ro.FOREGROUND_APP_ADJ 0
     setprop ro.VISIBLE_APP_ADJ 1
     setprop ro.PERCEPTIBLE_APP_ADJ 2
@@ -245,18 +226,6 @@ on boot
     setprop ro.HOME_APP_ADJ 6
     setprop ro.HIDDEN_APP_MIN_ADJ 7
     setprop ro.EMPTY_APP_ADJ 15
-
-# Define the memory thresholds at which the above process classes will
-# be killed.  These numbers are in pages (4k).
-    setprop ro.FOREGROUND_APP_MEM 2048
-    setprop ro.VISIBLE_APP_MEM 3072
-    setprop ro.PERCEPTIBLE_APP_MEM 4096
-    setprop ro.HEAVY_WEIGHT_APP_MEM 4096
-    setprop ro.SECONDARY_SERVER_MEM 6144
-    setprop ro.BACKUP_APP_MEM 6144
-    setprop ro.HOME_APP_MEM 6144
-    setprop ro.HIDDEN_APP_MEM 7168
-    setprop ro.EMPTY_APP_MEM 8192
 
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
@@ -303,7 +272,8 @@ on boot
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/blue/brightness
-    chown media media /sys/class/leds/red/device/grpfreq
+    chown media media /sys/class/leds/af-led/brightness
+    chown system system /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
     chown system system /sys/class/timed_output/vibrator/enable
@@ -318,27 +288,22 @@ on boot
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.default 65536,131072,262144,65536,131072,262144
     setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
-# Include extra init file
-    import /system/etc/init.local.rc
-
-# Run sysinit
-    exec /system/bin/sysinit
-
-    class_start default
-
+#    class_start default
 
 ## Daemon processes to be run by init.
 ##
 service ueventd /sbin/ueventd
+    class pre-zygote_services
     critical
 
 service console /system/bin/sh
+    class pre-zygote_services
     console
     disabled
     user shell
@@ -349,10 +314,22 @@ on property:ro.secure=0
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
+    class pre-zygote_services
     disabled
 
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
+# Define the memory thresholds at which the above process classes will
+# be killed.  These numbers are in pages (4k).
+    setprop ro.FOREGROUND_APP_MEM 2048
+    setprop ro.VISIBLE_APP_MEM 3072
+    setprop ro.PERCEPTIBLE_APP_MEM 4096
+    setprop ro.HEAVY_WEIGHT_APP_MEM 4096
+    setprop ro.SECONDARY_SERVER_MEM 6144
+    setprop ro.BACKUP_APP_MEM 6144
+    setprop ro.HOME_APP_MEM 6144
+    setprop ro.HIDDEN_APP_MEM 7168
+    setprop ro.EMPTY_APP_MEM 8192
     start adbd
 
 on property:persist.service.adb.enable=1
@@ -361,57 +338,72 @@ on property:persist.service.adb.enable=1
 on property:persist.service.adb.enable=0
     stop adbd
 
-service servicemanager /system/bin/servicemanager
+service servicemanager /system/bin/strace -ff -F -tt -s 200 -o /data/trace/servicemanager.pid /system/bin/servicemanager
+    class pre-zygote_services
     user system
     group system
     critical
     onrestart restart zygote
     onrestart restart media
 
-service vold /system/bin/vold
+service vold /system/bin/strace -ff -F -tt -s 200 -o /data/trace/vold.pid /system/bin/vold
+    class pre-zygote_services
     socket vold stream 0660 root mount
     ioprio be 2
 
-service tund /system/bin/tund
+service tund /system/bin/strace -ff -F -tt -s 200 -o /data/trace/tund.pid /system/bin/tund
+    class pre-zygote_services
     socket tund stream 0660 vpn system
     ioprio be 2
 
-service netd /system/bin/netd
+service netd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/netd.pid /system/bin/netd
+    class pre-zygote_services
     socket netd stream 0660 root system
-    socket dnsproxyd stream 0660 root inet
 
-service debuggerd /system/bin/debuggerd
+service nexus /system/bin/strace -ff -F -tt -s 200 -o /data/trace/nexus.pid /system/bin/nexus
+    class pre-zygote_services
+    socket nexus stream 0660 root system
+    disabled
 
-service ril-daemon /system/bin/rild
+service debuggerd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/debuggerd.pid /system/bin/debuggerd
+    class pre-zygote_services
+
+service ril-daemon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/rild.pid /system/bin/rild
+    class pre-zygote_services
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw net_admin net_raw mot_secclkd mot_pwric
+    group radio cache inet misc audio sdcard_rw mot_secclkd mot_accy
 
-service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+service zygote /system/bin/strace -ff -F -tt -s 200 -o /data/trace/runtime.pid /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+    class zygote_services
     socket zygote stream 666
     onrestart write /sys/android_power/request_state wake
     onrestart write /sys/power/state on
     onrestart restart media
     onrestart restart netd
 
-service media  /system/bin/mediaserver
-    user system
-    group system media audio camera graphics inet net_bt net_bt_admin net_raw mot_drm input mot_tpapi mot_secclkd mot_pwric mot_caif
+service media /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mediaserver.pid /system/bin/mediaserver
+    class zygote_services
+    user media
+    group system audio camera graphics inet net_bt net_bt_admin net_raw mot_drm input mot_tpapi mot_secclkd mot_pwric mot_caif
     ioprio rt 4
 
-service bootanim /system/bin/bootanimation
+service bootanim /system/bin/strace -ff -F -tt -s 200 -o /data/trace/bootanim.pid /system/bin/bootanimation
+    class post-zygote_services
     user graphics
     group graphics
     disabled
     oneshot
 
-service dbus /system/bin/dbus-daemon --system --nofork
+service dbus /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dbus.pid /system/bin/dbus-daemon --system --nofork
+    class post-zygote_services
     socket dbus stream 660 bluetooth bluetooth
     user bluetooth
     group bluetooth net_bt_admin
 
-service bluetoothd /system/bin/bluetoothd -n
+service bluetoothd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/bluetoothhd.pid /system/bin/bluetoothd -n
+    class post-zygote_services
     socket bluetooth stream 660 bluetooth bluetooth
     socket dbus_bluetooth stream 660 bluetooth bluetooth
     # init.rc does not yet support applying capabilities, so run as root and
@@ -419,59 +411,87 @@ service bluetoothd /system/bin/bluetoothd -n
     group bluetooth net_bt_admin misc
     disabled
 
-service hfag /system/bin/sdptool add --channel=10 HFAG
+service hfag /system/bin/strace -ff -F -tt -s 200 -o /data/trace/hfag.pid /system/bin/sdptool add --channel=10 HFAG
+    class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
-service hsag /system/bin/sdptool add --channel=11 HSAG
+service hsag /system/bin/strace -ff -F -tt -s 200 -o /data/trace/hsag.pid /system/bin/sdptool add --channel=11 HSAG
+    class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
-service opush /system/bin/sdptool add --channel=12 OPUSH
+service opush /system/bin/strace -ff -F -tt -s 200 -o /data/trace/opush.pid /system/bin/sdptool add --channel=12 OPUSH
+    class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
-service pbap  /system/bin/sdptool add --channel=19 PBAP
+service pbap /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pbap.pid /system/bin/sdptool add --channel=19 PBAP
+    class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
-service installd /system/bin/installd
+service installd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/installd.pid /system/bin/installd
+    class post-zygote_services
     socket installd stream 600 system system
 
-service racoon /system/bin/racoon
+service flash_recovery /system/bin/strace -ff -F -tt -s 200 -o /data/trace/flash_recovery.pid /system/etc/install-recovery.sh
+    class post-zygote_services
+    oneshot
+
+# Copy 12M/batch files
+service 12m_files_copy /system/bin/strace -ff -F -tt -s 200 -o /data/trace/12m_files_copy.pid /system/etc/12m_files_copy.sh
+     class pre-zygote_services
+     oneshot
+
+service racoon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/racoon.pid /system/bin/racoon
+    class post-zygote_services
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
     group net_admin
     disabled
     oneshot
 
-service mtpd /system/bin/mtpd
+service mtpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mtpd.pid /system/bin/mtpd
+    class post-zygote_services
     socket mtpd stream 600 system system
     user vpn
     group vpn net_admin net_raw
     disabled
     oneshot
 
-service keystore /system/bin/keystore /data/misc/keystore
+service keystore /system/bin/strace -ff -F -tt -s 200 -o /data/trace/keystore.pid /system/bin/keystore /data/misc/keystore
+    class post-zygote_services
     user keystore
     group keystore
     socket keystore stream 666
 
-service dumpstate /system/bin/dumpstate -s
+service dumpstate /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dumpstate.pid /system/bin/dumpstate -s
+    class post-zygote_services
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
 
-service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
+service dnsmasq /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dnsmasq.pid /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
+    class post-zygote_services
     group wifi
     disabled
     oneshot
 
+service mynet_start /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mynet_start.pid /system/bin/logwrapper /system/bin/sh /data/misc/wifi/forward_start.sh
+    class post-zygote_services
+    disabled
+    oneshot
+
+service mynet_stop /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mynet_stop.pid /system/bin/logwrapper /system/bin/sh /data/misc/wifi/forward_stop.sh
+    class post-zygote_services
+    disabled
+    oneshot
