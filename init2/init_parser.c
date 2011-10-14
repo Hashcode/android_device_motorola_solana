@@ -22,8 +22,9 @@
 #include <string.h>
 #include <stddef.h>
 #include <ctype.h>
+#include <sys/stat.h>
 
-#include "init2.h"
+#include "init.h"
 #include "parser.h"
 #include "init_parser.h"
 #include "log.h"
@@ -142,7 +143,6 @@ int lookup_keyword(const char *s)
         break;
     case 'u':
         if (!strcmp(s, "ser")) return K_user;
-	   if (!strcmp(s, "mount")) return K_umount;
         break;
     case 'w':
         if (!strcmp(s, "rite")) return K_write;
@@ -331,6 +331,47 @@ void action_for_each_trigger(const char *trigger,
     }
 }
 
+void queue_device_triggers(const char *name, int is_add)
+{
+    struct listnode *node;
+    struct action *act;
+    const char *trigger_names[] = { "device-removed-", "device-added-" };
+
+    list_for_each(node, &action_list) {
+        act = node_to_item(node, struct action, alist);
+        if (!strncmp(act->name, trigger_names[is_add],
+                     strlen(trigger_names[is_add]))) {
+            const char *devname = act->name + strlen(trigger_names[is_add]);
+
+            if (!strcmp(devname, name)) {
+                action_add_queue_tail(act);
+            }
+        }
+    }
+}
+
+void queue_all_device_triggers(void)
+{
+    struct listnode *node;
+    struct action *act;
+    const char *added = "device-added-";
+    struct stat devstat;
+
+    list_for_each(node, &action_list) {
+        act = node_to_item(node, struct action, alist);
+        if (!strncmp(act->name, added, strlen(added))) {
+            const char *devpath = act->name + strlen(added);
+            if (!stat(devpath, &devstat)) {
+                if (!((devstat.st_mode & S_IFMT) == S_IFREG ||
+                      (devstat.st_mode & S_IFMT) == S_IFDIR)) {
+                    ERROR("queuing %s\n", act->name);
+                    action_add_queue_tail(act);
+                }
+            }
+        }
+    }
+}
+
 void queue_property_triggers(const char *name, const char *value)
 {
     struct listnode *node;
@@ -350,7 +391,7 @@ void queue_property_triggers(const char *name, const char *value)
     }
 }
 
-void queue_all_property_triggers()
+void queue_all_property_triggers(void)
 {
     struct listnode *node;
     struct action *act;
@@ -646,6 +687,7 @@ static void parse_line_action(struct parse_state* state, int nargs, char **args)
     struct action *act = state->context;
     int (*func)(int nargs, char **args);
     int kw, n;
+    int alloc_size = 0;
 
     if (nargs == 0) {
         return;
@@ -663,7 +705,14 @@ static void parse_line_action(struct parse_state* state, int nargs, char **args)
             n > 2 ? "arguments" : "argument");
         return;
     }
-    cmd = malloc(sizeof(*cmd) + sizeof(char*) * nargs);
+    alloc_size = sizeof(*cmd) + sizeof(char*) * (nargs + 1);
+    cmd = malloc(alloc_size);
+    if (!cmd) {
+        parse_error(state, "malloc failed\n");
+        return;
+    }
+
+    memset((char *)cmd, 0, alloc_size);
     cmd->func = kw_func(kw);
     cmd->nargs = nargs;
     memcpy(cmd->args, args, sizeof(char*) * nargs);
