@@ -93,19 +93,47 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Permissions files
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.flash-autofocus.xml:/system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.location.gps.xml:/system/etc/permissions/android.hardware.location.gps.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.accelerometer.xml:/system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.proximity.xml:/system/etc/permissions/android.hardware.sensor.proximity.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.cdma.xml:/system/etc/permissions/android.hardware.telephony.cdma.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.gsm.xml:/system/etc/permissions/android.hardware.telephony.gsm.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
+device/motorola/solana/prebuilt/etc/permissions/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.android.location.provider.xml:/system/etc/permissions/com.android.location.provider.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.cequint.platform.xml:/system/etc/permissions/com.cequint.platform.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.camera.xml:/system/etc/permissions/com.motorola.android.camera.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.customization.xml:/system/etc/permissions/com.motorola.android.customization.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.datamanager_library.xml:/system/etc/permissions/com.motorola.android.datamanager_library.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.dlna_library.xml:/system/etc/permissions/com.motorola.android.dlna_library.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drm1config.xml:/system/etc/permissions/com.motorola.android.drm1config.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:/system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.iextdispservice.xml:/system/etc/permissions/com.motorola.android.iextdispservice.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.imirrorservice.xml:/system/etc/permissions/com.motorola.android.imirrorservice.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mediasyncconfig.xml:/system/etc/permissions/com.motorola.android.mediasyncconfig.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mobad.xml:/system/etc/permissions/com.motorola.android.mobad.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml:/system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.storage_library.xml:/system/etc/permissions/com.motorola.android.storage_library.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:/system/etc/permissions/com.motorola.android.tcmd.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.widget.xml:/system/etc/permissions/com.motorola.android.widget.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.app.admin_library.xml:/system/etc/permissions/com.motorola.app.admin_library.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:/system/etc/permissions/com.motorola.atcmd_library.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.motorola.device.xml:/system/etc/permissions/com.motorola.device.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.nbi.android.xml:/system/etc/permissions/com.nbi.android.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.scalado.android.photoeditor.xml:/system/etc/permissions/com.scalado.android.photoeditor.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.scalado.caps.xml:/system/etc/permissions/com.scalado.caps.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.softwareimaging.mot.xml:/system/etc/permissions/com.softwareimaging.mot.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.hux.xml:/system/etc/permissions/com.vzw.android.hux.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.smart.xml:/system/etc/permissions/com.vzw.android.smart.xml \
+device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.xml:/system/etc/permissions/com.vzw.android.xml \
+device/motorola/solana/prebuilt/etc/permissions/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
+device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
+device/motorola/solana/prebuilt/etc/permissions/platform.xml:/system/etc/permissions/platform.xml \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -220,6 +248,7 @@ PRODUCT_PACKAGES += \
     libtiOsLib \
     libCustomWifi \
     wlan_loader \
+    tiap_loader \
     wlan_cu \
     wpa_supplicant.conf \
     dhcpcd.conf
