@@ -230,6 +230,8 @@ adb pull /system/lib/egl/libGLESv2_POWERVR_SGX540_120.so ../../../vendor/motorol
 adb pull /system/lib/egl/libeglinfo.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/egl/libgles1_texture_stream.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/egl/libgles2_texture_stream.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/hw/acoustics.default.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/hw/alsa.default.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/alsa.omap4.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/gps.solana.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/gralloc.omap4.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -258,7 +260,9 @@ adb pull /system/lib/libarcomx_wmadec_sharedlibrary.so ../../../vendor/motorola/
 adb pull /system/lib/libarcplatform.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libarcsoft.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libarcstagefright.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libaudio.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libaudio_ext.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libaudiopolicy.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libaudiopolicy_ext.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libbattd.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libbcbmsg.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -592,7 +596,9 @@ vendor/motorola/__DEVICE__/proprietary/libarcomx_wmadec_sharedlibrary.so:/system
 vendor/motorola/__DEVICE__/proprietary/libarcplatform.so:/system/lib/libarcplatform.so \\
 vendor/motorola/__DEVICE__/proprietary/libarcsoft.so:/system/lib/libarcsoft.so \\
 vendor/motorola/__DEVICE__/proprietary/libarcstagefright.so:/system/lib/libarcstagefright.so \\
+vendor/motorola/__DEVICE__/proprietary/libaudio.so:/system/lib/libaudio.so \\
 vendor/motorola/__DEVICE__/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \\
+vendor/motorola/__DEVICE__/proprietary/libaudiopolicy.so:/system/lib/libaudiopolicy.so \\
 vendor/motorola/__DEVICE__/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \\
 vendor/motorola/__DEVICE__/proprietary/libbattd.so:/system/lib/libbattd.so \\
 vendor/motorola/__DEVICE__/proprietary/libbcbmsg.so:/system/lib/libbcbmsg.so \\
@@ -710,6 +716,8 @@ vendor/motorola/__DEVICE__/proprietary/libGLESv2_POWERVR_SGX540_120.so:/system/l
 vendor/motorola/__DEVICE__/proprietary/libeglinfo.so:/system/lib/egl/libeglinfo.so \\
 vendor/motorola/__DEVICE__/proprietary/libgles1_texture_stream.so:/system/lib/egl/libgles1_texture_stream.so \\
 vendor/motorola/__DEVICE__/proprietary/libgles2_texture_stream.so:/system/lib/egl/libgles2_texture_stream.so \\
+vendor/motorola/__DEVICE__/proprietary/acoustics.default.so:/system/lib/hw/acoustics.default.so \\
+vendor/motorola/__DEVICE__/proprietary/alsa.default.so:/system/lib/hw/alsa.default.so \\
 vendor/motorola/__DEVICE__/proprietary/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \\
 vendor/motorola/__DEVICE__/proprietary/gps.solana.so:/system/lib/hw/gps.solana.so \\
 vendor/motorola/__DEVICE__/proprietary/gralloc.omap4.so:/system/lib/hw/gralloc.omap4.so \\

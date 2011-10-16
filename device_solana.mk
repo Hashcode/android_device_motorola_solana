@@ -150,10 +150,10 @@ PRODUCT_COPY_FILES += \
 
 # HW Libs
 PRODUCT_PACKAGES += \
-    alsa.default \
     acoustics.default \
     overlay.omap4 \
-    alsa.omap4 \ 
+#    alsa.omap4 \ 
+#    alsa.default \ 100k less in size than file from phone -- was generating errors.
 #    lights.solana \
 #    sensors.solana \
 
