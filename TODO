@@ -6,7 +6,7 @@ Turns out moto init handles char device symlinks and stock CM init doesn't:
 /dev/
 
 Startup:
- 1.X [akmd2] Looks good
+ 1.  [alsa_sound] AudioHardwareALSA.cpp::setVoiceVolume (mOutStream is not defined?)
  2.D [tcmd] /system/lib/libhdmi.so doesn't exist? (Check boot permissions): android_createDisplaySurfaceOnFB_HDMI can't be found.
  3.C [ftmipcd] 18:01:44.301696 writev(2, [{"\4"..., 1}, {"ftmipcd\0"..., 8}, {"USBLAN interface not available\0"..., 31}], 3) = 40
  4.  [tund] Looping: 

@@ -153,7 +153,7 @@ PRODUCT_PACKAGES += \
     acoustics.default \
     overlay.omap4 \
 #    alsa.omap4 \ 
-#    alsa.default \ 100k less in size than file from phone -- was generating errors.
+#    alsa.default \ libaudio = 100k less in size than file from phone -- was generating errors.
 #    lights.solana \
 #    sensors.solana \
 
@@ -165,7 +165,6 @@ PRODUCT_PACKAGES += \
 
 # OMX -- have to copy the following into out/target/product/solana/obj/lib for now
 #   libhdr_interface.so \ requires vendor/arcsoft
-#   libopencore_common \  OLD
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -187,6 +186,8 @@ PRODUCT_PACKAGES += \
     libomx_proxy_common \
     libomx_rpc \
     libomxcameraadapter \
+    libstagefrighthw \
+    libopencore_common \
 
 # FM Radio
 PRODUCT_PACKAGES += \

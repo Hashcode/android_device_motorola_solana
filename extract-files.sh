@@ -315,6 +315,7 @@ adb pull /system/lib/libnative_renderer.so ../../../vendor/motorola/$DEVICE/prop
 adb pull /system/lib/libnativedrm1.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libnativehelper.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libnbgm.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libnetutils.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libnmea.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libomx_aacdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libomx_amrdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -650,6 +651,7 @@ vendor/motorola/__DEVICE__/proprietary/libmtpstack.so:/system/lib/libmtpstack.so
 vendor/motorola/__DEVICE__/proprietary/libnative_renderer.so:/system/lib/libnative_renderer.so \\
 vendor/motorola/__DEVICE__/proprietary/libnativedrm1.so:/system/lib/libnativedrm1.so \\
 vendor/motorola/__DEVICE__/proprietary/libnbgm.so:/system/lib/libnbgm.so \\
+vendor/motorola/__DEVICE__/proprietary/libnetutils.so:/system/lib/libnetutils.so \\
 vendor/motorola/__DEVICE__/proprietary/libnmea.so:/system/lib/libnmea.so \\
 vendor/motorola/__DEVICE__/proprietary/libomx_aacdec_sharedlibrary.so:/system/lib/libomx_aacdec_sharedlibrary.so \\
 vendor/motorola/__DEVICE__/proprietary/libomx_amrdec_sharedlibrary.so:/system/lib/libomx_amrdec_sharedlibrary.so \\
