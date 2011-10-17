@@ -3,7 +3,7 @@
 #
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
@@ -29,6 +29,8 @@ PRODUCT_COPY_FILES += \
 #    ro.com.google.clientidbase.yt=android-verizon \
 #    persist.mot.mdm_panicd.nopanic=no \
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.locale.language=en \
+    ro.product.locale.region=US \
     ro.kernel.android.ril=yes \
     persist.ril.mux.noofchannels=8 \
     persist.ril.mux.ttydevice=/dev/ttyO0 \
@@ -262,11 +264,11 @@ PRODUCT_PACKAGES += \
     solana_releaseutils-tune2fs
 
 # Misc
+#    Usb \
 PRODUCT_PACKAGES += \
     libreference-ril \
     libreference-cdma-sms \
     libSR_AudioIn \
-    Usb \
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test

@@ -743,12 +743,12 @@ service dhcpcd_usbeth0 /system/bin/dhcpcd
 
 service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
     class media_early_init
-    class media_early_init
     user media
     group media graphics
     oneshot
 
 service pvrsrv /system/bin/pvrsrvinit
+    class post-zygote_services
     user root
     oneshot
 

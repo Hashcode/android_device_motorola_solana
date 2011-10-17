@@ -79,6 +79,7 @@ adb pull /system/bin/tstmetainfo ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/tty2ttyd ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/tund ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/usbd ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/bin/vold ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/vpnclientpm ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/whisperd ../../../vendor/motorola/$DEVICE/proprietary
 
@@ -484,6 +485,7 @@ vendor/motorola/__DEVICE__/proprietary/tstmetainfo:/system/bin/tstmetainfo \\
 vendor/motorola/__DEVICE__/proprietary/tty2ttyd:/system/bin/tty2ttyd \\
 vendor/motorola/__DEVICE__/proprietary/tund:/system/bin/tund \\
 vendor/motorola/__DEVICE__/proprietary/usbd:/system/bin/usbd \\
+vendor/motorola/__DEVICE__/proprietary/vold:/system/bin/vold \\
 vendor/motorola/__DEVICE__/proprietary/vpnclientpm:/system/bin/vpnclientpm \\
 vendor/motorola/__DEVICE__/proprietary/whisperd:/system/bin/whisperd \\
 
