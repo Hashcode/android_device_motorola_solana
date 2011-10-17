@@ -295,6 +295,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # high-density artwork where available
 PRODUCT_LOCALES += hdpi
+# still need to set english for audio init
+PRODUCT_LOCALES += en_US
+
 
 # copy all kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
