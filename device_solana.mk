@@ -17,125 +17,53 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
-#    ro.media.enc.aud.fileformat=qcp \
-#    ro.media.enc.aud.codec=qcelp \
-#    ro.media.enc.aud.bps=13300 \
-#    ro.media.enc.aud.ch=1 \
-#    ro.media.enc.aud.hz=8000 \
-#    ro.com.google.clientidbase=android-motorola \
-#    ro.com.google.clientidbase.ms=android-verizon \
-#    ro.com.google.clientidbase.am=android-verizon \
-#    ro.com.google.clientidbase.gmm=android-motorola \
-#    ro.com.google.clientidbase.yt=android-verizon \
-#    persist.mot.mdm_panicd.nopanic=no \
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=US \
-    ro.kernel.android.ril=yes \
-    persist.ril.mux.noofchannels=8 \
-    persist.ril.mux.ttydevice=/dev/ttyO0 \
-    persist.ril.modem.ttydevice=/dev/ttySPI0 \
-    persist.ril.features=0x30E \
-    persist.ril.mux.retries=500 \
-    persist.ril.mux.sleep=2 \
-    ro.default_usb_mode=4 \
-    ro.com.google.gmsversion=2.3_r6 \
-    ro.telephony.call_ring.multiple=false \
-    ro.telephony.call_ring.delay=1000 \
-    ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
-    ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
-    ro.setupwizard.enable_bypass=1 \
-    ro.media.camcorder.1080p=mp4,h264,30,15000000,aac,128000,44100,2 \
-    ro.media.camcorder.720p=mp4,h264,30,10000000,aac,128000,44100,2 \
-    ro.media.camcorder.d1NTSC=mp4,h264,30,6000000,aac,128000,44100,2 \
-    ro.media.camcorder.vga=mp4,h264,30,4000000,aac,128000,44100,2 \
-    ro.media.camcorder.cif=mp4,h264,30,1500000,aac,128000,44100,2 \
-    ro.media.camcorder.qvga=mp4,h264,15,500000,aac,64000,44100,2 \
-    ro.media.camcorder.mms=3gp,h264,15,128000,amrnb,12200,8000,1 \
-    ro.media.camcorder.mmsres=qvga \
-    ro.camcorder.zoom=true \
-    ro.media.capture.maxres=8m \
-    ro.media.capture.fast.fps=4 \
-    ro.media.capture.slow.fps=120 \
-    ro.media.capture.flash=led \
-    ro.media.capture.flashMinV=3300000 \
-    ro.media.capture.torchIntensity=40 \
-    ro.media.capture.flashIntensity=70 \
-    ro.media.panorama.defres=3264x1840 \
-    ro.media.panorama.frameres=1280x720 \
-    ro.camcorder.videoModes=false \
-    media.stagefright.enable-player=true \
-    media.stagefright.enable-meta=true \
-    media.stagefright.enable-scan=false \
-    media.stagefright.enable-http=true \
-    media.stagefright.enable-record=false \
-    ro.media.camera.focal=3451.0,3451.0 \
-    ro.media.camera.principal=1632.0,1224.0 \
-    ro.media.camera.skew=0.0 \
-    ro.media.camera.distortion=0.0,0.0,0.0,0.0,0.0 \
-    ro.media.camera.calresolution=3264,2448 \
-    ro.mot.setuptype=2 \
-    ro.HorizontalBUA=true \
-    ro.HorizontalVVM=true \
-    ro.horizontalIM=true \
-    ro.horizontalNGM=false \
-    ro.horizontalVMM=false \
-    ro.horizontalMOD=false \
-    ro.horizontalVOD=false \
-    ro.horizontalEmail=false \
-    ro.mot.internalsdcard=1 \
-    ro.mot.dpmext=true \
-    ro.com.google.clientid=android-motorola \
-    ro.mot.hw.uaprof=http://uaprof.motorola.com/phoneconfig/MotoMB200/profile/MotoMB200.rdf \
-    ro.build.version.full=Blur_Version.5.6.890.XT862.Verizon.en.US \
-    ro.mot.hidden_keyboards=evfwd
 
 # Device overlay
     DEVICE_PACKAGE_OVERLAYS += device/motorola/solana/overlay
 
 # Permissions files
 PRODUCT_COPY_FILES += \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.flash-autofocus.xml:/system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.location.gps.xml:/system/etc/permissions/android.hardware.location.gps.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.accelerometer.xml:/system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.proximity.xml:/system/etc/permissions/android.hardware.sensor.proximity.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.cdma.xml:/system/etc/permissions/android.hardware.telephony.cdma.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.gsm.xml:/system/etc/permissions/android.hardware.telephony.gsm.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
-device/motorola/solana/prebuilt/etc/permissions/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.android.location.provider.xml:/system/etc/permissions/com.android.location.provider.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.cequint.platform.xml:/system/etc/permissions/com.cequint.platform.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.camera.xml:/system/etc/permissions/com.motorola.android.camera.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.customization.xml:/system/etc/permissions/com.motorola.android.customization.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.datamanager_library.xml:/system/etc/permissions/com.motorola.android.datamanager_library.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.dlna_library.xml:/system/etc/permissions/com.motorola.android.dlna_library.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drm1config.xml:/system/etc/permissions/com.motorola.android.drm1config.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:/system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.iextdispservice.xml:/system/etc/permissions/com.motorola.android.iextdispservice.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.imirrorservice.xml:/system/etc/permissions/com.motorola.android.imirrorservice.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mediasyncconfig.xml:/system/etc/permissions/com.motorola.android.mediasyncconfig.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mobad.xml:/system/etc/permissions/com.motorola.android.mobad.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml:/system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.storage_library.xml:/system/etc/permissions/com.motorola.android.storage_library.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:/system/etc/permissions/com.motorola.android.tcmd.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.widget.xml:/system/etc/permissions/com.motorola.android.widget.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.app.admin_library.xml:/system/etc/permissions/com.motorola.app.admin_library.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:/system/etc/permissions/com.motorola.atcmd_library.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.motorola.device.xml:/system/etc/permissions/com.motorola.device.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.nbi.android.xml:/system/etc/permissions/com.nbi.android.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.scalado.android.photoeditor.xml:/system/etc/permissions/com.scalado.android.photoeditor.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.scalado.caps.xml:/system/etc/permissions/com.scalado.caps.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.softwareimaging.mot.xml:/system/etc/permissions/com.softwareimaging.mot.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.hux.xml:/system/etc/permissions/com.vzw.android.hux.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.smart.xml:/system/etc/permissions/com.vzw.android.smart.xml \
-device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.xml:/system/etc/permissions/com.vzw.android.xml \
-device/motorola/solana/prebuilt/etc/permissions/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
-device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
-device/motorola/solana/prebuilt/etc/permissions/platform.xml:/system/etc/permissions/platform.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.camera.flash-autofocus.xml:/system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.location.gps.xml:/system/etc/permissions/android.hardware.location.gps.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.accelerometer.xml:/system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.sensor.proximity.xml:/system/etc/permissions/android.hardware.sensor.proximity.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.cdma.xml:/system/etc/permissions/android.hardware.telephony.cdma.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.telephony.gsm.xml:/system/etc/permissions/android.hardware.telephony.gsm.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
+    device/motorola/solana/prebuilt/etc/permissions/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.android.location.provider.xml:/system/etc/permissions/com.android.location.provider.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.cequint.platform.xml:/system/etc/permissions/com.cequint.platform.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.camera.xml:/system/etc/permissions/com.motorola.android.camera.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.customization.xml:/system/etc/permissions/com.motorola.android.customization.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.datamanager_library.xml:/system/etc/permissions/com.motorola.android.datamanager_library.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.dlna_library.xml:/system/etc/permissions/com.motorola.android.dlna_library.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drm1config.xml:/system/etc/permissions/com.motorola.android.drm1config.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:/system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.iextdispservice.xml:/system/etc/permissions/com.motorola.android.iextdispservice.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.imirrorservice.xml:/system/etc/permissions/com.motorola.android.imirrorservice.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mediasyncconfig.xml:/system/etc/permissions/com.motorola.android.mediasyncconfig.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mobad.xml:/system/etc/permissions/com.motorola.android.mobad.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml:/system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.storage_library.xml:/system/etc/permissions/com.motorola.android.storage_library.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:/system/etc/permissions/com.motorola.android.tcmd.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.widget.xml:/system/etc/permissions/com.motorola.android.widget.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.app.admin_library.xml:/system/etc/permissions/com.motorola.app.admin_library.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:/system/etc/permissions/com.motorola.atcmd_library.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.motorola.device.xml:/system/etc/permissions/com.motorola.device.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.nbi.android.xml:/system/etc/permissions/com.nbi.android.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.scalado.android.photoeditor.xml:/system/etc/permissions/com.scalado.android.photoeditor.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.scalado.caps.xml:/system/etc/permissions/com.scalado.caps.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.softwareimaging.mot.xml:/system/etc/permissions/com.softwareimaging.mot.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.hux.xml:/system/etc/permissions/com.vzw.android.hux.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.smart.xml:/system/etc/permissions/com.vzw.android.smart.xml \
+    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.xml:/system/etc/permissions/com.vzw.android.xml \
+    device/motorola/solana/prebuilt/etc/permissions/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
+    device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
+    device/motorola/solana/prebuilt/etc/permissions/platform.xml:/system/etc/permissions/platform.xml \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -149,6 +77,9 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+    device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
+    device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
+
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -264,11 +195,11 @@ PRODUCT_PACKAGES += \
     solana_releaseutils-tune2fs
 
 # Misc
-#    Usb \
+#   libreference-ril \
 PRODUCT_PACKAGES += \
-    libreference-ril \
     libreference-cdma-sms \
     libSR_AudioIn \
+    Usb \
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test

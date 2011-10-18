@@ -67,6 +67,7 @@ adb pull /system/bin/motobox ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/napics.sh ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/pppd-ril ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/pvrsrvinit ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/bin/rild ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/secclkd ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/smc_pa_ctrl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/start_enc_mgt_tool.sh ../../../vendor/motorola/$DEVICE/proprietary
@@ -349,6 +350,8 @@ adb pull /system/lib/libpvr2d.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libpvrANDROID_WSEGL.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libquicksec.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/librds_util.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libreference-ril.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libril.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libril_rds.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libscalado.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libsmapi.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -382,12 +385,10 @@ adb pull /system/tts/lang_pico/es-ES_zl0_sg.bin ../../../vendor/motorola/$DEVICE
 
 # /system/usr/* (dirs)
 adb pull /system/usr/icu/icudt44l.dat ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/usr/keychars/cdma_solana-keypad.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/qwerty2.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keychars/usb_keyboard_102_en_us.kcm.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/AVRCP.kl ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/usr/keylayout/cdma_solana-keypad.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/cpcap-key.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/qwerty.kl ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/keylayout/usb_keyboard_102_en_us.kl ../../../vendor/motorola/$DEVICE/proprietary
@@ -473,6 +474,7 @@ vendor/motorola/__DEVICE__/proprietary/motobox:/system/bin/motobox \\
 vendor/motorola/__DEVICE__/proprietary/napics.sh:/system/bin/napics.sh \\
 vendor/motorola/__DEVICE__/proprietary/pppd-ril:/system/bin/pppd-ril \\
 vendor/motorola/__DEVICE__/proprietary/pvrsrvinit:/system/bin/pvrsrvinit \\
+vendor/motorola/__DEVICE__/proprietary/rild:/system/bin/rild \\
 vendor/motorola/__DEVICE__/proprietary/secclkd:/system/bin/secclkd \\
 vendor/motorola/__DEVICE__/proprietary/smc_pa_ctrl:/system/bin/smc_pa_ctrl \\
 vendor/motorola/__DEVICE__/proprietary/start_enc_mgt_tool.sh:/system/bin/start_enc_mgt_tool.sh \\
@@ -686,6 +688,8 @@ vendor/motorola/__DEVICE__/proprietary/libpvr2d.so:/system/lib/libpvr2d.so \\
 vendor/motorola/__DEVICE__/proprietary/libpvrANDROID_WSEGL.so:/system/lib/libpvrANDROID_WSEGL.so \\
 vendor/motorola/__DEVICE__/proprietary/libquicksec.so:/system/lib/libquicksec.so \\
 vendor/motorola/__DEVICE__/proprietary/librds_util.so:/system/lib/librds_util.so \\
+vendor/motorola/__DEVICE__/proprietary/libreference-ril.so:/system/lib/libreference-ril.so \\
+vendor/motorola/__DEVICE__/proprietary/libril.so:/system/lib/libril.so \\
 vendor/motorola/__DEVICE__/proprietary/libril_rds.so:/system/lib/libril_rds.so \\
 vendor/motorola/__DEVICE__/proprietary/libscalado.so:/system/lib/libscalado.so \\
 vendor/motorola/__DEVICE__/proprietary/libsmapi.so:/system/lib/libsmapi.so \\
@@ -735,12 +739,10 @@ vendor/motorola/__DEVICE__/proprietary/en-US_ta.bin:/system/tts/lang_pico/en-US_
 vendor/motorola/__DEVICE__/proprietary/es-ES_ta.bin:/system/tts/lang_pico/es-ES_ta.bin \\
 vendor/motorola/__DEVICE__/proprietary/es-ES_zl0_sg.bin:/system/tts/lang_pico/es-ES_zl0_sg.bin \\
 vendor/motorola/__DEVICE__/proprietary/icudt44l.dat:/system/usr/icu/icudt44l.dat \\
-vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kcm.bin:/system/usr/keychars/cdma_solana-keypad.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kcm.bin:/system/usr/keychars/qwerty.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/qwerty2.kcm.bin:/system/usr/keychars/qwerty2.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kcm.bin:/system/usr/keychars/usb_keyboard_102_en_us.kcm.bin \\
 vendor/motorola/__DEVICE__/proprietary/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \\
-vendor/motorola/__DEVICE__/proprietary/cdma_solana-keypad.kl:/system/usr/keylayout/cdma_solana-keypad.kl \\
 vendor/motorola/__DEVICE__/proprietary/cpcap-key.kl:/system/usr/keylayout/cpcap-key.kl \\
 vendor/motorola/__DEVICE__/proprietary/qwerty.kl:/system/usr/keylayout/qwerty.kl \\
 vendor/motorola/__DEVICE__/proprietary/usb_keyboard_102_en_us.kl:/system/usr/keylayout/usb_keyboard_102_en_us.kl \\
@@ -756,6 +758,7 @@ vendor/motorola/__DEVICE__/proprietary/drm1_func_test:/system/xbin/drm1_func_tes
 vendor/motorola/__DEVICE__/proprietary/run_backup:/system/xbin/run_backup \\
 vendor/motorola/__DEVICE__/proprietary/run_restore:/system/xbin/run_restore \\
 vendor/motorola/__DEVICE__/proprietary/ssmgrd:/system/xbin/ssmgrd
+
 
 EOF
 
