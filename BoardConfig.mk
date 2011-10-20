@@ -57,7 +57,7 @@ BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 BOARD_WITH_ALSA_UTILS := true
 # I hate to do this, but alsa_sound is odd atm vs. OMAP4 code: means I need libaudio.so, libaudiopolicy.so, alsa.default, acoustics.default from phone
-TARGET_PROVIDES_LIBAUDIO := true
+#TARGET_PROVIDES_LIBAUDIO := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

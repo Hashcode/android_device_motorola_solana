@@ -3,7 +3,8 @@
 #
 
 # The gps config appropriate for this device
-#$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
+
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
@@ -67,6 +68,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
@@ -83,73 +85,76 @@ PRODUCT_COPY_FILES += \
 
 # HW Libs
 PRODUCT_PACKAGES += \
-    acoustics.default \
-    overlay.omap4 \
-#    alsa.omap4 \ 
-#    alsa.default \ libaudio = 100k less in size than file from phone -- was generating errors.
-#    lights.solana \
-#    sensors.solana \
+    gralloc.default \
+#    gralloc.omap4 \
 
-# Soundfx
+# Audio HAL
 PRODUCT_PACKAGES += \
+    acoustics.default \
+    alsa.default \
+    alsa.omap4 \
+
+# Thermal Manager
+PRODUCT_PACKAGES += \
+    libconfig \
+    libthermal_manager \
+    thermaldaemon \
+
+# Sound
+PRODUCT_PACKAGES += \
+    libaudio \
+    lubaudiopolicy \
     libbundlewrapper \
     libreverbwrapper \
     libvisualizer \
 
-# OMX -- have to copy the following into out/target/product/solana/obj/lib for now
-#   libhdr_interface.so \ requires vendor/arcsoft
+# Modem
+PRODUCT_PACKAGES += \
+    libaudiomodemgeneric \
+    libreference-cdma-sms \
+
+# OMX
+#   libhdr_interface.so \ requires vendor/arcsoft -- removed
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
     libOMX_Core \
-    libomx_proxy_common \
     libomx_rpc \
-    libOMX.TI.DUCATI1.IMAGE.JPEGD \
-    libOMX.TI.DUCATI1.MISC.SAMPLE \
-    libOMX.TI.DUCATI1.VIDEO.CAMERA \
-    libOMX.TI.DUCATI1.VIDEO.DECODER \
+    libomx_proxy_common \
     libOMX.TI.DUCATI1.VIDEO.H264D \
-    libOMX.TI.DUCATI1.VIDEO.H264E \
     libOMX.TI.DUCATI1.VIDEO.MPEG4D \
-    libOMX.TI.DUCATI1.VIDEO.MPEG4E \
     libOMX.TI.DUCATI1.VIDEO.VP6D \
     libOMX.TI.DUCATI1.VIDEO.VP7D \
+    libOMX.TI.DUCATI1.VIDEO.H264E \
+    libOMX.TI.DUCATI1.VIDEO.MPEG4E \
+    libOMX.TI.DUCATI1.IMAGE.JPEGD \
+    libOMX.TI.DUCATI1.VIDEO.CAMERA \
+    libOMX.TI.DUCATI1.MISC.SAMPLE \
+    libOMX.TI.DUCATI1.VIDEO.DECODER \
+    libOMX_ResourceManagerProxy \
     libVendor_ti_omx \
     libVendor_ti_omx_config_parser \
-    libomx_proxy_common \
-    libomx_rpc \
-    libomxcameraadapter \
     libstagefrighthw \
-    libopencore_common \
+    libLCML \
+    libOMX.TI.Video.Decoder \
+    libOMX.TI.Video.encoder \
 
-# FM Radio
+# OMX Binaries
 PRODUCT_PACKAGES += \
-    libfmchr.so \
-    libfm_stack \
-    libmcphal \
-
-# Framework
-PRODUCT_PACKAGES += \
-    libicui18n \
-    lubicuuc \
-    libjni_latinime \
-    libmedia \
-    libRS \
-    libvorbisidec \
+    OMXPolicyManager \
+    OMXResourceManager \
+    VideoEncTest \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
-    libcamera \
-    libd2cmap \
     libipc \
     libipcutils \
     libnotify \
-    libomap_mm_library_jni \
+    libd2cmap \
     librcm \
     libsyslink_ipc_listener \
     libsysmgr \
     libtimemmgr \
-    libtiutils \
     dmm_daemontest.out \
     ducati_load.out \
     event_listener.out \
@@ -176,16 +181,65 @@ PRODUCT_PACKAGES += \
     syslink_tilertest.out \
     syslink_trace_daemon.out \
     utilsApp.out \
+    d2c_test \
+    memmgr_test \
+    utils_test \
+    tiler_ptest \
+
+# Opencore
+PRODUCT_PACKAGES += \
+    libopencore_common \
+
+# TI CameraHal
+PRODUCT_PACKAGES += \
+    libtiutils \
+    libcamera \
+    libfakecameraadapter \
+    libomxcameraadapter \
+    camera_test \
+
+#libskiahw-omap4
+PRODUCT_PACKAGES += \
+    libskiahwdec \
+    SkLibTiJpeg_Test \
+
+# Overlay
+PRODUCT_PACKAGES += \
+    overlay.omap4 \
+    overlay_test \
+
+# FM Radio
+PRODUCT_PACKAGES += \
+    libfmchr.so \
+    libfm_stack \
+    libmcphal \
+
+# Framework
+PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
     libtiOsLib \
     libCustomWifi \
     wlan_loader \
-    tiap_loader \
     wlan_cu \
+    dhcpcd.conf \
     wpa_supplicant.conf \
-    dhcpcd.conf
+
+# HotSpot
+PRODUCT_PACKAGES += \
+    tiap_loader \
+    tiap_cu \
+    hostap \
+    hostapd.conf \
+
+# Lights
+#PRODUCT_PACKAGES += \
+#    lights.solana \
+
+# Sensors
+#PRODUCT_PACKAGES += \
+#    sensors.solana \
 
 # Release utilities
 PRODUCT_PACKAGES += \
@@ -194,12 +248,22 @@ PRODUCT_PACKAGES += \
     solana_releaseutils-mke2fs \
     solana_releaseutils-tune2fs
 
-# Misc
-#   libreference-ril \
+# Libs
 PRODUCT_PACKAGES += \
-    libreference-cdma-sms \
+    libRS \
+    librs_jni \
+    libomap_mm_library_jni \
     libSR_AudioIn \
+    libicui18n \
+    lubicuuc \
+    libjni_latinime \
+    libmedia \
+    libvorbisidec \
+
+# CM Packages
+PRODUCT_PACKAGES += \
     Usb \
+
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
