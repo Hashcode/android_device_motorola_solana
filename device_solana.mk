@@ -84,9 +84,9 @@ PRODUCT_COPY_FILES += \
 
 
 # HW Libs
+#    gralloc.omap4 \
 PRODUCT_PACKAGES += \
     gralloc.default \
-#    gralloc.omap4 \
 
 # Audio HAL
 PRODUCT_PACKAGES += \
@@ -143,7 +143,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OMXPolicyManager \
     OMXResourceManager \
-    VideoEncTest \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
@@ -181,10 +180,6 @@ PRODUCT_PACKAGES += \
     syslink_tilertest.out \
     syslink_trace_daemon.out \
     utilsApp.out \
-    d2c_test \
-    memmgr_test \
-    utils_test \
-    tiler_ptest \
 
 # Opencore
 PRODUCT_PACKAGES += \
@@ -196,7 +191,6 @@ PRODUCT_PACKAGES += \
     libcamera \
     libfakecameraadapter \
     libomxcameraadapter \
-    camera_test \
 
 #libskiahw-omap4
 PRODUCT_PACKAGES += \
@@ -206,7 +200,6 @@ PRODUCT_PACKAGES += \
 # Overlay
 PRODUCT_PACKAGES += \
     overlay.omap4 \
-    overlay_test \
 
 # FM Radio
 PRODUCT_PACKAGES += \
@@ -263,6 +256,17 @@ PRODUCT_PACKAGES += \
 # CM Packages
 PRODUCT_PACKAGES += \
     Usb \
+
+# Tests -- Can remove later
+PRODUCT_PACKAGES += \
+    d2c_test \
+    memmgr_test \
+    utils_test \
+    tiler_ptest \
+    overlay_test \
+    camera_test \
+    VideoEncTest \
+    omx_tests \
 
 
 # Add motobox symlinks
