@@ -56,8 +56,8 @@ WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 BOARD_WITH_ALSA_UTILS := true
-# I hate to do this, but alsa_sound is odd atm vs. OMAP4 code: means I need libaudio.so, libaudiopolicy.so, alsa.default, acoustics.default from phone
-#TARGET_PROVIDES_LIBAUDIO := true
+HAVE_2_3_DSP := 1
+
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -65,6 +65,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 
 
 # Recovery
+BUILD_BOOTMENU_STANDALONE := true
 BOARD_HAS_LOCKED_BOOTLOADER := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
@@ -136,7 +137,6 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools
 # Misc.
 BOARD_USE_BATTERY_CHARGE_COUNTER := true
 BOARD_FLASH_BLOCK_SIZE := 131072
-HAVE_2_3_DSP := 1
 BOARD_NEEDS_CUTILS_LOG := true
 
 solana_HARDWARE := true
