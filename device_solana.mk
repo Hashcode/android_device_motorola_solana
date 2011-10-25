@@ -203,7 +203,7 @@ PRODUCT_PACKAGES += \
 
 # FM Radio
 PRODUCT_PACKAGES += \
-    libfmchr.so \
+    libfmchr \
     libfm_stack \
     libmcphal \
 
@@ -268,6 +268,10 @@ PRODUCT_PACKAGES += \
     VideoEncTest \
     omx_tests \
 
+# stuff for Bootmenu -- Can remove later
+PRODUCT_PACKAGES += \
+    safestrapmenu \
+
 
 # Add motobox symlinks
 #MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
@@ -317,6 +321,7 @@ $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
 # stuff common to all Motorola phones -- disabled for Sandbox
 #$(call inherit-product, device/motorola/common/common_hijack.mk)
+
 
 $(call inherit-product, build/target/product/full_base.mk)
 
