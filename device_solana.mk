@@ -62,17 +62,26 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
 
+# Audio sucks currently for Motorola.  They've customized alsa-sound and while I'm working it out, I'll use phone libs.  blech.
+#vendor/motorola/solana/proprietary/libasound.so:/system/lib/libasound.so \
+#PRODUCT_COPY_FILES += \
+#vendor/motorola/solana/proprietary/acoustics.default.so:/system/lib/hw/acoustics.default.so \
+#vendor/motorola/solana/proprietary/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+#vendor/motorola/solana/proprietary/libaudio.so:/system/lib/libaudio.so \
+#vendor/motorola/solana/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \
+#vendor/motorola/solana/proprietary/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
+#vendor/motorola/solana/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
 
 # HW Libs
-#    gralloc.omap4 \
 PRODUCT_PACKAGES += \
+    gralloc.omap4 \
     gralloc.default \
 
 # Audio HAL
 PRODUCT_PACKAGES += \
+    alsa.omap4 \
     acoustics.default \
     alsa.default \
-    alsa.omap4 \
 
 # Thermal Manager
 PRODUCT_PACKAGES += \
@@ -83,7 +92,7 @@ PRODUCT_PACKAGES += \
 # Sound / Media
 PRODUCT_PACKAGES += \
     libaudio \
-    lubaudiopolicy \
+    libaudiopolicy \
     libbundlewrapper \
     libreverbwrapper \
     libvisualizer \

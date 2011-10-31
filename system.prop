@@ -81,7 +81,7 @@ persist.mot.proximity.touch=1
 # End IKSHADOW-619
 
 # BEGIN Motorola, a22976, 25-Feb-2010, IKSHADOW-702, FID 31841
-# VZW Requirement Specifications: NETWORK BASED PLUS CODE DIALING
+# VZW Requirement Specifications: NEro.mot.phonemode.vzwglobalphoneTWORK BASED PLUS CODE DIALING
 # 0 disable
 # 1 enable
 ro.cdma.nbpcd=1
@@ -114,7 +114,7 @@ persist.ril.mux.noofchannels = 8
 # could use this property too. IKMAIN-732
 #1 this is verizon wireless globle phone
 #0 this is not verizon wireless globle phone
-ro.mot.phonemode.vzwglobalphone=1
+ro.mot.phonemode.vzwglobalphone=0
 # END Motorola, nfjb73, 21-jun-2010, IKMAIN-732
 
 # BEGIN Motorola, nfjb73 23-jun-2010, IKMAIN-624

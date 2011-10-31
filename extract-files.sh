@@ -31,8 +31,8 @@ adb pull /system/bin/fmradioserver ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/tf_daemon ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/bin
-adb pull /system/bin/Hostapd ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/IttiamAacEncoder_Test ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/bin/Hostapd ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/akmd2 ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/ap_gain.bin ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/ap_gain_mmul.bin ../../../vendor/motorola/$DEVICE/proprietary
@@ -236,8 +236,10 @@ adb pull /system/lib/hw/acoustics.default.so ../../../vendor/motorola/$DEVICE/pr
 adb pull /system/lib/hw/alsa.default.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/alsa.omap4.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/gps.solana.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/hw/gralloc.default.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/gralloc.omap4.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/lights.solana.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/hw/overlay.omap4.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/hw/sensors.solana.so ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/lib
@@ -435,6 +437,7 @@ PRODUCT_COPY_FILES += \\
 # system/bin
 #vendor/motorola/__DEVICE__/proprietary/fmradioserver:/system/bin/fmradioserver \\
 #vendor/motorola/__DEVICE__/proprietary/IttiamAacEncoder_Test:/system/bin/IttiamAacEncoder_Test \\
+
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/tf_daemon:/system/bin/tf_daemon \\
 vendor/motorola/__DEVICE__/proprietary/Hostapd:/system/bin/Hostapd \\
@@ -578,6 +581,7 @@ vendor/motorola/__DEVICE__/proprietary/fw_wlan1281.bin:/system/etc/wifi/fw_wlan1
 vendor/motorola/__DEVICE__/proprietary/fw_wlan1281_AP.bin:/system/etc/wifi/fw_wlan1281_AP.bin \\
 vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hostapd.conf.templet \\
 
+# system/lib
 #vendor/motorola/__DEVICE__/proprietary/libFMRadio.so:/system/lib/libFMRadio.so \\
 #vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.AAC.encode.so:/system/lib/libOMX.ITTIAM.AAC.encode.so \\
 #vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.WMA.decode.so:/system/lib/libOMX.ITTIAM.WMA.decode.so \\
@@ -595,6 +599,8 @@ vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hos
 #vendor/motorola/__DEVICE__/proprietary/libfmradio_jni.so:/system/lib/libfmradio_jni.so \\
 #vendor/motorola/__DEVICE__/proprietary/libfmradioplayer.so:/system/lib/libfmradioplayer.so \\
 #vendor/motorola/__DEVICE__/proprietary/libhdr_interface.so:/system/lib/libhdr_interface.so \\
+
+# system/lib
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/libIMGegl.so:/system/lib/libIMGegl.so \\
 vendor/motorola/__DEVICE__/proprietary/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \\

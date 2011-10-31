@@ -7,7 +7,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/user.h>
+/*  #include <sys/user.h> */
 #include <stdio.h>
 #include <string.h>
 
