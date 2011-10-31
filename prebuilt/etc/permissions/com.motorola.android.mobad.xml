@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-    <library name="com.motorola.android.mobad"
-             file="/system/framework/com.motorola.android.mobad.jar"/>
-</permissions>
-

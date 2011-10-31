@@ -433,11 +433,11 @@ PRODUCT_COPY_FILES += \\
     vendor/motorola/__DEVICE__/proprietary/ProgramMenuSystem.apk:/system/app/ProgramMenuSystem.apk \\
 
 # system/bin
+#vendor/motorola/__DEVICE__/proprietary/fmradioserver:/system/bin/fmradioserver \\
+#vendor/motorola/__DEVICE__/proprietary/IttiamAacEncoder_Test:/system/bin/IttiamAacEncoder_Test \\
 PRODUCT_COPY_FILES += \\
-vendor/motorola/__DEVICE__/proprietary/fmradioserver:/system/bin/fmradioserver \\
 vendor/motorola/__DEVICE__/proprietary/tf_daemon:/system/bin/tf_daemon \\
 vendor/motorola/__DEVICE__/proprietary/Hostapd:/system/bin/Hostapd \\
-vendor/motorola/__DEVICE__/proprietary/IttiamAacEncoder_Test:/system/bin/IttiamAacEncoder_Test \\
 vendor/motorola/__DEVICE__/proprietary/akmd2:/system/bin/akmd2 \\
 vendor/motorola/__DEVICE__/proprietary/ap_gain.bin:/system/bin/ap_gain.bin \\
 vendor/motorola/__DEVICE__/proprietary/ap_gain_mmul.bin:/system/bin/ap_gain_mmul.bin \\
@@ -578,28 +578,31 @@ vendor/motorola/__DEVICE__/proprietary/fw_wlan1281.bin:/system/etc/wifi/fw_wlan1
 vendor/motorola/__DEVICE__/proprietary/fw_wlan1281_AP.bin:/system/etc/wifi/fw_wlan1281_AP.bin \\
 vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hostapd.conf.templet \\
 
+#vendor/motorola/__DEVICE__/proprietary/libFMRadio.so:/system/lib/libFMRadio.so \\
+#vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.AAC.encode.so:/system/lib/libOMX.ITTIAM.AAC.encode.so \\
+#vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.WMA.decode.so:/system/lib/libOMX.ITTIAM.WMA.decode.so \\
+#vendor/motorola/__DEVICE__/proprietary/libPhotoEditor.so:/system/lib/libPhotoEditor.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcaudiogetinfo.so:/system/lib/libarcaudiogetinfo.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcomx_evrcdec_sharedlibrary.so:/system/lib/libarcomx_evrcdec_sharedlibrary.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpdec_sharedlibrary.so:/system/lib/libarcomx_qcelpdec_sharedlibrary.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpenc_sharedlibrary.so:/system/lib/libarcomx_qcelpenc_sharedlibrary.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcomx_wmadec_sharedlibrary.so:/system/lib/libarcomx_wmadec_sharedlibrary.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcplatform.so:/system/lib/libarcplatform.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcsoft.so:/system/lib/libarcsoft.so \\
+#vendor/motorola/__DEVICE__/proprietary/libarcstagefright.so:/system/lib/libarcstagefright.so \\
+#vendor/motorola/__DEVICE__/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \\
+#vendor/motorola/__DEVICE__/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \\
+#vendor/motorola/__DEVICE__/proprietary/libfmradio_jni.so:/system/lib/libfmradio_jni.so \\
+#vendor/motorola/__DEVICE__/proprietary/libfmradioplayer.so:/system/lib/libfmradioplayer.so \\
+#vendor/motorola/__DEVICE__/proprietary/libhdr_interface.so:/system/lib/libhdr_interface.so \\
 PRODUCT_COPY_FILES += \\
-vendor/motorola/__DEVICE__/proprietary/libFMRadio.so:/system/lib/libFMRadio.so \\
 vendor/motorola/__DEVICE__/proprietary/libIMGegl.so:/system/lib/libIMGegl.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.AAC.encode.so:/system/lib/libOMX.ITTIAM.AAC.encode.so \\
-vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.WMA.decode.so:/system/lib/libOMX.ITTIAM.WMA.decode.so \\
 vendor/motorola/__DEVICE__/proprietary/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \\
-vendor/motorola/__DEVICE__/proprietary/libPhotoEditor.so:/system/lib/libPhotoEditor.so \\
 vendor/motorola/__DEVICE__/proprietary/libSwypeCore.so:/system/lib/libSwypeCore.so \\
 vendor/motorola/__DEVICE__/proprietary/libWifiAPHardware.so:/system/lib/libWifiAPHardware.so \\
 vendor/motorola/__DEVICE__/proprietary/libXmp_jni.so:/system/lib/libXmp_jni.so \\
 vendor/motorola/__DEVICE__/proprietary/libadkutils.so:/system/lib/libadkutils.so \\
 vendor/motorola/__DEVICE__/proprietary/libamcm.so:/system/lib/libamcm.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcaudiogetinfo.so:/system/lib/libarcaudiogetinfo.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcomx_evrcdec_sharedlibrary.so:/system/lib/libarcomx_evrcdec_sharedlibrary.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpdec_sharedlibrary.so:/system/lib/libarcomx_qcelpdec_sharedlibrary.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpenc_sharedlibrary.so:/system/lib/libarcomx_qcelpenc_sharedlibrary.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcomx_wmadec_sharedlibrary.so:/system/lib/libarcomx_wmadec_sharedlibrary.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcplatform.so:/system/lib/libarcplatform.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcsoft.so:/system/lib/libarcsoft.so \\
-vendor/motorola/__DEVICE__/proprietary/libarcstagefright.so:/system/lib/libarcstagefright.so \\
-vendor/motorola/__DEVICE__/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \\
-vendor/motorola/__DEVICE__/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \\
 vendor/motorola/__DEVICE__/proprietary/libbattd.so:/system/lib/libbattd.so \\
 vendor/motorola/__DEVICE__/proprietary/libbcbmsg.so:/system/lib/libbcbmsg.so \\
 vendor/motorola/__DEVICE__/proprietary/libcaps.so:/system/lib/libcaps.so \\
@@ -613,13 +616,10 @@ vendor/motorola/__DEVICE__/proprietary/libdmjavaplugin.so:/system/lib/libdmjavap
 vendor/motorola/__DEVICE__/proprietary/libdrm.so:/system/lib/libdrm.so \\
 vendor/motorola/__DEVICE__/proprietary/libexempi.so:/system/lib/libexempi.so \\
 vendor/motorola/__DEVICE__/proprietary/libextdisp.so:/system/lib/libextdisp.so \\
-vendor/motorola/__DEVICE__/proprietary/libfmradio_jni.so:/system/lib/libfmradio_jni.so \\
-vendor/motorola/__DEVICE__/proprietary/libfmradioplayer.so:/system/lib/libfmradioplayer.so \\
 vendor/motorola/__DEVICE__/proprietary/libgdx.so:/system/lib/libgdx.so \\
 vendor/motorola/__DEVICE__/proprietary/libglslcompiler.so:/system/lib/libglslcompiler.so \\
 vendor/motorola/__DEVICE__/proprietary/libhdcp.so:/system/lib/libhdcp.so \\
 vendor/motorola/__DEVICE__/proprietary/libhdmi.so:/system/lib/libhdmi.so \\
-vendor/motorola/__DEVICE__/proprietary/libhdr_interface.so:/system/lib/libhdr_interface.so \\
 vendor/motorola/__DEVICE__/proprietary/libhostapd_client.so:/system/lib/libhostapd_client.so \\
 vendor/motorola/__DEVICE__/proprietary/libimage_jni.so:/system/lib/libimage_jni.so \\
 vendor/motorola/__DEVICE__/proprietary/libipsec.so:/system/lib/libipsec.so \\

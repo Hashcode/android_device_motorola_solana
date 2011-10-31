@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-<!-- RW permissions to any DRM resources owned by group 'mot_drm'  -->
-     <library name="com.motorola.android.mediasync"
-            file="/system/framework/com.motorola.android.mediasync.jar"/>
-
-</permissions>

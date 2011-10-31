@@ -37,38 +37,18 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/permissions/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
     device/motorola/solana/prebuilt/etc/permissions/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
     device/motorola/solana/prebuilt/etc/permissions/com.android.location.provider.xml:/system/etc/permissions/com.android.location.provider.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.cequint.platform.xml:/system/etc/permissions/com.cequint.platform.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.camera.xml:/system/etc/permissions/com.motorola.android.camera.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.customization.xml:/system/etc/permissions/com.motorola.android.customization.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.datamanager_library.xml:/system/etc/permissions/com.motorola.android.datamanager_library.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.dlna_library.xml:/system/etc/permissions/com.motorola.android.dlna_library.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drm1config.xml:/system/etc/permissions/com.motorola.android.drm1config.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:/system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.iextdispservice.xml:/system/etc/permissions/com.motorola.android.iextdispservice.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.imirrorservice.xml:/system/etc/permissions/com.motorola.android.imirrorservice.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mediasyncconfig.xml:/system/etc/permissions/com.motorola.android.mediasyncconfig.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.mobad.xml:/system/etc/permissions/com.motorola.android.mobad.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml:/system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.storage_library.xml:/system/etc/permissions/com.motorola.android.storage_library.xml \
     device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:/system/etc/permissions/com.motorola.android.tcmd.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.android.widget.xml:/system/etc/permissions/com.motorola.android.widget.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.motorola.app.admin_library.xml:/system/etc/permissions/com.motorola.app.admin_library.xml \
     device/motorola/solana/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:/system/etc/permissions/com.motorola.atcmd_library.xml \
     device/motorola/solana/prebuilt/etc/permissions/com.motorola.device.xml:/system/etc/permissions/com.motorola.device.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.nbi.android.xml:/system/etc/permissions/com.nbi.android.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.scalado.android.photoeditor.xml:/system/etc/permissions/com.scalado.android.photoeditor.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.scalado.caps.xml:/system/etc/permissions/com.scalado.caps.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.softwareimaging.mot.xml:/system/etc/permissions/com.softwareimaging.mot.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.hux.xml:/system/etc/permissions/com.vzw.android.hux.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.smart.xml:/system/etc/permissions/com.vzw.android.smart.xml \
-    device/motorola/solana/prebuilt/etc/permissions/com.vzw.android.xml:/system/etc/permissions/com.vzw.android.xml \
     device/motorola/solana/prebuilt/etc/permissions/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
     device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
-    device/motorola/solana/prebuilt/etc/permissions/platform.xml:/system/etc/permissions/platform.xml \
+
+# Prebuilts Apps
+PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
@@ -100,7 +80,7 @@ PRODUCT_PACKAGES += \
     libthermal_manager \
     thermaldaemon \
 
-# Sound
+# Sound / Media
 PRODUCT_PACKAGES += \
     libaudio \
     lubaudiopolicy \
@@ -114,7 +94,6 @@ PRODUCT_PACKAGES += \
     libreference-cdma-sms \
 
 # OMX
-#   libhdr_interface.so \ requires vendor/arcsoft -- removed
 PRODUCT_PACKAGES += \
     OMXCore \
     libOMX_CoreOsal \
@@ -146,10 +125,11 @@ PRODUCT_PACKAGES += \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
+    libd2cmap \
     libipc \
     libipcutils \
     libnotify \
-    libd2cmap \
+    libomap_mm_library_jni \
     librcm \
     libsyslink_ipc_listener \
     libsysmgr \
@@ -182,8 +162,8 @@ PRODUCT_PACKAGES += \
     utilsApp.out \
 
 # Opencore
-PRODUCT_PACKAGES += \
-    libopencore_common \
+#PRODUCT_PACKAGES += \
+#    libopencore_common \
 
 # TI CameraHal
 PRODUCT_PACKAGES += \
@@ -245,17 +225,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libRS \
     librs_jni \
-    libomap_mm_library_jni \
     libSR_AudioIn \
     libicui18n \
     lubicuuc \
     libjni_latinime \
-    libmedia \
     libvorbisidec \
-
-# CM Packages
-PRODUCT_PACKAGES += \
-    Usb \
 
 # Tests -- Can remove later
 PRODUCT_PACKAGES += \
@@ -271,23 +245,7 @@ PRODUCT_PACKAGES += \
 # stuff for Bootmenu -- Can remove later
 PRODUCT_PACKAGES += \
     safestrapmenu \
-
-
-# Add motobox symlinks
-#MOTOBOX_TOOLS := getconfig masterclear ptf setconfig test
-#SYMLINKS := $(addprefix /system/bin/,$(MOTOBOX_TOOLS))
-#$(SYMLINKS): MOTOBOX_BINARY := motobox
-#$(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
-#	@echo "Symlink: $@ -> $(MOTOBOX_BINARY)"
-#	@mkdir -p $(dir $@)
-#	@rm -rf $@
-#	$(hide) ln -sf $(MOTOBOX_BINARY) $@
-#ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
-#
-# We need this so that the installed files could be picked up based on the
-# local module name
-#ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
-#    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+    2nd-init \
 
 
 FRAMEWORKS_BASE_SUBDIRS += \

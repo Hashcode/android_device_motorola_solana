@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-     <!--  Begin Motorola, e7432c, 2009/11/24, IKMAP-2519
-      OMADRMService and other application can call drm1 library-->
-     <library name="com.motorola.android.drm1"
-     file="/system/framework/com.motorola.android.drm1.jar"/>
-     <!-- End Motorola IKMAP-2519 -->
-</permissions>
-

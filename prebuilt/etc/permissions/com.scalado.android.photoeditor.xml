@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-    <library name="com.scalado.android.photoeditor"
-            file="/system/framework/com.scalado.android.photoeditor.jar"/>
-</permissions>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-  <library name="com.softwareimaging.mot" file="/system/framework/com.softwareimaging.mot.jar"/>
-</permissions>
-
-
