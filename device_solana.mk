@@ -44,8 +44,9 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
 
 # Prebuilts
+#    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
+
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
@@ -254,7 +255,8 @@ PRODUCT_PACKAGES += \
 # Misc Packages
 #    safestrapmenu \
 #    2nd-init \
-#PRODUCT_PACKAGES += \
+
+PRODUCT_PACKAGES += \
     Usb \
 
 
@@ -295,5 +297,3 @@ $(call inherit-product, build/target/product/full_base.mk)
 
 PRODUCT_NAME := full_solana
 PRODUCT_DEVICE := solana
-
-

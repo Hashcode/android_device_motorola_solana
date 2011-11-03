@@ -81,7 +81,7 @@ persist.mot.proximity.touch=1
 # End IKSHADOW-619
 
 # BEGIN Motorola, a22976, 25-Feb-2010, IKSHADOW-702, FID 31841
-# VZW Requirement Specifications: NEro.mot.phonemode.vzwglobalphoneTWORK BASED PLUS CODE DIALING
+# VZW Requirement Specifications: NETWORK BASED PLUS CODE DIALING
 # 0 disable
 # 1 enable
 ro.cdma.nbpcd=1
@@ -200,6 +200,8 @@ ro.additionalmounts=/mnt/emmc
 #special moto usb handling
 ro.usb.use_custom_service=1
 
+# use charge_counter for 1% battery increments
+ro.product.use_charge_counter=1
 
 #
 # ADDITIONAL_BUILD_PROPERTIES
