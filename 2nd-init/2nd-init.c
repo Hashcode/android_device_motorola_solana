@@ -132,10 +132,14 @@ int main(int argc, char** argv)
 	char * self_executable = argv[0];
 	int result = 0;
 
-	if (NULL != strstr(self_executable, "2nd-init")) {
+	if (0 != strcmp(self_executable, "2nd-init")) {
 		// no op
 		if (argc >= 2) {
-			return busybox_driver(argc - 1, argv + 1);
+			if (0 == strcmp(self_executable, "sbox"))
+				return busybox_driver(argc - 1, argv + 1); /* use style: sbox mount ___ */
+			} else {
+				return busybox_driver(argc, argv); { /* not sbox calling */
+			}
 		}
 		return 0;
 	}

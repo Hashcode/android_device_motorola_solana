@@ -43,12 +43,9 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/permissions/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
     device/motorola/solana/prebuilt/etc/permissions/jcifs-krb5-1.3.12.xml:/system/etc/permissions/jcifs-krb5-1.3.12.xml \
 
-# Prebuilts Apps
-PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
-
 # Prebuilts
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/app/Usb.apk:system/app/Usb.apk \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
@@ -63,14 +60,17 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
 
 # Audio sucks currently for Motorola.  They've customized alsa-sound and while I'm working it out, I'll use phone libs.  blech.
-#vendor/motorola/solana/proprietary/libasound.so:/system/lib/libasound.so \
-#PRODUCT_COPY_FILES += \
-#vendor/motorola/solana/proprietary/acoustics.default.so:/system/lib/hw/acoustics.default.so \
-#vendor/motorola/solana/proprietary/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
-#vendor/motorola/solana/proprietary/libaudio.so:/system/lib/libaudio.so \
-#vendor/motorola/solana/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \
-#vendor/motorola/solana/proprietary/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
-#vendor/motorola/solana/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
+#    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
+#    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
+
+PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
+    device/motorola/solana/prebuilt/audio/alsa.default.so:/system/lib/hw/alsa.default.so \
+    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
+    device/motorola/solana/prebuilt/audio/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
+    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
+    device/motorola/solana/prebuilt/audio/libmediaext.so:/system/lib/libmediaext.so \
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -78,10 +78,10 @@ PRODUCT_PACKAGES += \
     gralloc.default \
 
 # Audio HAL
-PRODUCT_PACKAGES += \
-    alsa.omap4 \
-    acoustics.default \
-    alsa.default \
+#PRODUCT_PACKAGES += \
+#    alsa.omap4 \
+#    acoustics.default \
+#    alsa.default \
 
 # Thermal Manager
 PRODUCT_PACKAGES += \
@@ -90,9 +90,10 @@ PRODUCT_PACKAGES += \
     thermaldaemon \
 
 # Sound / Media
+#    libaudio \
+#    libaudiopolicy \
+
 PRODUCT_PACKAGES += \
-    libaudio \
-    libaudiopolicy \
     libbundlewrapper \
     libreverbwrapper \
     libvisualizer \
@@ -251,10 +252,10 @@ PRODUCT_PACKAGES += \
     VideoEncTest \
     omx_tests \
 
-# stuff for Bootmenu -- Can remove later
-PRODUCT_PACKAGES += \
-    safestrapmenu \
-    2nd-init \
+# stuff for Safestrap Bootmenu
+#PRODUCT_PACKAGES += \
+#    safestrapmenu \
+#    2nd-init \
 
 
 FRAMEWORKS_BASE_SUBDIRS += \

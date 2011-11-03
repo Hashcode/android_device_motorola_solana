@@ -17,8 +17,8 @@ loglevel 3
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
     export DOWNLOAD_CACHE /cache/download
-    export EXTERNAL_STORAGE /mnt/emmc
-    export EXTERNAL_ALT_STORAGE /mnt/sdcard      # Feature 34534
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export EXTERNAL_ALT_STORAGE /mnt/emmc      # This was Moto specific so we mount this manually later in the boot cycle.
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export SD_EXT_DIRECTORY /sd-ext

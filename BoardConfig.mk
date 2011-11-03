@@ -74,6 +74,10 @@ BOARD_ALWAYS_INSECURE := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_MKE2FS := device/motorola/solana/releaseutils/mke2fs
 BOARD_NONSAFE_SYSTEM_DEVICE := /dev/block/mmcblk1p21
+BOARD_HAS_SDCARD_INTERNAL := true
+#BOARD_HAS_SDEXT := false
+#BOARD_HAS_WEBTOP := false
+
 #TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
 #TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 

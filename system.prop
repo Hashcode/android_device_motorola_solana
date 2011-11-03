@@ -194,6 +194,13 @@ ro.cdma.sms.latin_encode=true
 #Enable hdcp support
 ro.hdcp.support=2
 
+# Mount the internal SD card, too
+ro.additionalmounts=/mnt/emmc
+
+#special moto usb handling
+ro.usb.use_custom_service=1
+
+
 #
 # ADDITIONAL_BUILD_PROPERTIES
 #
