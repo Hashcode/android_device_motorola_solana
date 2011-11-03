@@ -18,7 +18,7 @@ loglevel 3
     export ANDROID_DATA /data
     export DOWNLOAD_CACHE /cache/download
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_ALT_STORAGE /mnt/emmc      # This was Moto specific so we mount this manually later in the boot cycle.
+    export EXTERNAL_ALT_STORAGE /mnt/emmc      # This was Moto specific so we mount this w/ ro.additionalmounts
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export SD_EXT_DIRECTORY /sd-ext
@@ -403,7 +403,7 @@ service debuggerd /system/bin/debuggerd
     class pre-zygote_services
 
 service ril-daemon /system/bin/rild
-    class pre-zygote_services
+    class post-zygote_services
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root

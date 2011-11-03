@@ -31,7 +31,6 @@ adb pull /system/bin/fmradioserver ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/tf_daemon ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/bin
-adb pull /system/bin/IttiamAacEncoder_Test ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/Hostapd ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/akmd2 ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/bin/ap_gain.bin ../../../vendor/motorola/$DEVICE/proprietary
@@ -162,49 +161,6 @@ adb pull /system/etc/omapcam/module2/cid1040_ov7739_sensor_config_dcc.bin ../../
 adb pull /system/etc/omapcam/R8_MVEN002_LD2_ND0_IR0_SH0_FL1_SVEN002_DCCID1039.cfg ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/etc/omapcam/SEN2.cfg ../../../vendor/motorola/$DEVICE/proprietary
 
-# /system/etc/permissions
-adb pull /system/etc/permissions/android.hardware.camera.front.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.camera.flash-autofocus.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.location.gps.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.sensor.accelerometer.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.sensor.light.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.sensor.proximity.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.telephony.cdma.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.telephony.gsm.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.touchscreen.multitouch.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.hardware.wifi.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/android.software.live_wallpaper.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.android.location.provider.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.cequint.platform.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.camera.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.customization.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.datamanager_library.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.dlna_library.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.drm1config.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.drmcommonconfig.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.iextdispservice.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.imirrorservice.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.mediasyncconfig.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.mobad.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.nativehdmiapis_v1.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.storage_library.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.tcmd.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.android.widget.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.app.admin_library.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.atcmd_library.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.motorola.device.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.nbi.android.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.scalado.android.photoeditor.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.scalado.caps.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.softwareimaging.mot.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.vzw.android.hux.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.vzw.android.smart.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/com.vzw.android.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/handheld_core_hardware.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/jcifs-krb5-1.3.12.xml ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/etc/permissions/platform.xml ../../../vendor/motorola/$DEVICE/proprietary
-
 # /system/etc/* (other dirs)
 adb pull /system/etc/ppp/peers/pppd-ril.options ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/etc/security/mancacerts.zip ../../../vendor/motorola/$DEVICE/proprietary
@@ -243,12 +199,8 @@ adb pull /system/lib/hw/overlay.omap4.so ../../../vendor/motorola/$DEVICE/propri
 adb pull /system/lib/hw/sensors.solana.so ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/lib
-adb pull /system/lib/libFMRadio.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libIMGegl.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.ITTIAM.AAC.encode.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libOMX.ITTIAM.WMA.decode.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libPVRScopeServices.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libPhotoEditor.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libRS.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libSR_AudioIn.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libSwypeCore.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -256,18 +208,6 @@ adb pull /system/lib/libWifiAPHardware.so ../../../vendor/motorola/$DEVICE/propr
 adb pull /system/lib/libXmp_jni.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libadkutils.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libamcm.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcaudiogetinfo.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcomx_evrcdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcomx_qcelpdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcomx_qcelpenc_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcomx_wmadec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcplatform.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcsoft.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libarcstagefright.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libaudio.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libaudio_ext.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libaudiopolicy.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libaudiopolicy_ext.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libbattd.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libbcbmsg.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libcaps.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -283,13 +223,10 @@ adb pull /system/lib/libexempi.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libextdisp.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libfm_stack.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libfmchr.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libfmradio_jni.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libfmradioplayer.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libgdx.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libglslcompiler.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libhdcp.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libhdmi.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libhdr_interface.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libhostapd_client.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libimage_jni.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libipsec.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -297,7 +234,6 @@ adb pull /system/lib/libjanus.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libjni_nwp.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libjni_pinyinime.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libkpilogger.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libmediaext.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libmetainfo.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libmirror.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libmirrorjni.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -321,26 +257,6 @@ adb pull /system/lib/libnativehelper.so ../../../vendor/motorola/$DEVICE/proprie
 adb pull /system/lib/libnbgm.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libnetutils.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libnmea.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_aacdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_amrdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_amrenc_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_arcomxcore_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_avcdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_m4vdec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_mp3dec_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomx_sharedlibrary.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libomxcameraadapter.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_author.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_common.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_download.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_downloadreg.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_mp4local.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_mp4localreg.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_net_support.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_player.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_rtsp.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencore_rtspreg.so ../../../vendor/motorola/$DEVICE/proprietary
-adb pull /system/lib/libopencorehw.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libpanorama.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libpanorama_jni.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libphotoflow.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -401,7 +317,6 @@ adb pull /system/usr/share/alsa/init/hda ../../../vendor/motorola/$DEVICE/propri
 adb pull /system/usr/share/alsa/init/help ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/share/alsa/init/info ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/usr/share/alsa/init/test ../../../vendor/motorola/$DEVICE/proprietary
-#adb pull /system/usr/share/alsa/cards/* ../../../vendor/motorola/$DEVICE/proprietary
 
 # /system/xbin
 adb pull /system/xbin/backup ../../../vendor/motorola/$DEVICE/proprietary
@@ -429,15 +344,12 @@ adb pull /system/xbin/ssmgrd ../../../vendor/motorola/$DEVICE/proprietary
 
 # system/app
 PRODUCT_COPY_FILES += \\
-    vendor/motorola/__DEVICE__/proprietary/ChargeOnlyMode.apk:/system/app/ChargeOnlyMode.apk \\
-    vendor/motorola/__DEVICE__/proprietary/PhoneConfig.apk:/system/app/PhoneConfig.apk \\
-    vendor/motorola/__DEVICE__/proprietary/ProgramMenu.apk:/system/app/ProgramMenu.apk \\
-    vendor/motorola/__DEVICE__/proprietary/ProgramMenuSystem.apk:/system/app/ProgramMenuSystem.apk \\
+vendor/motorola/__DEVICE__/proprietary/ChargeOnlyMode.apk:/system/app/ChargeOnlyMode.apk \\
+vendor/motorola/__DEVICE__/proprietary/PhoneConfig.apk:/system/app/PhoneConfig.apk \\
+vendor/motorola/__DEVICE__/proprietary/ProgramMenu.apk:/system/app/ProgramMenu.apk \\
+vendor/motorola/__DEVICE__/proprietary/ProgramMenuSystem.apk:/system/app/ProgramMenuSystem.apk \\
 
 # system/bin
-#vendor/motorola/__DEVICE__/proprietary/fmradioserver:/system/bin/fmradioserver \\
-#vendor/motorola/__DEVICE__/proprietary/IttiamAacEncoder_Test:/system/bin/IttiamAacEncoder_Test \\
-
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/tf_daemon:/system/bin/tf_daemon \\
 vendor/motorola/__DEVICE__/proprietary/Hostapd:/system/bin/Hostapd \\
@@ -582,25 +494,6 @@ vendor/motorola/__DEVICE__/proprietary/fw_wlan1281_AP.bin:/system/etc/wifi/fw_wl
 vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hostapd.conf.templet \\
 
 # system/lib
-#vendor/motorola/__DEVICE__/proprietary/libFMRadio.so:/system/lib/libFMRadio.so \\
-#vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.AAC.encode.so:/system/lib/libOMX.ITTIAM.AAC.encode.so \\
-#vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.WMA.decode.so:/system/lib/libOMX.ITTIAM.WMA.decode.so \\
-#vendor/motorola/__DEVICE__/proprietary/libPhotoEditor.so:/system/lib/libPhotoEditor.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcaudiogetinfo.so:/system/lib/libarcaudiogetinfo.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcomx_evrcdec_sharedlibrary.so:/system/lib/libarcomx_evrcdec_sharedlibrary.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpdec_sharedlibrary.so:/system/lib/libarcomx_qcelpdec_sharedlibrary.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcomx_qcelpenc_sharedlibrary.so:/system/lib/libarcomx_qcelpenc_sharedlibrary.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcomx_wmadec_sharedlibrary.so:/system/lib/libarcomx_wmadec_sharedlibrary.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcplatform.so:/system/lib/libarcplatform.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcsoft.so:/system/lib/libarcsoft.so \\
-#vendor/motorola/__DEVICE__/proprietary/libarcstagefright.so:/system/lib/libarcstagefright.so \\
-#vendor/motorola/__DEVICE__/proprietary/libaudio_ext.so:/system/lib/libaudio_ext.so \\
-#vendor/motorola/__DEVICE__/proprietary/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \\
-#vendor/motorola/__DEVICE__/proprietary/libfmradio_jni.so:/system/lib/libfmradio_jni.so \\
-#vendor/motorola/__DEVICE__/proprietary/libfmradioplayer.so:/system/lib/libfmradioplayer.so \\
-#vendor/motorola/__DEVICE__/proprietary/libhdr_interface.so:/system/lib/libhdr_interface.so \\
-
-# system/lib
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/libIMGegl.so:/system/lib/libIMGegl.so \\
 vendor/motorola/__DEVICE__/proprietary/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \\
@@ -633,7 +526,6 @@ vendor/motorola/__DEVICE__/proprietary/libjanus.so:/system/lib/libjanus.so \\
 vendor/motorola/__DEVICE__/proprietary/libjni_nwp.so:/system/lib/libjni_nwp.so \\
 vendor/motorola/__DEVICE__/proprietary/libjni_pinyinime.so:/system/lib/libjni_pinyinime.so \\
 vendor/motorola/__DEVICE__/proprietary/libkpilogger.so:/system/lib/libkpilogger.so \\
-vendor/motorola/__DEVICE__/proprietary/libmediaext.so:/system/lib/libmediaext.so \\
 vendor/motorola/__DEVICE__/proprietary/libmetainfo.so:/system/lib/libmetainfo.so \\
 vendor/motorola/__DEVICE__/proprietary/libmirror.so:/system/lib/libmirror.so \\
 vendor/motorola/__DEVICE__/proprietary/libmirrorjni.so:/system/lib/libmirrorjni.so \\

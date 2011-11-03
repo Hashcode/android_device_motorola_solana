@@ -59,15 +59,14 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
 
-# Audio sucks currently for Motorola.  They've customized alsa-sound and while I'm working it out, I'll use phone libs.  blech.
-#    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
-#    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
-
+# Audio sucks currently.  Moto customized alsa_sound and while I'm working it out, I'll use phone libs.  blech.
 PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
     device/motorola/solana/prebuilt/audio/alsa.default.so:/system/lib/hw/alsa.default.so \
     device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
     device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
+    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
     device/motorola/solana/prebuilt/audio/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
     device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
     device/motorola/solana/prebuilt/audio/libmediaext.so:/system/lib/libmediaext.so \
@@ -252,10 +251,11 @@ PRODUCT_PACKAGES += \
     VideoEncTest \
     omx_tests \
 
-# stuff for Safestrap Bootmenu
-#PRODUCT_PACKAGES += \
+# Misc Packages
 #    safestrapmenu \
 #    2nd-init \
+#PRODUCT_PACKAGES += \
+    Usb \
 
 
 FRAMEWORKS_BASE_SUBDIRS += \
