@@ -61,16 +61,16 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
 
 # Audio sucks currently.  Moto customized alsa_sound and while I'm working it out, I'll use phone libs.  blech.
-PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
-    device/motorola/solana/prebuilt/audio/alsa.default.so:/system/lib/hw/alsa.default.so \
-    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
-    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
-    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
-    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
-    device/motorola/solana/prebuilt/audio/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
-    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
-    device/motorola/solana/prebuilt/audio/libmediaext.so:/system/lib/libmediaext.so \
+#PRODUCT_COPY_FILES += \
+#    device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
+#    device/motorola/solana/prebuilt/audio/alsa.default.so:/system/lib/hw/alsa.default.so \
+#    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+#    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
+#    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
+#    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
+#    device/motorola/solana/prebuilt/audio/libaudiopolicy_ext.so:/system/lib/libaudiopolicy_ext.so \
+#    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
+#    device/motorola/solana/prebuilt/audio/libmediaext.so:/system/lib/libmediaext.so \
 
 # HW Libs
 PRODUCT_PACKAGES += \
@@ -78,10 +78,10 @@ PRODUCT_PACKAGES += \
     gralloc.default \
 
 # Audio HAL
-#PRODUCT_PACKAGES += \
-#    alsa.omap4 \
-#    acoustics.default \
-#    alsa.default \
+PRODUCT_PACKAGES += \
+    alsa.omap4 \
+    acoustics.default \
+    alsa.default \
 
 # Thermal Manager
 PRODUCT_PACKAGES += \
@@ -90,10 +90,9 @@ PRODUCT_PACKAGES += \
     thermaldaemon \
 
 # Sound / Media
-#    libaudio \
-#    libaudiopolicy \
-
 PRODUCT_PACKAGES += \
+    libaudio \
+    libaudiopolicy \
     libbundlewrapper \
     libreverbwrapper \
     libvisualizer \
@@ -170,10 +169,6 @@ PRODUCT_PACKAGES += \
     syslink_tilertest.out \
     syslink_trace_daemon.out \
     utilsApp.out \
-
-# Opencore
-#PRODUCT_PACKAGES += \
-#    libopencore_common \
 
 # TI CameraHal
 PRODUCT_PACKAGES += \
