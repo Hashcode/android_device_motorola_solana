@@ -200,6 +200,8 @@ adb pull /system/lib/hw/sensors.solana.so ../../../vendor/motorola/$DEVICE/propr
 
 # /system/lib
 adb pull /system/lib/libIMGegl.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libOMX.ITTIAM.AAC.encode.so ../../../vendor/motorola/$DEVICE/proprietary
+adb pull /system/lib/libOMX.ITTIAM.WMA.decode.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libPVRScopeServices.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libRS.so ../../../vendor/motorola/$DEVICE/proprietary
 adb pull /system/lib/libSR_AudioIn.so ../../../vendor/motorola/$DEVICE/proprietary
@@ -496,6 +498,8 @@ vendor/motorola/__DEVICE__/proprietary/hostapd.conf.templet:/system/etc/wifi/hos
 # system/lib
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/libIMGegl.so:/system/lib/libIMGegl.so \\
+vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.AAC.encode.so:/system/lib/libOMX.ITTIAM.AAC.encode.so \\
+vendor/motorola/__DEVICE__/proprietary/libOMX.ITTIAM.WMA.decode.so:/system/lib/libOMX.ITTIAM.WMA.decode.so \\
 vendor/motorola/__DEVICE__/proprietary/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \\
 vendor/motorola/__DEVICE__/proprietary/libSwypeCore.so:/system/lib/libSwypeCore.so \\
 vendor/motorola/__DEVICE__/proprietary/libWifiAPHardware.so:/system/lib/libWifiAPHardware.so \\
