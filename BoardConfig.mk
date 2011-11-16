@@ -17,7 +17,8 @@
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
 BOARD_USES_GENERIC_AUDIO := true
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
+
 
 # inherit from the proprietary version
 -include vendor/motorola/solana/BoardConfigVendor.mk
@@ -137,11 +138,6 @@ endif
 #BUILD_TI_FM_APPS := true
 #FM_CHR_DEV_ST := true
 
-# Use this define to set the FM radio stream to 8 instead of 10
-#HAS_FMSTREAM_ON8 := true
-#ifdef HAS_FMSTREAM_ON8
-#COMMON_GLOBAL_CFLAGS += -DHAS_FMSTREAM_ON8
-#endif
 
 # OTA Packaging
 TARGET_PROVIDES_RELEASETOOLS := true
@@ -150,11 +146,12 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools
 
 
 # Hijack
-#TARGET_NEEDS_MOTOROLA_HIJACK := true
+TARGET_NEEDS_MOTOROLA_HIJACK := true
 #BOARD_HIJACK_LOG_ENABLE := true
 
 
 # Misc.
+BOARD_USES_TI_CAMERA_HAL := true
 BOARD_USE_BATTERY_CHARGE_COUNTER := true
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_NEEDS_CUTILS_LOG := true

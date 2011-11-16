@@ -13,20 +13,14 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
-    device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc \
-    device/motorola/solana/root/ueventd.mapphone_cdma.rc:system/etc/rootfs/ueventd.mapphone_cdma.rc \
-    device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc
 
 # Hijack files
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/root/init:root/init \
-    device/motorola/solana/root/default.prop:root/default.prop \
-    device/motorola/solana/root/init.rc:root/init.rc \
-    device/motorola/solana/root/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
-    device/motorola/solana/root/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
-    device/motorola/solana/root/ueventd.rc:root/ueventd.rc \
-    device/motorola/solana/root/ueventd.mapphone_cdma.rc:root/ueventd.mapphone_cdma.rc \
-    device/motorola/solana/root/ueventd.mapphone_umts.rc:root/ueventd.mapphone_umts.rc
+    device/motorola/solana/root-hijack/init:root/init \
+    device/motorola/solana/root-hijack/default.prop:root/default.prop \
+    device/motorola/solana/root-hijack/init.rc:root/init.rc \
+    device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
+    device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
