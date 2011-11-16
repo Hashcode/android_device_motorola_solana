@@ -1,17 +1,29 @@
-# Sandbox Setup: ON  ** IF YOU ARE USING THIS AND DON'T KNOW WHAT THAT MEANS: BEWARE **
+#
+# Copyright (C) 2011 The Android Open-Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-
-# Camera
-USE_CAMERA_STUB := false
-BOARD_USES_TI_CAMERA_HAL := true
-
+# These two variables are set first, so they can be overridden
+# by BoardConfigVendor.mk
+BOARD_USES_GENERIC_AUDIO := true
+USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
 -include vendor/motorola/solana/BoardConfigVendor.mk
 
 
 # Processor
-TARGET_NO_BOOTLOADER := false
 TARGET_BOARD_PLATFORM := omap4
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -23,12 +35,13 @@ TARGET_ARCH_VARIANT_FPU := neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 NEEDS_ARM_ERRATA_754319_754320 := true
 TARGET_GLOBAL_CFLAGS += -DNEEDS_ARM_ERRATA_754319_754320
+TARGET_NO_BOOTLOADER := false
 
 
 # Kernel
 TARGET_PREBUILT_KERNEL := device/motorola/solana/kernel
 BOARD_KERNEL_CMDLINE := console=/dev/null rw mem=512M@0x80000000 vram=20M omapgpu.vram=0:4M,1:16M,2:16MT init=/init ip=off brdrev=P2B omap3_die_id androidboot.bootloader=0x0000 mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(userdata),p25(emstorage)
-BOARD_KERNEL_BASE := 0x10000000
+BOARD_KERNEL_BASE := 0x80000000
 BOARD_PAGE_SIZE := 0x4096
 
 
@@ -77,12 +90,12 @@ BOARD_NONSAFE_SYSTEM_DEVICE := /dev/block/mmcblk1p21
 BOARD_HAS_SDCARD_INTERNAL := true
 #BOARD_HAS_SDEXT := false
 #BOARD_HAS_WEBTOP := false
-#TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
-#TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
+TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /data/.recovery_mode; sync;"
+TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 
 
 # Sandbox Filesystem Settings
-BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p23
+BOARD_SYSTEM_DEVICE := /dev/block/system
 BOARD_SYSTEM_FILESYSTEM_OPTIONS := noatime,nodiratime
 BOARD_SYSTEM_FILESYSTEM := ext3
 
@@ -120,10 +133,15 @@ endif
 
 
 # Media / Radio
-BUILD_FM_RADIO := true
-BUILD_TI_FM_APPS := true
-FM_CHR_DEV_ST := true
+#BUILD_FM_RADIO := true
+#BUILD_TI_FM_APPS := true
+#FM_CHR_DEV_ST := true
 
+# Use this define to set the FM radio stream to 8 instead of 10
+#HAS_FMSTREAM_ON8 := true
+#ifdef HAS_FMSTREAM_ON8
+#COMMON_GLOBAL_CFLAGS += -DHAS_FMSTREAM_ON8
+#endif
 
 # OTA Packaging
 TARGET_PROVIDES_RELEASETOOLS := true
