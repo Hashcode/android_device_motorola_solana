@@ -359,7 +359,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
 #  CopyUtilityFiles(input_zip, output_zip)
 #  script.RunFormatAndTuneSystem()
   script.Mount("/system")
-  script.DeleteRecursive("/system")
+#  script.DeleteRecursive("/system")
   script.UnpackPackageDir("system", "/system")
 
   symlinks = CopySystemFiles(input_zip, output_zip)
