@@ -296,7 +296,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-#$(call inherit-product, vendor/ti/proprietary-open/graphics/omap4/system/Android.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 
