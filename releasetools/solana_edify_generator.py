@@ -237,11 +237,6 @@ class EdifyGenerator(object):
     cmd = "delete(" + ",\0".join(['"%s"' % (i,) for i in file_list]) + ");"
     self.script.append(self._WordWrap(cmd))
 
-  def DeleteRecursive(self, startdir):
-    """Delete recursively."""
-    cmd = 'delete_recursive("%s");'
-    self.script.append(self._WordWrap(cmd) % (startdir))
-
   def ApplyPatch(self, srcfile, tgtfile, tgtsize, tgtsha1, *patchpairs):
     """Apply binary patches (in *patchpairs) to the given srcfile to
     produce tgtfile (which may be "-" to indicate overwriting the

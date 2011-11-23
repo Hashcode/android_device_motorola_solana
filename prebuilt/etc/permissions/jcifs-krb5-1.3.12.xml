@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-    <library name="jcifs-krb5-1.3.12"
-        file="/system/framework/jcifs-krb5-1.3.12.jar"/>
-</permissions>
