@@ -108,11 +108,8 @@ loglevel 3
     chmod 0644 /dev/xt_qtaguid
 
 on fs
-    mount yaffs2 /dev/block/mmcblk1p23 /system
     mount ext3 /dev/block/mmcblk1p23 /system wait noatime nodiratime barrier=1
-    mount yaffs2 /dev/block/mmcblk1p24 /data nosuid nodev
     mount ext3 /dev/block/mmcblk1p24 /data nosuid nodev noatime nodiratime
-    mount yaffs2 /dev/block/mmcblk1p22 /cache nosuid nodev
     mount ext3 /dev/block/mmcblk1p22 /cache nosuid nodev noatime nodiratime
 
 on post-fs
@@ -270,8 +267,6 @@ on post-fs
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
 on boot
-    setprop sys.usb.config=adb
-    setprop service.adb.root=1
     setprop persist.service.adb.enable 1
 
 # basic network init
@@ -475,7 +470,7 @@ on property:ro.debuggable=1
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
-    class pre-zygote_services
+    class core
     disabled
 
 # adbd on at boot in emulator
@@ -493,6 +488,12 @@ on property:ro.kernel.qemu=1
     setprop ro.EMPTY_APP_MEM 8192
     start adbd
 
+on property:persist.service.adb.enable=1
+    start adbd
+
+on property:persist.service.adb.enable=0
+    stop adbd
+
 # This property trigger has added to imitiate the previous behavior of "adb root".
 # The adb gadget driver used to reset the USB bus when the adbd daemon exited,
 # and the host side adb relied on this behavior to force it to reconnect with the
@@ -505,7 +506,7 @@ on property:service.adb.root=1
     restart adbd
     write /sys/class/android_usb/android0/enable 1
 
-service servicemanager /system/bin/strace -ff -F -tt -s 200 -o /data/trace/servicemanager.pid /system/bin/servicemanager
+service servicemanager /system/bin/servicemanager
     class core
     user system
     group system
@@ -523,28 +524,28 @@ service vold /system/bin/vold
 #    socket tund stream 0660 vpn system
 #    ioprio be 2
 
-#service netd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/netd.pid /system/bin/netd
-#    class main
-#    socket netd stream 0660 root system
-#    socket dnsproxyd stream 0660 root inet
+service netd /system/bin/netd
+    class main
+    socket netd stream 0660 root system
+    socket dnsproxyd stream 0660 root inet
 
-service debuggerd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/debuggerd.pid /system/bin/debuggerd
+service debuggerd /system/bin/debuggerd
     class main
 
-#service ril-daemon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/rild.pid /system/bin/rild
-#    class main
+#service ril-daemon /system/bin/rild
+#    class late-start
 #    socket rild stream 660 root radio
 #    socket rild-debug stream 660 radio system
 #    user root
 #    group radio cache inet misc audio sdcard_rw log mot_secclkd mot_accy bluetooth
 
-service surfaceflinger /system/bin/strace -ff -F -tt -s 200 -o /data/trace/surfaceflinger.pid /system/bin/surfaceflinger
+service surfaceflinger /system/bin/surfaceflinger
     class main
     user system
     group graphics
     onrestart restart zygote
 
-service zygote /system/bin/strace -ff -F -tt -s 200 -o /data/trace/runtime.pid /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     class main
     socket zygote stream 666
     onrestart write /sys/android_power/request_state wake
@@ -552,12 +553,12 @@ service zygote /system/bin/strace -ff -F -tt -s 200 -o /data/trace/runtime.pid /
     onrestart restart media
     onrestart restart netd
 
-service drm /system/bin/strace -ff -F -tt -s 200 -o /data/trace/drm.pid /system/bin/drmserver
+service drm /system/bin/drmserver
     class main
     user drm
     group system inet drmrpc
 
-service media /system/bin/strace -ff -F -tt -s 200 -o /data/trace/media.pid /system/bin/mediaserver
+service media /system/bin/mediaserver
     class main
     user media
     group system audio camera graphics inet net_bt net_bt_admin net_raw mot_drm input mot_tpapi mot_secclkd mot_pwric mot_caif
@@ -570,13 +571,13 @@ service bootanim /system/bin/bootanimation
     disabled
     oneshot
 
-service dbus /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dbus.pid /system/bin/dbus-daemon --system --nofork
+service dbus /system/bin/dbus-daemon --system --nofork
     class main
     socket dbus stream 660 bluetooth bluetooth
     user bluetooth
     group bluetooth net_bt_admin
 
-service bluetoothd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/bluetoothd.pid /system/bin/bluetoothd -n
+service bluetoothd /system/bin/bluetoothd -n
     class main
     socket bluetooth stream 660 bluetooth bluetooth
     socket dbus_bluetooth stream 660 bluetooth bluetooth
@@ -626,7 +627,7 @@ service installd /system/bin/installd
 #     class pre-zygote_services
 #     oneshot
 
-service racoon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/racoon.pid /system/bin/racoon
+service racoon /system/bin/racoon
     class main
     socket racoon stream 600 system system
     # IKE uses UDP port 500. Racoon will setuid to vpn after binding the port.
@@ -634,7 +635,7 @@ service racoon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/racoon.pid /s
     disabled
     oneshot
 
-service mtpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mtpd.pid /system/bin/mtpd
+service mtpd /system/bin/mtpd
     class main
     socket mtpd stream 600 system system
     user vpn
@@ -642,19 +643,19 @@ service mtpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/mtpd.pid /syste
     disabled
     oneshot
 
-service keystore /system/bin/strace -ff -F -tt -s 200 -o /data/trace/keystore.pid /system/bin/keystore /data/misc/keystore
+service keystore /system/bin/keystore /data/misc/keystore
     class main
     user keystore
     group keystore
     socket keystore stream 666
 
-service dumpstate /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dumpstate.pid /system/bin/dumpstate -s
+service dumpstate /system/bin/dumpstate -s
     class main
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
 
-service dnsmasq /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dnsmasq.pid /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
+service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
     class post-zygote_services
     group wifi
     disabled

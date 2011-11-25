@@ -12,7 +12,6 @@ on post-fs
 
 # prepare generic keypad name
     exec /init_prep_keypad.sh
-    mount yaffs2 /dev/block/mmcblk1p23 /system ro remount
     mount ext3 /dev/block/mmcblk1p23 ro noatime nodiratime remount
     mount rootfs rootfs / rw remount
 
@@ -453,7 +452,7 @@ on boot
     write /sys/devices/platform/omap_wdt/enabled on
 
 # Start services
-    exec /system/bin/mot_boot_mode
+#    exec /system/bin/mot_boot_mode
 
 # Set core max size (2G)
     setrlimit 4 2147483648 2147483648
@@ -497,18 +496,18 @@ on property:sys.chargeonly.mode=1
 
 # Power up to normal
 on property:tcmd.suspend=0
-    class_start pre-zygote_services
-    class_start zygote_services
+    class_start core
+    class_start main
     class_start late_start
 
 # Power up to suspend
 on property:tcmd.suspend=1
-    class_start pre-zygote_services
+    class_start core
     class_start late_start
 
 # Normal to suspend
 on property:tcmd.suspend=2
-    class_stop zygote_services
+    class_stop main
 
 #start console for userdebug and eng builds
 on property:ro.debuggable=1
@@ -553,7 +552,7 @@ on property:sys.shutdown=1
 # ro.sys.atvc_allow_all_adb
 
 #service atvc /system/bin/dbvc_atvc_property_set
-#    class pre-zygote_services
+#    class core
 #    user system
 #    group system
 #    oneshot
@@ -561,21 +560,21 @@ on property:sys.shutdown=1
 #service watchdogd /system/bin/watchdogd
 
 service telnet /system/bin/telnetd
-    class pre-zygote_services
+    class core
     oneshot
 
-#service usbd /system/bin/usbd
-#    class pre-zygote_services
+service usbd /system/bin/usbd
+    class core
 
-service battd /system/bin/battd
-    class pre-zygote_services
-    socket battdsock stream 0660 mot_accy mot_accy
-    user root
-    group mot_accy mot_pwric
-    oneshot
+#service battd /system/bin/battd
+#    class core
+#    socket battdsock stream 0660 mot_accy mot_accy
+#    user root
+#    group mot_accy mot_pwric
+#    oneshot
 
 #service catcommands /system/bin/catcommands
-#    class pre-zygote_services
+#    class core
 #    group radio
 
 #service whisperd /system/bin/whisperd /dev/ttyO1
@@ -585,13 +584,13 @@ service battd /system/bin/battd
 #    oneshot
 
 #service msp430 /system/bin/msp430 boot
-#    class pre-zygote_services
+#    class core
 #    user compass
 #    group compass misc input
 #    oneshot
 
 #service uim /system/bin/uim-sysfs
-#    class pre-zygote_services
+#    class core
 #    user root
 #    group media bluetooth
 #    oneshot
@@ -601,7 +600,7 @@ service battd /system/bin/battd
 #    disabled
 #    oneshot
 
-service hciattach /system/bin/strace -ff -F -tt -s 200 -o /data/trace/hciattach.pid /system/bin/hciattach -l
+service hciattach /system/bin/hciattach -l
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -640,7 +639,7 @@ service del_panu /system/bin/sdptool remove PANU
 #    disabled
     oneshot
 
-service btdhcpd /system/bin/strace -ff -F -tt -s 200 -o /data/trace/dnsmasq-btpan.pid /system/bin/dnsmasq -C /system/etc/btpan.conf
+service btdhcpd /system/bin/dnsmasq -C /system/etc/btpan.conf
     user root
     disabled
     oneshot
@@ -696,7 +695,7 @@ on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
 
 # Ecompass daemon
-service akmd2 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/akmd2.pid /system/bin/akmd2
+service akmd2 /system/bin/akmd2
     class main
     user compass
     group compass misc input
@@ -756,7 +755,7 @@ service akmd2 /system/bin/strace -ff -F -tt -s 200 -o /data/trace/akmd2.pid /sys
 #    group media graphics
 #    oneshot
 
-service pvrsrv /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pvrsrv.pid /system/bin/pvrsrvinit
+service pvrsrv /system/bin/pvrsrvinit
     class core
     user root
     oneshot
@@ -775,7 +774,7 @@ service pvrsrv /system/bin/strace -ff -F -tt -s 200 -o /data/trace/pvrsrv.pid /s
 #    oneshot
 
 #service smc /system/bin/startup_smc.sh
-#    class pre-zygote_services
+#    class core
 #    user mot_tpapi
 #    group mot_tpapi
 #    disabled
@@ -863,7 +862,7 @@ service vpnclientpm /system/bin/vpnclientpm
 #    oneshot
 
 # start syslink daemon
-service syslinkdaemon /system/bin/strace -ff -F -tt -s 200 -o /data/trace/syslink.pid /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
+service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
     class core
     user media
     group video

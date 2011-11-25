@@ -353,7 +353,6 @@ adb pull /system/xbin/ssmgrd ../../../vendor/motorola/$DEVICE/proprietary
 #vendor/motorola/__DEVICE__/proprietary/tstmetainfo:/system/bin/tstmetainfo \\
 #vendor/motorola/__DEVICE__/proprietary/tty2ttyd:/system/bin/tty2ttyd \\
 #vendor/motorola/__DEVICE__/proprietary/tund:/system/bin/tund \\
-#vendor/motorola/__DEVICE__/proprietary/usbd:/system/bin/usbd \\
 #vendor/motorola/__DEVICE__/proprietary/vold:/system/bin/vold \\
 #vendor/motorola/__DEVICE__/proprietary/vpnclientpm:/system/bin/vpnclientpm \\
 #vendor/motorola/__DEVICE__/proprietary/whisperd:/system/bin/whisperd \\
@@ -362,6 +361,7 @@ adb pull /system/xbin/ssmgrd ../../../vendor/motorola/$DEVICE/proprietary
 PRODUCT_COPY_FILES += \\
 vendor/motorola/__DEVICE__/proprietary/akmd2:/system/bin/akmd2 \\
 vendor/motorola/__DEVICE__/proprietary/battd:/system/bin/battd \\
+vendor/motorola/__DEVICE__/proprietary/usbd:/system/bin/usbd \\
 
 #vendor/motorola/__DEVICE__/proprietary/backup_targets.csv:/system/etc/backup_targets.csv \\
 #vendor/motorola/__DEVICE__/proprietary/btpan.conf:/system/etc/btpan.conf \\

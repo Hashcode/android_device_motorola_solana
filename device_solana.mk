@@ -51,13 +51,17 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
-    device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm.bin:system/usr/keychars/omap-keypad.kcm.bin \
+    device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm:system/usr/keychars/omap-keypad.kcm \
+    device/motorola/solana/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/motorola/solana/prebuilt/usr/keylayout/cpcap-key.kl:system/usr/keylayout/cpcap-key.kl \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
+    device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
     device/motorola/solana/prebuilt/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
     device/motorola/solana/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip \
 
 # Graphics
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/etc/egl.cfg:system/etc/egl.cfg \
     device/motorola/solana/prebuilt/imgtec/pvrsrvinit:system/bin/pvrsrvinit \
     device/motorola/solana/prebuilt/imgtec/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
     device/motorola/solana/prebuilt/imgtec/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
@@ -81,19 +85,19 @@ PRODUCT_COPY_FILES += \
 #    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
 
 # HW Libs
-# Currently don't use hwacceleration
 PRODUCT_PACKAGES += \
-    gralloc.omap4 \
     hwcomposer.default \
 
-#    gralloc.default \
+# Lights
+#PRODUCT_PACKAGES += \
+#    lights.solana \
+
+# Sensors
+#PRODUCT_PACKAGES += \
+#    sensors.solana \
 
 # Audio HAL
 #    alsa.omap4 \
-
-#PRODUCT_PACKAGES += \
-#    acoustics.default \
-#    alsa.default \
 
 # Thermal Manager
 #PRODUCT_PACKAGES += \
@@ -223,14 +227,6 @@ PRODUCT_PACKAGES += \
 #    tiap_cu \
 #    hostap \
 #    hostapd.conf \
-
-# Lights
-#PRODUCT_PACKAGES += \
-#    lights.solana \
-
-# Sensors
-#PRODUCT_PACKAGES += \
-#    sensors.solana \
 
 # Release utilities
 #PRODUCT_PACKAGES += \

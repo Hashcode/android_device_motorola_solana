@@ -38,17 +38,17 @@ BOARD_PAGE_SIZE := 0x4096
 # Connectivity - Wi-Fi
 #BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 #BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
-#WPA_SUPPLICANT_VERSION      := VER_0_6_X
-#HOSTAPD_VERSION             := VER_0_6_X
-#BOARD_WLAN_DEVICE           := wl1283
-#BOARD_SOFTAP_DEVICE         := wl1283
-##BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
-#WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
-#WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
-#WIFI_DRIVER_MODULE_ARG      := ""
-#WIFI_FIRMWARE_LOADER        := "wlan_loader"
-#WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1283.bin"
-#WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
+HOSTAPD_VERSION             := VER_0_6_X
+BOARD_WLAN_DEVICE           := wl1283
+BOARD_SOFTAP_DEVICE         := wl1283
+#BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
+WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
+WIFI_DRIVER_MODULE_ARG      := ""
+WIFI_FIRMWARE_LOADER        := "wlan_loader"
+WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1283.bin"
+WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
 
 
 # Audio
@@ -124,11 +124,6 @@ BUILD_FM_RADIO := true
 BUILD_TI_FM_APPS := true
 FM_CHR_DEV_ST := true
 
-# Use this define to set the FM radio stream to 8 instead of 10
-HAS_FMSTREAM_ON8 := true
-ifdef HAS_FMSTREAM_ON8
-COMMON_GLOBAL_CFLAGS += -DHAS_FMSTREAM_ON8
-endif
 
 # OTA Packaging
 TARGET_PROVIDES_RELEASETOOLS := true
@@ -145,6 +140,7 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools
 BOARD_USE_BATTERY_CHARGE_COUNTER := true
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_NEEDS_CUTILS_LOG := true
+BOARD_USES_SECURE_SERVICES := true
 
 solana_HARDWARE := true
 BOARD_GLOBAL_CFLAGS += -Dsolana_HARDWARE
