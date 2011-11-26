@@ -15,7 +15,8 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
     device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc \
     device/motorola/solana/root/ueventd.mapphone_cdma.rc:system/etc/rootfs/ueventd.mapphone_cdma.rc \
-    device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc
+    device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc \
+    device/motorola/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
@@ -51,17 +52,17 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+    device/motorola/solana/prebuilt/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
     device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm:system/usr/keychars/omap-keypad.kcm \
     device/motorola/solana/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     device/motorola/solana/prebuilt/usr/keylayout/cpcap-key.kl:system/usr/keylayout/cpcap-key.kl \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
     device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
-    device/motorola/solana/prebuilt/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
+    device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
     device/motorola/solana/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip \
 
 # Graphics
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/etc/egl.cfg:system/etc/egl.cfg \
     device/motorola/solana/prebuilt/imgtec/pvrsrvinit:system/bin/pvrsrvinit \
     device/motorola/solana/prebuilt/imgtec/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
     device/motorola/solana/prebuilt/imgtec/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
@@ -96,15 +97,6 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #    sensors.solana \
 
-# Audio HAL
-#    alsa.omap4 \
-
-# Thermal Manager
-#PRODUCT_PACKAGES += \
-#    libconfig \
-#    libthermal_manager \
-#    thermaldaemon \
-
 # Sound / Media
 #    libaudio \
 
@@ -118,36 +110,6 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #    libaudiomodemgeneric \
 #    libreference-cdma-sms \
-
-# OMX
-#PRODUCT_PACKAGES += \
-#    OMXCore \
-#    libOMX_CoreOsal \
-#    libOMX_Core \
-#    libomx_rpc \
-#    libomx_proxy_common \
-#    libOMX.TI.DUCATI1.VIDEO.H264D \
-#    libOMX.TI.DUCATI1.VIDEO.MPEG4D \
-#    libOMX.TI.DUCATI1.VIDEO.VP6D \
-#    libOMX.TI.DUCATI1.VIDEO.VP7D \
-#    libOMX.TI.DUCATI1.VIDEO.H264E \
-#    libOMX.TI.DUCATI1.VIDEO.MPEG4E \
-#    libOMX.TI.DUCATI1.IMAGE.JPEGD \
-#    libOMX.TI.DUCATI1.VIDEO.CAMERA \
-#    libOMX.TI.DUCATI1.MISC.SAMPLE \
-#    libOMX.TI.DUCATI1.VIDEO.DECODER \
-#    libOMX_ResourceManagerProxy \
-#    libVendor_ti_omx \
-#    libVendor_ti_omx_config_parser \
-#    libstagefrighthw \
-#    libLCML \
-#    libOMX.TI.Video.Decoder \
-#    libOMX.TI.Video.encoder \
-
-# OMX Binaries
-#PRODUCT_PACKAGES += \
-#    OMXPolicyManager \
-#    OMXResourceManager \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
@@ -187,31 +149,6 @@ PRODUCT_PACKAGES += \
 #    libsyslink_ipc_listener \
 #    libomap_mm_library_jni \
 
-# TI CameraHal
-#PRODUCT_PACKAGES += \
-#    libtiutils \
-#    libcamera \
-#    libfakecameraadapter \
-#    libomxcameraadapter \
-
-#libskiahw-omap4
-#PRODUCT_PACKAGES += \
-#    libskiahwdec \
-#    SkLibTiJpeg_Test \
-
-# Overlay
-#PRODUCT_PACKAGES += \
-#    overlay.omap4 \
-
-# FM Radio
-#PRODUCT_PACKAGES += \
-#    libfmchr \
-#    libfm_stack \
-#    libmcphal \
-
-# Framework
-#PRODUCT_PACKAGES += \
-
 # Wifi
 #PRODUCT_PACKAGES += \
 #    libtiOsLib \
@@ -234,16 +171,6 @@ PRODUCT_PACKAGES += \
 #    solana_releaseutils-finalize_release \
 #    solana_releaseutils-mke2fs \
 #    solana_releaseutils-tune2fs
-
-# Libs
-#PRODUCT_PACKAGES += \
-#    libRS \
-#    librs_jni \
-#    libSR_AudioIn \
-#    libicui18n \
-#    lubicuuc \
-#    libjni_latinime \
-#    libvorbisidec \
 
 # Tests -- Can remove later
 PRODUCT_PACKAGES += \

@@ -696,7 +696,7 @@ on property:tcmd.start_tcmdhelp=1
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
-    class main
+    class core
     user compass
     group compass misc input
 
@@ -747,12 +747,6 @@ service akmd2 /system/bin/akmd2
 #service dhcpcd_usbeth0 /system/bin/dhcpcd
 #    class late_start
 #    disabled
-#    oneshot
-
-#service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
-#    class media_early_init
-#    user media
-#    group media graphics
 #    oneshot
 
 service pvrsrv /system/bin/pvrsrvinit
