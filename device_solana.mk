@@ -48,7 +48,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
     device/motorola/solana/prebuilt/etc/gps.conf:system/etc/gps.conf \
     device/motorola/solana/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/motorola/solana/prebuilt/etc/powervr.ini:system/etc/powervr.ini \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
