@@ -48,6 +48,8 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/bin/hijack:system/bin/hijack \
+    device/motorola/solana/prebuilt/bin/hijack.log_dump:system/bin/hijack.log_dump \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
@@ -68,19 +70,19 @@ PRODUCT_COPY_FILES += \
 
 # Graphics
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/imgtec-razr/pvrsrvinit:system/bin/pvrsrvinit \
-    device/motorola/solana/prebuilt/imgtec-razr/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libglslcompiler.so:system/lib/libglslcompiler.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libIMGegl.so:system/lib/libIMGegl.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libpvr2d.so:system/lib/libpvr2d.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libsrv_init.so:system/lib/libsrv_init.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libsrv_um.so:system/lib/libsrv_um.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libusc.so:system/lib/libusc.so \
-    device/motorola/solana/prebuilt/imgtec-razr/libdrm.so:system/lib/libdrm.so \
+    device/motorola/solana/prebuilt/imgtec/pvrsrvinit:system/bin/pvrsrvinit \
+    device/motorola/solana/prebuilt/imgtec/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec/libglslcompiler.so:system/lib/libglslcompiler.so \
+    device/motorola/solana/prebuilt/imgtec/libIMGegl.so:system/lib/libIMGegl.so \
+    device/motorola/solana/prebuilt/imgtec/libpvr2d.so:system/lib/libpvr2d.so \
+    device/motorola/solana/prebuilt/imgtec/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
+    device/motorola/solana/prebuilt/imgtec/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
+    device/motorola/solana/prebuilt/imgtec/libsrv_init.so:system/lib/libsrv_init.so \
+    device/motorola/solana/prebuilt/imgtec/libsrv_um.so:system/lib/libsrv_um.so \
+    device/motorola/solana/prebuilt/imgtec/libusc.so:system/lib/libusc.so \
+    device/motorola/solana/prebuilt/imgtec/libdrm.so:system/lib/libdrm.so \
 
 # Hardware HALs
 PRODUCT_COPY_FILES += \
@@ -198,7 +200,8 @@ FRAMEWORKS_BASE_SUBDIRS += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # high-density artwork where available
-PRODUCT_LOCALES += hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+
 # still need to set english for audio init
 PRODUCT_LOCALES += en_US
 
