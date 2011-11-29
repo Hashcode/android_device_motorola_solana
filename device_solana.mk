@@ -13,16 +13,18 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
+    device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc \
     device/motorola/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
 
 # Hijack files
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/root-hijack/init:root/init \
-    device/motorola/solana/root-hijack/default.prop:root/default.prop \
+    device/motorola/solana/root/init:root/init \
+    device/motorola/solana/root/default.prop:root/default.prop \
     device/motorola/solana/root-hijack/init.rc:root/init.rc \
     device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
-    device/motorola/solana/root-hijack/sbin/adbd:root/sbin/adbd \
+    device/motorola/solana/root/ueventd.rc:root/ueventd.rc \
+    device/motorola/solana/root/sbin/adbd:root/sbin/adbd \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
@@ -190,6 +192,7 @@ PRODUCT_PACKAGES += \
 #    VideoEncTest \
 
 PRODUCT_PACKAGES += \
+    Camera \
     Usb \
 
 
