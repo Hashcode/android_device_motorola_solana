@@ -496,18 +496,18 @@ on property:sys.chargeonly.mode=1
 
 # Power up to normal
 on property:tcmd.suspend=0
-    class_start pre-zygote_services
-    class_start zygote_services
+    class_start core
+    class_start main
     class_start late_start
 
 # Power up to suspend
 on property:tcmd.suspend=1
-    class_start pre-zygote_services
+    class_start core
     class_start late_start
 
 # Normal to suspend
 on property:tcmd.suspend=2
-    class_stop zygote_services
+    class_stop main
 
 #start console for userdebug and eng builds
 on property:ro.debuggable=1
@@ -552,7 +552,7 @@ on property:sys.shutdown=1
 # ro.sys.atvc_allow_all_adb
 
 #service atvc /system/bin/dbvc_atvc_property_set
-#    class pre-zygote_services
+#    class core
 #    user system
 #    group system
 #    oneshot
@@ -560,21 +560,21 @@ on property:sys.shutdown=1
 #service watchdogd /system/bin/watchdogd
 
 service telnet /system/bin/telnetd
-    class pre-zygote_services
+    class core
     oneshot
 
-#service usbd /system/bin/usbd
-#    class pre-zygote_services
+service usbd /system/bin/usbd
+    class core
 
 service battd /system/bin/battd
-    class pre-zygote_services
+    class core
     socket battdsock stream 0660 mot_accy mot_accy
     user root
     group mot_accy mot_pwric
     oneshot
 
 #service catcommands /system/bin/catcommands
-#    class pre-zygote_services
+#    class core
 #    group radio
 
 #service whisperd /system/bin/whisperd /dev/ttyO1
@@ -584,13 +584,13 @@ service battd /system/bin/battd
 #    oneshot
 
 #service msp430 /system/bin/msp430 boot
-#    class pre-zygote_services
+#    class core
 #    user compass
 #    group compass misc input
 #    oneshot
 
 #service uim /system/bin/uim-sysfs
-#    class pre-zygote_services
+#    class core
 #    user root
 #    group media bluetooth
 #    oneshot
@@ -696,7 +696,7 @@ on property:tcmd.start_tcmdhelp=1
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
-    class main
+    class core
     user compass
     group compass misc input
 
@@ -749,12 +749,6 @@ service akmd2 /system/bin/akmd2
 #    disabled
 #    oneshot
 
-#service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
-#    class media_early_init
-#    user media
-#    group media graphics
-#    oneshot
-
 service pvrsrv /system/bin/pvrsrvinit
     class core
     user root
@@ -774,7 +768,7 @@ service pvrsrv /system/bin/pvrsrvinit
 #    oneshot
 
 #service smc /system/bin/startup_smc.sh
-#    class pre-zygote_services
+#    class core
 #    user mot_tpapi
 #    group mot_tpapi
 #    disabled

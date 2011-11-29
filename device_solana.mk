@@ -13,10 +13,16 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
-    device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc \
-    device/motorola/solana/root/ueventd.mapphone_cdma.rc:system/etc/rootfs/ueventd.mapphone_cdma.rc \
-    device/motorola/solana/root/ueventd.mapphone_umts.rc:system/etc/rootfs/ueventd.mapphone_umts.rc \
     device/motorola/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
+
+# Hijack files
+PRODUCT_COPY_FILES += \
+    device/motorola/solana/root-hijack/init:root/init \
+    device/motorola/solana/root-hijack/default.prop:root/default.prop \
+    device/motorola/solana/root-hijack/init.rc:root/init.rc \
+    device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
+    device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
+    device/motorola/solana/root-hijack/sbin/adbd:root/sbin/adbd \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
@@ -58,24 +64,27 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
     device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
     device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
-    device/motorola/solana/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip \
+#    device/motorola/solana/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip \
 
 # Graphics
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/imgtec/pvrsrvinit:system/bin/pvrsrvinit \
-    device/motorola/solana/prebuilt/imgtec/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-    device/motorola/solana/prebuilt/imgtec/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-    device/motorola/solana/prebuilt/imgtec/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec-razr/pvrsrvinit:system/bin/pvrsrvinit \
+    device/motorola/solana/prebuilt/imgtec-razr/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libglslcompiler.so:system/lib/libglslcompiler.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libIMGegl.so:system/lib/libIMGegl.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libpvr2d.so:system/lib/libpvr2d.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libsrv_init.so:system/lib/libsrv_init.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libsrv_um.so:system/lib/libsrv_um.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libusc.so:system/lib/libusc.so \
+    device/motorola/solana/prebuilt/imgtec-razr/libdrm.so:system/lib/libdrm.so \
+
+# Hardware HALs
+PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-    device/motorola/solana/prebuilt/imgtec/libglslcompiler.so:system/lib/libglslcompiler.so \
-    device/motorola/solana/prebuilt/imgtec/libIMGegl.so:system/lib/libIMGegl.so \
-    device/motorola/solana/prebuilt/imgtec/libpvr2d.so:system/lib/libpvr2d.so \
-    device/motorola/solana/prebuilt/imgtec/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-    device/motorola/solana/prebuilt/imgtec/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-    device/motorola/solana/prebuilt/imgtec/libsrv_init.so:system/lib/libsrv_init.so \
-    device/motorola/solana/prebuilt/imgtec/libsrv_um.so:system/lib/libsrv_um.so \
-    device/motorola/solana/prebuilt/imgtec/libusc.so:system/lib/libusc.so \
-    device/motorola/solana/prebuilt/imgtec/libdrm.so:system/lib/libdrm.so \
 
 # Audio sucks currently.  Moto customized alsa_sound and while I'm working it out, I'll use phone libs.  blech.
 #PRODUCT_COPY_FILES += \
@@ -220,6 +229,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
+$(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)
 
 # stuff common to all Motorola phones -- disabled for Sandbox
 #$(call inherit-product, device/motorola/common/common_hijack.mk)
