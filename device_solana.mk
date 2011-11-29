@@ -27,7 +27,7 @@ PRODUCT_COPY_FILES += \
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
 # Device overlay
-#    DEVICE_PACKAGE_OVERLAYS += device/motorola/solana/overlay
+    DEVICE_PACKAGE_OVERLAYS += device/motorola/solana/overlay
 
 # Permissions files
 PRODUCT_COPY_FILES += \
@@ -92,10 +92,6 @@ PRODUCT_COPY_FILES += \
 #    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
 #    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
 #    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
-
-# HW Libs
-PRODUCT_PACKAGES += \
-    hwcomposer.default \
 
 # Lights
 #PRODUCT_PACKAGES += \
@@ -174,11 +170,11 @@ PRODUCT_PACKAGES += \
 #    hostapd.conf \
 
 # Release utilities
-#PRODUCT_PACKAGES += \
-#    solana_releaseutils-check_kernel \
-#    solana_releaseutils-finalize_release \
-#    solana_releaseutils-mke2fs \
-#    solana_releaseutils-tune2fs
+PRODUCT_PACKAGES += \
+    solana_releaseutils-check_kernel \
+    solana_releaseutils-finalize_release \
+    solana_releaseutils-mke2fs \
+    solana_releaseutils-tune2fs
 
 # Tests -- Can remove later
 PRODUCT_PACKAGES += \
@@ -191,12 +187,8 @@ PRODUCT_PACKAGES += \
 #    camera_test \
 #    VideoEncTest \
 
-# Misc Packages
-#    safestrapmenu \
-#    2nd-init \
-
-#PRODUCT_PACKAGES += \
-#    Usb \
+PRODUCT_PACKAGES += \
+    Usb \
 
 
 FRAMEWORKS_BASE_SUBDIRS += \
@@ -208,7 +200,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # high-density artwork where available
 PRODUCT_LOCALES += hdpi
 # still need to set english for audio init
-#PRODUCT_LOCALES += en_US
+PRODUCT_LOCALES += en_US
 
 
 # copy all kernel modules under the "modules" directory to system/lib/modules

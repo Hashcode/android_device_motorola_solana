@@ -488,12 +488,6 @@ on property:ro.kernel.qemu=1
     setprop ro.EMPTY_APP_MEM 8192
     start adbd
 
-on property:persist.service.adb.enable=1
-    start adbd
-
-on property:persist.service.adb.enable=0
-    stop adbd
-
 # This property trigger has added to imitiate the previous behavior of "adb root".
 # The adb gadget driver used to reset the USB bus when the adbd daemon exited,
 # and the host side adb relied on this behavior to force it to reconnect with the
