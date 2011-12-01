@@ -37,9 +37,6 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_PACKAGES += \
 #    sensors.solana \
 
-# Sound / Media
-#    libaudio \
-
 #PRODUCT_PACKAGES += \
 #    libaudiopolicy \
 #    libbundlewrapper \
@@ -90,20 +87,19 @@ PRODUCT_PACKAGES += \
 #    libomap_mm_library_jni \
 
 # Wifi
-#PRODUCT_PACKAGES += \
-#    libtiOsLib \
-#    libCustomWifi \
-#    wlan_loader \
-#    wlan_cu \
-#    dhcpcd.conf \
-#    wpa_supplicant.conf \
+PRODUCT_PACKAGES += \
+    libCustomWifi \
+    wlan_loader \
+    wlan_cu \
+    dhcpcd.conf \
+    wpa_supplicant.conf \
 
 # HotSpot
-#PRODUCT_PACKAGES += \
-#    tiap_loader \
-#    tiap_cu \
-#    hostap \
-#    hostapd.conf \
+PRODUCT_PACKAGES += \
+    tiap_loader \
+    tiap_cu \
+    hostap \
+    hostapd.conf \
 
 # Release utilities
 PRODUCT_PACKAGES += \
@@ -190,7 +186,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
     device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
     device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
-#    device/motorola/solana/prebuilt/media/bootanimation.zip:system/media/bootanimation.zip \
 
 # Graphics
 PRODUCT_COPY_FILES += \

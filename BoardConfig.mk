@@ -36,12 +36,12 @@ BOARD_PAGE_SIZE := 0x4096
 
 
 # Connectivity - Wi-Fi
-#BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
+BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 #BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 HOSTAPD_VERSION             := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1283
-BOARD_SOFTAP_DEVICE         := wl1283
+#FIXME: BOARD_SOFTAP_DEVICE         := wl1283
 #BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
@@ -50,7 +50,8 @@ WIFI_FIRMWARE_LOADER        := "wlan_loader"
 WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1283.bin"
 WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
 PRODUCT_WIRELESS_TOOLS      := true
-
+AP_CONFIG_DRIVER_WILINK     := true
+WPA_SUPPL_APPROX_USE_RSSI   := true
 
 
 # Audio
