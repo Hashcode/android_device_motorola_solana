@@ -187,15 +187,24 @@ on post-fs
     chown media graphics /dev/video1
     chown media graphics /dev/video2
     mount rootfs rootfs / ro remount
+
 # Install kernel modules
+
 # Install BP related kernel modules
     #Start the engine modules for netmux first for other daemons depends on it
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/modem_pm_driver.ko
     insmod /system/lib/modules/sec.ko
+
+# Load Quota2 support modules
+    insmod /system/lib/modules/xt_ipv6_udp.ko
+    insmod /system/lib/modules/xt_qtaguid.ko
+    insmod /system/lib/modules/xt_quota2.ko
+
 # Install product specific kernel modules
     exec /system/bin/load_modules.sh
+
 # chown/chmod for FOTA
     chown system system /cache/fota
     chmod 0770 /cache/fota

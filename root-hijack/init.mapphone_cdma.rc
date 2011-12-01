@@ -543,6 +543,11 @@ on boot
     insmod /system/lib/modules/sch_htb.ko
     insmod /system/lib/modules/em_u32.ko
 
+# Load Quota2 support modules
+    insmod /system/lib/modules/xt_ipv6_udp.ko
+    insmod /system/lib/modules/xt_qtaguid.ko
+    insmod /system/lib/modules/xt_quota2.ko
+
 # Load Authentec VPN kernel module
 #    insmod /system/lib/modules/vpnclient.ko
 
