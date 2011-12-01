@@ -354,7 +354,7 @@ key PERIOD {
 }
 
 key BACKSPACE {
-    label:                              'BS'
+    label:                              'b'
     number:                             '3'
     base:                               '\u0009'
     shift, capslock:                    '\u0009'
@@ -370,7 +370,7 @@ key SPACE {
 }
 
 key TAB {
-    label:                              'TAB'
+    label:                              't'
     number:                             '2'
     base:                               '\u0010'
     shift, capslock:                    '\u0010'

@@ -1,0 +1,1 @@
+cmd_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_quota2/built-in.o :=  rm -f /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_quota2/built-in.o; ar rcs /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_quota2/built-in.o

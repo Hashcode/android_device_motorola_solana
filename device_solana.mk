@@ -171,6 +171,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/bin/battd:system/bin/battd \
     device/motorola/solana/prebuilt/bin/hijack:system/bin/hijack \
     device/motorola/solana/prebuilt/bin/hijack.log_dump:system/bin/hijack.log_dump \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
@@ -233,6 +234,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 $(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)

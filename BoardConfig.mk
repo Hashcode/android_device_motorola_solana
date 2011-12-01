@@ -49,6 +49,8 @@ WIFI_DRIVER_MODULE_ARG      := ""
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1283.bin"
 WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_wlan1283_AP.bin"
+PRODUCT_WIRELESS_TOOLS      := true
+
 
 
 # Audio
