@@ -351,6 +351,8 @@ on boot
    chown system system /sys/class/backlight/430_540_960_amoled_bl/brightness
 # Change the ownership of touch screen file
    chown root mot_tcmd /sys/bus/i2c/drivers/qtouch-obp-ts/2-004a/irq_enable
+# Change the ownership of cpcap
+   chmod 0666 /dev/cpcap
 # changes for enabling ducati...
    chmod 0660 /dev/syslink-proc4430
    chown media media /dev/syslink-proc4430
@@ -703,9 +705,9 @@ service usbd /system/bin/usbd
 
 service battd /system/bin/battd
     class core
-    socket battdsock stream 0660 system system
+    socket battdsock stream 0660 mot_accy mot_accy
     user root
-    group system
+    group mot_accy mot_pwric
     oneshot
 
 #service catcommands /system/bin/catcommands

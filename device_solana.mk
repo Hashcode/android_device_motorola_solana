@@ -44,9 +44,9 @@ PRODUCT_COPY_FILES += \
 #    libvisualizer \
 
 # Modem
-#PRODUCT_PACKAGES += \
-#    libaudiomodemgeneric \
-#    libreference-cdma-sms \
+PRODUCT_PACKAGES += \
+    libaudiomodemgeneric \
+    libreference-cdma-sms \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
@@ -100,6 +100,13 @@ PRODUCT_PACKAGES += \
     tiap_cu \
     hostap \
     hostapd.conf \
+
+# Bluetooth
+PRODUCT_PACKAGES += \
+    uim \
+    uim-sysfs \
+    uim-rfkill \
+    liba2dp \
 
 # Release utilities
 PRODUCT_PACKAGES += \
