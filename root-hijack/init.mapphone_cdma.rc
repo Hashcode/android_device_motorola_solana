@@ -544,7 +544,6 @@ on boot
     insmod /system/lib/modules/em_u32.ko
 
 # Load Quota2 support modules
-    insmod /system/lib/modules/xt_ipv6_udp.ko
     insmod /system/lib/modules/xt_qtaguid.ko
     insmod /system/lib/modules/xt_quota2.ko
 

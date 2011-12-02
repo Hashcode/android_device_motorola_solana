@@ -3,16 +3,10 @@ cmd_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilt
 deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.o := \
   /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.c \
     $(wildcard include/config/android/paranoid/network.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/file.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler.h \
-    $(wildcard include/config/trace/branch/profiling.h) \
-    $(wildcard include/config/profile/all/branches.h) \
-    $(wildcard include/config/enable/must/check.h) \
-    $(wildcard include/config/enable/warn/deprecated.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler-gcc.h \
-    $(wildcard include/config/arch/supports/optimized/inlining.h) \
-    $(wildcard include/config/optimize/inlining.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler-gcc4.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/errno.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/errno.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/errno.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/errno-base.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/types.h \
     $(wildcard include/config/uid16.h) \
     $(wildcard include/config/lbdaf.h) \
@@ -24,15 +18,49 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitsperlong.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/posix_types.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/stddef.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler.h \
+    $(wildcard include/config/trace/branch/profiling.h) \
+    $(wildcard include/config/profile/all/branches.h) \
+    $(wildcard include/config/enable/must/check.h) \
+    $(wildcard include/config/enable/warn/deprecated.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler-gcc.h \
+    $(wildcard include/config/arch/supports/optimized/inlining.h) \
+    $(wildcard include/config/optimize/inlining.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/compiler-gcc4.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/posix_types.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/inetdevice.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/bitmap.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/bitops.h \
-    $(wildcard include/config/generic/find/first/bit.h) \
-    $(wildcard include/config/generic/find/last/bit.h) \
-    $(wildcard include/config/generic/find/next/bit.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/bitops.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/socket.h \
+    $(wildcard include/config/proc/fs.h) \
+    $(wildcard include/config/compat.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/socket.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/sockios.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/sockios.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/uio.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/net.h \
+    $(wildcard include/config/sysctl.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/stringify.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/random.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ioctl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/ioctl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/ioctl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/irqnr.h \
+    $(wildcard include/config/generic/hardirqs.h) \
     $(wildcard include/config/smp.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/wait.h \
+    $(wildcard include/config/lockdep.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/list.h \
+    $(wildcard include/config/debug/list.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/poison.h \
+    $(wildcard include/config/illegal/pointer/value.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/prefetch.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/processor.h \
+    $(wildcard include/config/mmu.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/ptrace.h \
+    $(wildcard include/config/cpu/endian/be8.h) \
+    $(wildcard include/config/arm/thumb.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/hwcap.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/cache.h \
+    $(wildcard include/config/arm/l1/cache/shift.h) \
+    $(wildcard include/config/aeabi.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/system.h \
     $(wildcard include/config/cpu/xsc3.h) \
     $(wildcard include/config/cpu/fa526.h) \
@@ -50,14 +78,24 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
     $(wildcard include/config/trace/irqflags/support.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/typecheck.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/irqflags.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/ptrace.h \
-    $(wildcard include/config/cpu/endian/be8.h) \
-    $(wildcard include/config/arm/thumb.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/hwcap.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/outercache.h \
     $(wildcard include/config/outer/cache/sync.h) \
     $(wildcard include/config/outer/cache.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/cmpxchg-local.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/spinlock.h \
+    $(wildcard include/config/debug/spinlock.h) \
+    $(wildcard include/config/generic/lockbreak.h) \
+    $(wildcard include/config/preempt.h) \
+    $(wildcard include/config/debug/lock/alloc.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/preempt.h \
+    $(wildcard include/config/debug/preempt.h) \
+    $(wildcard include/config/preempt/notifiers.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/thread_info.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/bitops.h \
+    $(wildcard include/config/generic/find/first/bit.h) \
+    $(wildcard include/config/generic/find/last/bit.h) \
+    $(wildcard include/config/generic/find/next/bit.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/bitops.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/non-atomic.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/fls64.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/sched.h \
@@ -65,10 +103,14 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/arch_hweight.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/const_hweight.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/bitops/lock.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/string.h \
-    $(wildcard include/config/binary/printf.h) \
-  /home/scottml/android/cyanogenmod/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/../lib/gcc/arm-eabi/4.4.3/include/stdarg.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/string.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/thread_info.h \
+    $(wildcard include/config/arm/thumbee.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/fpstate.h \
+    $(wildcard include/config/vfpv3.h) \
+    $(wildcard include/config/iwmmxt.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/domain.h \
+    $(wildcard include/config/io/36.h) \
+    $(wildcard include/config/cpu/use/domains.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/kernel.h \
     $(wildcard include/config/preempt/voluntary.h) \
     $(wildcard include/config/debug/spinlock/sleep.h) \
@@ -80,6 +122,7 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
     $(wildcard include/config/numa.h) \
     $(wildcard include/config/ftrace/mcount/record.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/align.h \
+  /home/scottml/android/cyanogenmod/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/../lib/gcc/arm-eabi/4.4.3/include/stdarg.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/log2.h \
     $(wildcard include/config/arch/has/ilog2/u32.h) \
     $(wildcard include/config/arch/has/ilog2/u64.h) \
@@ -96,94 +139,11 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
     $(wildcard include/config/generic/bug.h) \
     $(wildcard include/config/generic/bug/relative/pointers.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/div64.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/if.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/socket.h \
-    $(wildcard include/config/proc/fs.h) \
-    $(wildcard include/config/compat.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/socket.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/sockios.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/sockios.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/uio.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/hdlc/ioctl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netdevice.h \
-    $(wildcard include/config/dcb.h) \
-    $(wildcard include/config/wlan.h) \
-    $(wildcard include/config/ax25.h) \
-    $(wildcard include/config/mac80211/mesh.h) \
-    $(wildcard include/config/tr.h) \
-    $(wildcard include/config/net/ipip.h) \
-    $(wildcard include/config/net/ipgre.h) \
-    $(wildcard include/config/ipv6/sit.h) \
-    $(wildcard include/config/ipv6/tunnel.h) \
-    $(wildcard include/config/netpoll.h) \
-    $(wildcard include/config/rps.h) \
-    $(wildcard include/config/net/poll/controller.h) \
-    $(wildcard include/config/fcoe.h) \
-    $(wildcard include/config/wireless/ext.h) \
-    $(wildcard include/config/net/dsa.h) \
-    $(wildcard include/config/net/ns.h) \
-    $(wildcard include/config/net/dsa/tag/dsa.h) \
-    $(wildcard include/config/net/dsa/tag/trailer.h) \
-    $(wildcard include/config/netpoll/trap.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/if_ether.h \
-    $(wildcard include/config/sysctl.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/skbuff.h \
-    $(wildcard include/config/nf/conntrack.h) \
-    $(wildcard include/config/bridge/netfilter.h) \
-    $(wildcard include/config/xfrm.h) \
-    $(wildcard include/config/net/sched.h) \
-    $(wildcard include/config/net/cls/act.h) \
-    $(wildcard include/config/ipv6/ndisc/nodetype.h) \
-    $(wildcard include/config/net/dma.h) \
-    $(wildcard include/config/network/secmark.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/kmemcheck.h \
-    $(wildcard include/config/kmemcheck.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/mm_types.h \
-    $(wildcard include/config/split/ptlock/cpus.h) \
-    $(wildcard include/config/want/page/debug/flags.h) \
-    $(wildcard include/config/mmu.h) \
-    $(wildcard include/config/aio.h) \
-    $(wildcard include/config/mm/owner.h) \
-    $(wildcard include/config/mmu/notifier.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/auxvec.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/auxvec.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/threads.h \
-    $(wildcard include/config/nr/cpus.h) \
-    $(wildcard include/config/base/small.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/list.h \
-    $(wildcard include/config/debug/list.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/poison.h \
-    $(wildcard include/config/illegal/pointer/value.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/prefetch.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/processor.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/cache.h \
-    $(wildcard include/config/arm/l1/cache/shift.h) \
-    $(wildcard include/config/aeabi.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/spinlock.h \
-    $(wildcard include/config/debug/spinlock.h) \
-    $(wildcard include/config/generic/lockbreak.h) \
-    $(wildcard include/config/preempt.h) \
-    $(wildcard include/config/debug/lock/alloc.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/preempt.h \
-    $(wildcard include/config/debug/preempt.h) \
-    $(wildcard include/config/preempt/notifiers.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/thread_info.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/thread_info.h \
-    $(wildcard include/config/arm/thumbee.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/fpstate.h \
-    $(wildcard include/config/vfpv3.h) \
-    $(wildcard include/config/iwmmxt.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/domain.h \
-    $(wildcard include/config/io/36.h) \
-    $(wildcard include/config/cpu/use/domains.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/stringify.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/bottom_half.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/spinlock_types.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/spinlock_types.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/lockdep.h \
-    $(wildcard include/config/lockdep.h) \
     $(wildcard include/config/lock/stat.h) \
-    $(wildcard include/config/generic/hardirqs.h) \
     $(wildcard include/config/prove/rcu.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rwlock_types.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/spinlock.h \
@@ -221,19 +181,38 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/atomic.h \
     $(wildcard include/config/generic/atomic64.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/atomic-long.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/current.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/fcntl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/fcntl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/fcntl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/kmemcheck.h \
+    $(wildcard include/config/kmemcheck.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/mm_types.h \
+    $(wildcard include/config/split/ptlock/cpus.h) \
+    $(wildcard include/config/want/page/debug/flags.h) \
+    $(wildcard include/config/aio.h) \
+    $(wildcard include/config/mm/owner.h) \
+    $(wildcard include/config/mmu/notifier.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/auxvec.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/auxvec.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/threads.h \
+    $(wildcard include/config/nr/cpus.h) \
+    $(wildcard include/config/base/small.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/prio_tree.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rbtree.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rwsem.h \
     $(wildcard include/config/rwsem/generic/spinlock.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rwsem-spinlock.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/completion.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/wait.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/current.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/cpumask.h \
     $(wildcard include/config/cpumask/offstack.h) \
     $(wildcard include/config/hotplug/cpu.h) \
     $(wildcard include/config/debug/per/cpu/maps.h) \
     $(wildcard include/config/disable/obsolete/cpumask/functions.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/bitmap.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/string.h \
+    $(wildcard include/config/binary/printf.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/string.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/page-debug-flags.h \
     $(wildcard include/config/page/poisoning.h) \
     $(wildcard include/config/page/debug/something/else.h) \
@@ -281,27 +260,15 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/getorder.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/mmu.h \
     $(wildcard include/config/cpu/has/asid.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/time.h \
-    $(wildcard include/config/arch/uses/gettimeoffset.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/cache.h \
-    $(wildcard include/config/arch/has/cache/line/size.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/seqlock.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/math64.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/net.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/random.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ioctl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/ioctl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/ioctl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/irqnr.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/fcntl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/fcntl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/fcntl.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rcupdate.h \
     $(wildcard include/config/rcu/torture/test.h) \
     $(wildcard include/config/debug/rcu/head.h) \
     $(wildcard include/config/tree/rcu.h) \
     $(wildcard include/config/tree/preempt/rcu.h) \
     $(wildcard include/config/tiny/rcu.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/cache.h \
+    $(wildcard include/config/arch/has/cache/line/size.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/seqlock.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/rcutree.h \
     $(wildcard include/config/no/hz.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/sysctl.h \
@@ -309,6 +276,42 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/param.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/param.h \
     $(wildcard include/config/hz.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/in6.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netdevice.h \
+    $(wildcard include/config/dcb.h) \
+    $(wildcard include/config/wlan.h) \
+    $(wildcard include/config/ax25.h) \
+    $(wildcard include/config/mac80211/mesh.h) \
+    $(wildcard include/config/tr.h) \
+    $(wildcard include/config/net/ipip.h) \
+    $(wildcard include/config/net/ipgre.h) \
+    $(wildcard include/config/ipv6/sit.h) \
+    $(wildcard include/config/ipv6/tunnel.h) \
+    $(wildcard include/config/netpoll.h) \
+    $(wildcard include/config/rps.h) \
+    $(wildcard include/config/net/poll/controller.h) \
+    $(wildcard include/config/fcoe.h) \
+    $(wildcard include/config/wireless/ext.h) \
+    $(wildcard include/config/net/dsa.h) \
+    $(wildcard include/config/net/ns.h) \
+    $(wildcard include/config/net/dsa/tag/dsa.h) \
+    $(wildcard include/config/net/dsa/tag/trailer.h) \
+    $(wildcard include/config/netpoll/trap.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/if.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/hdlc/ioctl.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/if_ether.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/skbuff.h \
+    $(wildcard include/config/nf/conntrack.h) \
+    $(wildcard include/config/bridge/netfilter.h) \
+    $(wildcard include/config/xfrm.h) \
+    $(wildcard include/config/net/sched.h) \
+    $(wildcard include/config/net/cls/act.h) \
+    $(wildcard include/config/ipv6/ndisc/nodetype.h) \
+    $(wildcard include/config/net/dma.h) \
+    $(wildcard include/config/network/secmark.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/time.h \
+    $(wildcard include/config/arch/uses/gettimeoffset.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/math64.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/textsearch.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/module.h \
     $(wildcard include/config/symbol/prefix.h) \
@@ -358,10 +361,6 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
     $(wildcard include/config/have/arch/nodedata/extension.h) \
     $(wildcard include/config/memory/hotremove.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/notifier.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/errno.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/errno.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/errno.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/asm-generic/errno-base.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/mutex.h \
     $(wildcard include/config/debug/mutexes.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/mutex-debug.h \
@@ -443,7 +442,6 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/unified.h \
     $(wildcard include/config/arm/asm/unified.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/include/asm/checksum.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/in6.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/dmaengine.h \
     $(wildcard include/config/async/tx/disable/channel/switch.h) \
     $(wildcard include/config/dma/engine.h) \
@@ -717,19 +715,13 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
     $(wildcard include/config/fiq.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/arch/arm/plat-omap/include/plat/irqs-44xx.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/irq_cpustat.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/x_tables.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter_ipv4.h \
-  /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/xt_owner.h \
-  /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid_printk.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/addrconf.h \
-    $(wildcard include/config/ipv6/mip6.h) \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/if_inet6.h \
-    $(wildcard include/config/ipv6/privacy.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/if_arp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ipv6.h \
+    $(wildcard include/config/ipv6/privacy.h) \
     $(wildcard include/config/ipv6/router/pref.h) \
     $(wildcard include/config/ipv6/route/info.h) \
     $(wildcard include/config/ipv6/optimistic/dad.h) \
+    $(wildcard include/config/ipv6/mip6.h) \
     $(wildcard include/config/ipv6/subtrees.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/icmpv6.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/tcp.h \
@@ -769,36 +761,53 @@ deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfil
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/timewait_sock.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/udp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ipv6.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/if_inet6.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ndisc.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/file.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/inetdevice.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/x_tables.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter_ipv4.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/protocol.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/transp_v6.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip6_route.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip6_fib.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ipv6_route.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ip.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/raw.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/icmp.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip6_checksum.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip.h \
+    $(wildcard include/config/inet.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/xfrm.h \
+    $(wildcard include/config/xfrm/sub/policy.h) \
+    $(wildcard include/config/xfrm/migrate.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/pfkeyv2.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ipsec.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/audit.h \
+    $(wildcard include/config/change.h) \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/route.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inetpeer.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/in_route.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/route.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/addrconf.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/tcp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/crypto.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/uaccess.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/cryptohash.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inet_hashtables.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/ip.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/vmalloc.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/route.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inetpeer.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/in_route.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/route.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip.h \
-    $(wildcard include/config/inet.h) \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inet_ecn.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/dsfield.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/udp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/netfilter/nf_tproxy_core.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inet6_hashtables.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/icmp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter_ipv6/ip6_tables.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter_ipv6.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/xt_tcpudp.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/xt_socket.h \
-  /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_ipv6_udp_impl.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/udplite.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/ip6_checksum.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/protocol.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/inet_common.h \
-  /home/scottml/android/cyanogenmod/kernel/omap4/include/net/transp_v6.h \
+  /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.h \
+  /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/netfilter/xt_owner.h \
+  /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid_printk.h \
   /home/scottml/android/cyanogenmod/kernel/omap4/include/linux/android_aid.h \
 
 /home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.o: $(deps_/home/scottml/android/cyanogenmod-ics/device/motorola/solana/modules/netfilter/xt_qtaguid/xt_qtaguid.o)

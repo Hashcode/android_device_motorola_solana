@@ -198,7 +198,6 @@ on post-fs
     insmod /system/lib/modules/sec.ko
 
 # Load Quota2 support modules
-    insmod /system/lib/modules/xt_ipv6_udp.ko
     insmod /system/lib/modules/xt_qtaguid.ko
     insmod /system/lib/modules/xt_quota2.ko
 

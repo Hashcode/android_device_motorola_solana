@@ -8,6 +8,11 @@
  * published by the Free Software Foundation.
  */
 
+/*
+ * NOTE: I hacked in a few functions so that this would compile as a kernel
+ * ipv6_find_hdr
+ */
+
 /* #define DEBUG */
 /* #define IDEBUG */
 /* #define MDEBUG */
@@ -39,14 +44,36 @@
 #define CT_DEBUG(...) no_printk(__VA_ARGS__)
 #endif
 
+#include <linux/errno.h>
+#include <linux/types.h>
+#include <linux/socket.h>
+#include <linux/sockios.h>
+#include <linux/net.h>
+#include <linux/in6.h>
+#include <linux/netdevice.h>
+#include <linux/if_arp.h>
+#include <linux/ipv6.h>
+#include <net/ipv6.h>
+#include <linux/icmpv6.h>
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/skbuff.h>
+#include <linux/slab.h>
+#include <asm/uaccess.h>
+
 #include <linux/file.h>
 #include <linux/inetdevice.h>
-#include <linux/module.h>
 #include <linux/netfilter/x_tables.h>
-#include "xt_qtaguid.h"
-#include "xt_qtaguid_printk.h"
-#include <linux/skbuff.h>
 #include <linux/workqueue.h>
+
+#include <net/ndisc.h>
+#include <net/protocol.h>
+#include <net/transp_v6.h>
+#include <net/ip6_route.h>
+#include <net/raw.h>
+#include <net/tcp_states.h>
+#include <net/ip6_checksum.h>
+#include <net/xfrm.h>
 
 #include <net/addrconf.h>
 #include <net/sock.h>
@@ -54,11 +81,15 @@
 #include <net/udp.h>
 #include <net/netfilter/nf_tproxy_core.h>
 #include <net/inet6_hashtables.h>
+#include <linux/proc_fs.h>
+#include <linux/seq_file.h>
 
 #include <linux/icmp.h>
 #include <linux/netfilter_ipv6/ip6_tables.h>
 #include <linux/netfilter/xt_socket.h>
-#include "xt_ipv6_udp_impl.h"
+
+#include "xt_qtaguid.h"
+#include "xt_qtaguid_printk.h"
 
 /*
  * We only use the xt_socket funcs within a similar context to avoid unexpected
@@ -68,7 +99,6 @@
 	((1 << NF_INET_PRE_ROUTING) | (1 << NF_INET_LOCAL_IN))
 
 
-static const char *module_procdirname = "xt_qtaguid";
 static struct proc_dir_entry *xt_qtaguid_procdir;
 
 static unsigned int proc_iface_perms = S_IRUGO;
@@ -101,12 +131,47 @@ module_param_named(ctrl_write_gid, proc_ctrl_write_gid, uint,
 		   S_IRUGO | S_IWUSR);
 
 
-/*
- * nf_tproxy_core.h ****************************************
+/******************************************************
+ * nf_tproxy_core.h
  */
 #define NFT_LOOKUP_ANY         0
 #define NFT_LOOKUP_LISTENER    1
 #define NFT_LOOKUP_ESTABLISHED 2
+
+struct sock *
+nf_tproxy_get_sock_v4(struct net *net, const u8 protocol,
+		      const __be32 saddr, const __be32 daddr,
+		      const __be16 sport, const __be16 dport,
+		      const struct net_device *in, bool listening_only)
+{
+	struct sock *sk;
+
+	/* look up socket */
+	switch (protocol) {
+	case IPPROTO_TCP:
+		if (listening_only)
+			sk = __inet_lookup_listener(net, &tcp_hashinfo,
+						    daddr, ntohs(dport),
+						    in->ifindex);
+		else
+			sk = __inet_lookup(net, &tcp_hashinfo,
+					   saddr, sport, daddr, dport,
+					   in->ifindex);
+		break;
+	case IPPROTO_UDP:
+		sk = udp4_lib_lookup(net, saddr, sport, daddr, dport,
+				     in->ifindex);
+		break;
+	default:
+		WARN_ON(1);
+		sk = NULL;
+	}
+
+	pr_debug("tproxy socket lookup: proto %u %08x:%u -> %08x:%u, listener only: %d, sock %p\n",
+		 protocol, ntohl(saddr), ntohs(sport), ntohl(daddr), ntohs(dport), listening_only, sk);
+
+	return sk;
+}
 
 static inline struct sock *
 nf_tproxy_get_sock_v6(struct net *net, const u8 protocol,
@@ -148,15 +213,17 @@ nf_tproxy_get_sock_v6(struct net *net, const u8 protocol,
 		}
 		break;
 	case IPPROTO_UDP:
+                /* FIXME
 		sk = udp6_lib_lookup(net, saddr, sport, daddr, dport, in->ifindex);
+                */
+		WARN_ON(1); /* HACK */
 		if (sk && lookup_type != NFT_LOOKUP_ANY) {
-			int connected = (sk->sk_state == TCP_ESTABLISHED);
-			int wildcard = ipv6_addr_any(&inet6_sk(sk)->rcv_saddr);
-
 			/* NOTE: we return listeners even if bound to
 			 * 0.0.0.0, those are filtered out in
 			 * xt_socket, since xt_TPROXY needs 0 bound
 			 * listeners too */
+			int connected = (sk->sk_state == TCP_ESTABLISHED);
+			int wildcard = ipv6_addr_any(&inet6_sk(sk)->rcv_saddr);
 			if ((lookup_type == NFT_LOOKUP_ESTABLISHED && (!connected || wildcard)) ||
 			    (lookup_type == NFT_LOOKUP_LISTENER && connected)) {
 				sock_put(sk);
@@ -175,8 +242,8 @@ nf_tproxy_get_sock_v6(struct net *net, const u8 protocol,
 	return sk;
 }
 
-/*
- * xt_socket.c missing functions ***************************
+/**************************************************************
+ * xt_socket.c missing functions 
  */
 static int
 extract_icmp4_fields(const struct sk_buff *skb,
@@ -369,7 +436,7 @@ xt_socket_get6_sk(const struct sk_buff *skb, struct xt_action_param *par)
 	__be16 dport, sport;
 	int thoff, tproto;
 
-	tproto = ipv6_find_hdr(skb, &thoff, -1, NULL);
+	/* FIXME: tproto = ipv6_find_hdr(skb, &thoff, -1, NULL); */
 	if (tproto < 0) {
 		pr_debug("unable to find transport header in IPv6 packet, dropping\n");
 		return NF_DROP;
@@ -2261,7 +2328,7 @@ static int qtaguid_stats_proc_read(char *page, char **num_items_returned,
 static int __init qtaguid_proc_register(struct proc_dir_entry **res_procdir)
 {
 	int ret;
-	*res_procdir = proc_mkdir(module_procdirname, init_net.proc_net);
+	*res_procdir = proc_mkdir("xt_qtaguid", init_net.proc_net);
 	if (!*res_procdir) {
 		pr_err("qtaguid: failed to create proc/.../xt_qtaguid\n");
 		ret = -ENOMEM;
@@ -2319,9 +2386,10 @@ static int __init qtaguid_mt_init(void)
 {
 	if (qtaguid_proc_register(&xt_qtaguid_procdir)
 	    || iface_stat_init(xt_qtaguid_procdir)
-	    || xt_register_match(&qtaguid_mt_reg))
+	    || xt_register_match(&qtaguid_mt_reg)) {
 		return -1;
-	return 0;
+	} else {
+        }
 }
 
 /*
