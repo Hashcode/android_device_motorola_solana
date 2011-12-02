@@ -23,10 +23,10 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
 
 # Audio sucks currently.  Moto customized alsa_sound and while I'm working it out, I'll use phone libs.  blech.
-#PRODUCT_COPY_FILES += \
-#    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
-#    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
-#    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
+PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
+    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
+    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
 #    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
 
 # Lights
