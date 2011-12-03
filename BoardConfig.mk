@@ -82,6 +82,7 @@ BUILD_BOOTMENU_STANDALONE := true
 BOARD_HAS_LOCKED_BOOTLOADER := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/motorola/solana/recovery-kernel
 BOARD_CUSTOM_GRAPHICS := ../../../device/motorola/solana/recovery/graphics.c
+TARGET_RECOVERY_PIXEL_FORMAT := BGR_565
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/motorola/solana/recovery/recovery_ui.c
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_ALWAYS_INSECURE := true
