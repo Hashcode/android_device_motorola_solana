@@ -102,11 +102,19 @@ PRODUCT_PACKAGES += \
     hostapd.conf \
 
 # Bluetooth
+#    uim-rfkill \
+#    liba2dp \
 PRODUCT_PACKAGES += \
-    uim \
+    bt_sco_app \
     uim-sysfs \
-    uim-rfkill \
-    liba2dp \
+
+# FM Radio
+PRODUCT_PACKAGES += \
+    com.ti.fm.fmradioif.xml \
+    fmradioif \
+    FmRxApp \
+    FmTxApp \
+    FmService \
 
 # Release utilities
 PRODUCT_PACKAGES += \
@@ -137,13 +145,13 @@ PRODUCT_PACKAGES += \
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/root/init:system/etc/rootfs/init \
+    out/target/product/solana/root/init:system/etc/rootfs/init \
+    out/target/product/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
     device/motorola/solana/root/default.prop:system/etc/rootfs/default.prop \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
     device/motorola/solana/root/ueventd.rc:system/etc/rootfs/ueventd.rc \
-    device/motorola/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
 
 # Hijack files
 PRODUCT_COPY_FILES += \
@@ -236,7 +244,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-$(call inherit-product, hardware/ti/wpan/Android.mk)
+$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
+#$(call inherit-product, hardware/ti/wpan/tools/FM/Android.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 $(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)

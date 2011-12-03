@@ -5,7 +5,7 @@
 USE_CAMERA_STUB := false
 BOARD_USES_TI_CAMERA_HAL := true
 BOARD_USE_LEGACY_TOUCHSCREEN := true
-BOARD_USES_AUDIO_LEGACY := true
+
 
 # inherit from the proprietary version
 -include vendor/motorola/solana/BoardConfigVendor.mk
@@ -34,11 +34,11 @@ BOARD_PAGE_SIZE := 0x4096
 
 
 # Storage
-
+BOARD_VOLD_MAX_PARTITIONS := 27
 
 # Connectivity - Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
-#BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 HOSTAPD_VERSION             := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1283
@@ -60,7 +60,7 @@ BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 HAVE_2_3_DSP := 1
-
+BOARD_USES_AUDIO_LEGACY := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

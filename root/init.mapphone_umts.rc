@@ -2,6 +2,7 @@ on fs
 
 on post-fs
     mount ext3 /dev/block/mmcblk1p23 ro noatime nodiratime remount
+
     mount rootfs rootfs / rw remount
 
     mkdir /cdrom 0770 system system
@@ -206,15 +207,13 @@ on post-fs
 # chown/chmod for FOTA
     chown system system /cache/fota
     chmod 0770 /cache/fota
-
 on early-boot
 # Define the BLAN interface
     setprop ro.blan.interface usb0
 # mount eCryptFS if required
     start smc
     exec /system/bin/enc_mgt_tool
-    class_start core
-
+    class_start media_early_init
 on boot
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
     setprop ro.sys.atvc_allow_netmon_usb 0
@@ -434,7 +433,6 @@ on boot
 
 # Set core max size (2G)
     setrlimit 4 2147483648 2147483648
-
 # The properties introduced by moto
 # Adjust the out of memory thresholds to account for the larget
 # space on sholes. These numbers are in pages (4k). Must be kept
@@ -464,7 +462,6 @@ on property:ro.kernel.memsize=1024M
     setprop ro.EMPTY_APP_MEM 21000
 # Overwrite what init.rc selected for the memory killer params to match above.
     write /sys/module/lowmemorykiller/parameters/minfree 3072,4608,7200,11776,17408,21000
-
 on property:sys.chargeonly.mode=1
     start battd
     start console
@@ -474,12 +471,10 @@ on property:sys.chargeonly.mode=1
 #start console for userdebug and eng builds
 on property:ro.debuggable=1
     start console
-
 on property:ro.sys.atvc_allow_gki_log=1
     start gkilogd
 on property:ro.sys.atvc_allow_gki_log=0
     stop gkilogd
-
 # Moto safe power down
 on property:sys.reboot=1
     stop ssmgrd
@@ -491,7 +486,6 @@ on property:sys.shutdown=1
     exec /system/bin/reboot -p
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd_tiwlan0
-
 on property:ro.hdcp.support=1
     insmod /system/lib/modules/omap-hdcp.ko
     exec /system/bin/hdcp-mknod
@@ -502,7 +496,6 @@ on property:ro.hdcp.support=2
     exec /system/bin/hdcp-mknod
     chown system media /dev/omap-hdcp
     chmod 0660 /dev/omap-hdcp
-
 # The following services are added by moto
 # Set property strings for ATVC logging
 # This conditionally sets :
@@ -516,31 +509,24 @@ on property:ro.hdcp.support=2
 # ro.sys.atvc_allow_netmon_usb
 # ro.sys.atvc_allow_netmon_ih
 # ro.sys.atvc_allow_all_adb
-
 service atvc /system/bin/dbvc_atvc_property_set
     user system
     group system
     oneshot
-
 #service watchdogd /system/bin/watchdogd
-
 service telnet /system/bin/telnetd
     oneshot
-
 service usbd /system/bin/usbd
     user root
     group system
-
 service nvm-daemon /system/usr/bin/nvm_daemon
     user radio
     group radio
-
 # start commdrv pds script
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
     oneshot
     user radio
     group radio system cache
-
 service gkisystem /system/bin/gkisystem
     socket location_shim stream 660 radio system
     socket gpshal_socket stream 660 radio system
@@ -548,31 +534,25 @@ service gkisystem /system/bin/gkisystem
     socket gkilog_sock stream 660 radio radio
     group radio system mot_accy mot_secclkd
     onrestart exec /system/usr/bin/gki_pd_notifier
-
 service rild_tcmd /system/bin/rild_tcmd
     socket local_tcmd stream 0660 radio mot_tcmd
     user radio
     group radio
-
 service battd /system/bin/battd
     socket battdsock stream 0660 root mount
     user root
     group system mount
     oneshot
-
 service catcommands /system/bin/catcommands
     group radio
-
 service whisperd /system/bin/whisperd /dev/ttyO1
     user system
     group system
     oneshot
-
 service msp430 /system/bin/msp430 boot
     user compass
     group compass misc input
     oneshot
-
 service bplogd_daemon /system/usr/bin/bplogd_daemon
     socket dlog_cmds stream 660 radio log
     socket bp_pd_status stream 660 radio log
@@ -580,72 +560,59 @@ service bplogd_daemon /system/usr/bin/bplogd_daemon
     user radio
     group radio inet log sdcard_rw mount
     oneshot
-
 service ssmgrd /system/xbin/ssmgrd
     group radio input mot_pwric
     oneshot
-
 service uim /system/bin/uim-sysfs
     user root
     group media bluetooth
     oneshot
-
 service hostapd /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
     socket hostapd_tiap0 dgram 660 wifi wifi
     disabled
     oneshot
-
 service hciattach /system/bin/hciattach -l
     user bluetooth
     group bluetooth net_bt_admin
     disabled
-
 service nap /system/bin/sdptool add NAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-
 service del_nap /system/bin/sdptool remove NAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-
 service panu /system/bin/sdptool add PANU
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-
 service del_panu /system/bin/sdptool remove PANU
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-
 service napics /system/bin/sh /system/bin/napics.sh
     user root
     disabled
     oneshot
-
 service btdhcpd /system/bin/dnsmasq -C /system/etc/btpan.conf
     user root
     disabled
     oneshot
-
 service map /system/bin/sdptool add --channel=20 --network=1 MAP
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-
 service tcmd /system/bin/tcmd
     group radio input system log camera graphics sdcard_rw audio inet bluetooth wifi compass net_bt_admin mount net_raw net_admin media
     socket local_tcmd stream 0660 system system
     socket batch_socket stream 0600 system system
     oneshot
-
 service tcmdhelp /system/bin/tcmdhelp
     socket tcmdhelp stream 0600 system system
     oneshot
@@ -661,7 +628,6 @@ service wlan_loader /system/bin/wlan_loader \
         -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
-
 # [HASH] cvpcs has this in his init.mapphone_cdma.rc file but I don't have this file
 #service wlan_loader_rfmd /system/bin/wlan_loader \
 #        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini \
@@ -674,14 +640,12 @@ service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
         -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
-
 # [HASH] Another file I don't have.
 #service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
 #        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
 #        -e /pds/wifi/nvs_map.bin
 #    disabled
 #    oneshot
-
 service wpa_supplicant /system/bin/wpa_supplicant \
         -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
 # we will start as root and wpa_supplicant will switch to user wifi
@@ -691,72 +655,62 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
-
 service dhcpcd_tiwlan0 /system/bin/dhcpcd
     disabled
     oneshot
-
 service dhcpcd_bnep0 /system/bin/dhcpcd
     disabled
     oneshot
-
 service dhcpcd_usbeth0 /system/bin/dhcpcd
     disabled
     oneshot
-
+service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
+    class media_early_init
+    user media
+    group media graphics
+    oneshot
 service pvrsrv /system/bin/pvrsrvinit
     user root
     oneshot
-
 service bugtogo /system/bin/bugtogo.sh
     disabled
     user root
     oneshot
     keycodes 114 115 # default to VOLUME_DOWN + VOLUME_UP
-
 service smc /system/bin/startup_smc.sh
     user system
     group system
     disabled
     oneshot
-
 service locDrv /system/usr/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
     user radio
     group radio inet sdcard_rw
-
 service pm_init /system/bin/sh /system/usr/bin/pm_init.sh
     oneshot
-
 service modemlog /system/bin/modemlog
    oneshot
-
 service gkilogd /system/bin/gkilogd
     socket gki_aol_cmd stream 660 radio log
     user radio
     group radio log sdcard_rw
-
 service fmradio /system/bin/fmradioserver
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
     disabled
-
 service dlnasrv /system/bin/dlnasrv
     user mot_dlna
     group system net_admin sdcard_rw new_raw inet mount misc
     oneshot
     disabled
-
 service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
     group net_bt net_bt_admin
     disabled
     oneshot
-
 service secclkd /system/bin/secclkd
     socket secclk_socket stream 660 system system
     user system
     group system
     oneshot
-
 service dla /system/bin/dla
     oneshot
 
@@ -764,33 +718,26 @@ service dla /system/bin/dla
 service vpnclientpm /system/bin/vpnclientpm
     oneshot
     user root
-
-#service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
-#    user system
-#    group system
-#    disabled
-#    oneshot
-
+service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
+    user system
+    group system
+    disabled
+    oneshot
 # start syslink daemon
 service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
     user media
     group video
-
 #IKCBS-229 start RescueStarter for MobileRescue
 service RescueStarter /system/bin/RescueStarter
     user nobody
     group input graphics
-
 on property:ro.bootmode=bp-tools
     start tcmd
-
 on property:ro.bootmode=ap-bp-bypass
     stop ril-daemon
-
 on property:dev.bootcomplete=1
     start savebpver
 #    start loadpreinstalls
-
 #Check available storage space to execute device encryption or decryprion
 on property:sys.mot.encrypt.test=1
     exec /system/bin/encryption_test

@@ -3,7 +3,7 @@ on init
     export DOWNLOAD_CACHE /cache/download
     export SD_EXT_DIRECTORY /sd-ext
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_ALT_STORAGE /mnt/sdcard  # not really used but whatever
+    export PHONE_STORAGE /mnt/emmc
 
 on post-fs-data
 
@@ -672,28 +672,6 @@ on property:sys.shutdown=1
 #    exec /system/bin/hdcp-mknod
 #    chown system media /dev/omap-hdcp
 #    chmod 0660 /dev/omap-hdcp
-
-# The following services are added by moto
-# Set property strings for ATVC logging
-# This conditionally sets :
-# ro.sys.atvc_allow_bp_log
-# ro.sys.atvc_allow_gki_log
-# ro.sys.atvc_allow_ap_mot_log
-# ro.sys.atvc_allow_all_core
-# ro.sys.atvc_allow_res_core
-# ro.sys.atvc_allow_res_panic
-# ro.sys.atvc_allow_efem
-# ro.sys.atvc_allow_netmon_usb
-# ro.sys.atvc_allow_netmon_ih
-# ro.sys.atvc_allow_all_adb
-
-service atvc /system/bin/dbvc_atvc_property_set
-	class core
-	user system
-	group system
-	oneshot
-
-#service watchdogd /system/bin/watchdogd
 
 service telnet /system/bin/telnetd
     class core
