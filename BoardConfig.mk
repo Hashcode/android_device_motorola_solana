@@ -28,13 +28,13 @@ TARGET_GLOBAL_CFLAGS += -DNEEDS_ARM_ERRATA_754319_754320
 
 # Kernel
 TARGET_PREBUILT_KERNEL := device/motorola/solana/kernel
-BOARD_KERNEL_CMDLINE := console=/dev/null rw mem=512M@0x80000000 vram=20M omapgpu.vram=0:4M,1:16M,2:16MT init=/init ip=off brdrev=P2B omap3_die_id androidboot.bootloader=0x0000 mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(userdata),p25(emstorage)
-BOARD_KERNEL_BASE := 0x10000000
+BOARD_KERNEL_CMDLINE := console=/dev/null rw mem=456M@0x80000000 mem=52M@0x9CC00000 vram=4M omapgpu.vram=0:4M init=/init ip=off mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(userdata),p25(emstorage)
+BOARD_KERNEL_BASE := 0x80000000
 BOARD_PAGE_SIZE := 0x4096
 
 
 # Storage
-BOARD_VOLD_MAX_PARTITIONS := 27
+BOARD_VOLD_MAX_PARTITIONS := 30
 
 # Connectivity - Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
@@ -115,8 +115,14 @@ endif
 
 
 # MOTOROLA
+USE_MOTOROLA_CODE := true
+ifdef USE_MOTOROLA_CODE
 COMMON_GLOBAL_CFLAGS += -DUSE_MOTOROLA_CODE
+endif
+USE_MOTOROLA_USERS := true
+ifdef USE_MOTOROLA_USERS
 COMMON_GLOBAL_CFLAGS += -DUSE_MOTOROLA_USERS
+endif
 
 
 # Media / Radio

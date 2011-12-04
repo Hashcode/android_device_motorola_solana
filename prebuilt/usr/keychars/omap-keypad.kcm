@@ -386,7 +386,7 @@ key GRAVE {
     shift+alt:                          '~'
 }
 
-key HYPHEN {
+key MINUS {
     label:                              '-'
     number:                             '0'
     base:                               '-'

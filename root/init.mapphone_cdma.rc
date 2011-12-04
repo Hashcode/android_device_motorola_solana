@@ -192,9 +192,12 @@ on post-fs-data
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
     # bluetooth power up/down interface
+    write sys/class/rfkill/rfkill0/state 0
+    write sys/class/rfkill/rfkill0/type bluetooth
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0664 /sys/class/rfkill/rfkill0/type
+    chmod 0664 /sys/class/rfkill/rfkill0/state
 
     # create logger folder
     mkdir /data/logger 0770 radio log
@@ -353,6 +356,9 @@ on boot
    chown root mot_tcmd /sys/bus/i2c/drivers/qtouch-obp-ts/2-004a/irq_enable
 # Change the ownership of cpcap
    chmod 0666 /dev/cpcap
+   chmod 0666 /dev/cpcap_batt
+   chmod 0666 /dev/cpcap_mot_rtc
+   chmod 0666 /dev/cpcap_uc
 # changes for enabling ducati...
    chmod 0660 /dev/syslink-proc4430
    chown media media /dev/syslink-proc4430
@@ -682,7 +688,7 @@ service usbd /system/bin/usbd
 
 service battd /system/bin/battd
     class core
-    socket battdsock stream 0660 mot_accy mot_accy
+    socket battdsock stream 0666 mot_accy mot_accy
     user root
     group mot_accy mot_pwric
     oneshot
@@ -798,12 +804,6 @@ on property:tcmd.unload_wlan=2
     exec /system/bin/rmmod tiwlan_drv
     setprop wlan.driver.status unloaded
 
-# turn on bluetooth for tcmd
-on property:tcmd.bt_mod=1
-    insmod /system/lib/modules/wl127x_test.ko
-#turn off bluetooth for tcmd
-on property:tcmd.bt_mod=0
-    exec /system/bin/rmmod wl127x_test
 #execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
@@ -965,24 +965,24 @@ service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notif
     user media
     group video
 
-#service gadget-qbp-modem /system/bin/tty2ttyd /dev/ttyUSB4 /dev/ttyGS2 0 1024
-#    user radio
-#    group radio
-#    disabled
+service gadget-qbp-modem /system/bin/tty2ttyd /dev/ttyUSB4 /dev/ttyGS2 0 1024
+    user radio
+    group radio
+    disabled
 
-#service gadget-qbp-diag /system/bin/tty2ttyd /dev/ttyUSB0 /dev/ttyGS3 0 1024
-#    user radio
-#    group radio
-#    disabled
+service gadget-qbp-diag /system/bin/tty2ttyd /dev/ttyUSB0 /dev/ttyGS3 0 1024
+    user radio
+    group radio
+    disabled
 
-#on property:ro.bootmode=bp-tools
-#    start tcmd
-#    start gadget-qbp-diag
+on property:ro.bootmode=bp-tools
+    start tcmd
+    start gadget-qbp-diag
 
-#service mdm_usb_suspend /system/bin/enable_mdm_usb_suspend.sh
-#    class core
-#    group radio
-#    oneshot
+service mdm_usb_suspend /system/bin/enable_mdm_usb_suspend.sh
+    class core
+    group radio
+    oneshot
 
 service hfag /system/bin/sdptool add --channel=10 HFAG
     class late_start
@@ -1021,14 +1021,14 @@ service pbap  /system/bin/sdptool add --channel=19 PBAP
 #     class core
 #     oneshot
 
-#service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
-#    class late_start
-#    group wifi
-#    disabled
-#    oneshot
+service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
+    class late_start
+    group wifi
+    disabled
+    oneshot
 
-#service tund /system/bin/tund
-#    class core
-#    socket tund stream 0660 vpn system
-#    ioprio be 2
+service tund /system/bin/tund
+    class core
+    socket tund stream 0660 vpn system
+    ioprio be 2
 
