@@ -29,6 +29,9 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
 #    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
 
+PRODUCT_PACKAGES += \
+    audio.primary.solana \
+
 # Lights
 #PRODUCT_PACKAGES += \
 #    lights.solana \
@@ -155,13 +158,11 @@ PRODUCT_COPY_FILES += \
 
 # Hijack files
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/root/init:root/init \
     device/motorola/solana/root/default.prop:root/default.prop \
     device/motorola/solana/root-hijack/init.rc:root/init.rc \
     device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
     device/motorola/solana/root/ueventd.rc:root/ueventd.rc \
-    device/motorola/solana/root/sbin/adbd:root/sbin/adbd \
 
 # Permissions files
 PRODUCT_COPY_FILES += \

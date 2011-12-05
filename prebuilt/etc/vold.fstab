@@ -23,7 +23,7 @@
 ######################
 
 # external sd card
-dev_mount sdcard /mnt/sdcard auto
+dev_mount sdcard /mnt/sdcard auto /devices/platform/goldfish_mmc.0 /devices/platform/mmci-omap-hs.0/mmc_host/mmc0
 # internal eMMC
 dev_mount emmc /mnt/emmc 25 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
 

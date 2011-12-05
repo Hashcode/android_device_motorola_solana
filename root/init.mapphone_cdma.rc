@@ -555,7 +555,10 @@ on boot
 #    insmod /system/lib/modules/vpnclient.ko
 
 # Load Quota2 support modules
-    insmod /system/lib/modules/xt_qtaguid.ko
+#    insmod /system/lib/modules/xt_TPROXY.ko
+#    insmod /system/lib/modules/xt_TRACE.ko
+#    insmod /system/lib/modules/xt_NFQUEUE.ko
+    insmod /system/lib/modules/xt_owner2.ko
     insmod /system/lib/modules/xt_quota2.ko
 
 # Enable hardware watchdog
@@ -664,20 +667,20 @@ on property:sys.shutdown=1
     exec /system/bin/sleep 10
     exec /system/bin/reboot -p
 
-#on property:init.svc.wpa_supplicant=stopped
-#    stop dhcpcd_wlan0
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd_tiwlan0
 
-#on property:ro.hdcp.support=1
-#    insmod /system/lib/modules/omap-hdcp.ko
-#    exec /system/bin/hdcp-mknod
-#    chown system media /dev/omap-hdcp
-#    chmod 0660 /dev/omap-hdcp
+on property:ro.hdcp.support=1
+    insmod /system/lib/modules/omap-hdcp.ko
+    exec /system/bin/hdcp-mknod
+    chown system media /dev/omap-hdcp
+    chmod 0660 /dev/omap-hdcp
 
-#on property:ro.hdcp.support=2
-#    insmod /system/lib/modules/omap-hdcp.ko
-#    exec /system/bin/hdcp-mknod
-#    chown system media /dev/omap-hdcp
-#    chmod 0660 /dev/omap-hdcp
+on property:ro.hdcp.support=2
+    insmod /system/lib/modules/omap-hdcp.ko
+    exec /system/bin/hdcp-mknod
+    chown system media /dev/omap-hdcp
+    chmod 0660 /dev/omap-hdcp
 
 service telnet /system/bin/telnetd
     class core
@@ -814,44 +817,44 @@ service akmd2 /system/bin/akmd2
     user compass
     group compass misc input
 
-#service wlan_loader /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_wlan1281.bin -i /system/etc/wifi/tiwlan.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service wlan_loader /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1281.bin -i /system/etc/wifi/tiwlan.ini \
+        -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
-#service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
-#        -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
+        -f /system/etc/wifi/fw_wlan1281_AP.bin -i /system/etc/wifi/tiwlan_ap.ini \
+        -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
-#service wlan_loader_rfmd /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service wlan_loader_rfmd /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
-#service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
+        -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
-#service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-#    class late_start
+service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    class late_start
 # we will start as root and wpa_supplicant will switch to user wifi
 # after setting up the capabilities required for WEXT
 # user wifi
 # group wifi inet keystore
-#    socket wpa_tiwlan0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
+    socket wpa_tiwlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
 	class main
 	disabled
 	oneshot
@@ -866,7 +869,7 @@ service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
 	disabled
 	oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_tiwlan0 /system/bin/dhcpcd -n
 	class main
 	disabled
 	oneshot
@@ -909,18 +912,18 @@ service smc /system/bin/startup_smc.sh
 service modemlog /system/bin/modemlog
 	oneshot
 
-#service ftmipcd /system/bin/ftmipcd
-#    class late_start
-#    user radio
-#    group radio inet
-#    oneshot
+service ftmipcd /system/bin/ftmipcd
+    class late_start
+    user radio
+    group radio inet
+    oneshot
 
-#service qbplogd /system/bin/qbplogd
-#    class late_start
-#    user radio
-#    group sdcard_rw radio inet
-#    oneshot
-#    disabled
+service qbplogd /system/bin/qbplogd
+    class late_start
+    user radio
+    group sdcard_rw radio inet
+    oneshot
+    disabled
 
 #service dlnasrv /system/bin/dlnasrv
 #    class late_start
@@ -929,11 +932,11 @@ service modemlog /system/bin/modemlog
 #    oneshot
 #    disabled
 
-#service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
-#    class late_start
-#    group net_bt net_bt_admin
-#    disabled
-#    oneshot
+service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
+    class late_start
+    group net_bt net_bt_admin
+    disabled
+    oneshot
 
 on property:dev.bootcomplete=1
     start savebpver
@@ -947,17 +950,17 @@ service mdm_panicd /system/bin/mdm_panicd
 #    class late_start
 #    oneshot
 
-#service secclkd /system/bin/secclkd
-#    class late_start
-#    socket secclk_socket stream 660 mot_secclkd mot_secclkd
-#    user mot_tpapi
-#    group mot_tpapi mot_sec_rtc mot_secclkd
-#    oneshot
+service secclkd /system/bin/secclkd
+    class late_start
+    socket secclk_socket stream 660 mot_secclkd mot_secclkd
+    user mot_tpapi
+    group mot_tpapi mot_sec_rtc mot_secclkd
+    oneshot
 
 #start Authentec VPN service
-#service vpnclientpm /system/bin/vpnclientpm
-#    oneshot
-#    user root
+service vpnclientpm /system/bin/vpnclientpm
+    oneshot
+    user root
 
 # start syslink daemon
 service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3

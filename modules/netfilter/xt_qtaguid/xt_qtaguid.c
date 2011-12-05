@@ -13,11 +13,11 @@
  * ipv6_find_hdr
  */
 
-/* #define DEBUG */
-/* #define IDEBUG */
-/* #define MDEBUG */
-/* #define RDEBUG */
-/* #define CDEBUG */
+#define DEBUG
+#define IDEBUG
+#define MDEBUG
+#define RDEBUG
+#define CDEBUG
 
 /* Iface handling */
 #ifdef IDEBUG
@@ -434,7 +434,7 @@ xt_socket_get6_sk(const struct sk_buff *skb, struct xt_action_param *par)
 	struct sock *sk;
 	struct in6_addr *daddr, *saddr;
 	__be16 dport, sport;
-	int thoff, tproto;
+	int thoff = 0, tproto = -1;
 
 	/* FIXME: tproto = ipv6_find_hdr(skb, &thoff, -1, NULL); */
 	if (tproto < 0) {
@@ -2140,6 +2140,7 @@ static int qtaguid_ctrl_parse(const char *input, int count)
 		res = count;
 err:
 	CT_DEBUG("qtaguid: ctrl(%s): res=%d\n", input, res);
+// HACK=OFF, res = 0;
 	return res;
 }
 

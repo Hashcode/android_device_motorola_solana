@@ -174,14 +174,14 @@ on post-fs-data
     chown root root /cache/lost+found
     chmod 0770 /cache/lost+found
 
-    chown system system /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
-    chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
+#    chown system system /sys/class/android_usb/android0/f_mass_storage/lun/file
+#    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
+#    chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
+#    chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
     # allow net_raw to have access to /dev/socket directory
-    chown root net_raw /dev/socket
-    chmod 0775 /dev/socket
+#    chown root net_raw /dev/socket
+#    chmod 0775 /dev/socket
 
     # allow system to modify cpufreq control files
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -551,12 +551,15 @@ on boot
     insmod /system/lib/modules/sch_htb.ko
     insmod /system/lib/modules/em_u32.ko
 
-# Load Quota2 support modules
-    insmod /system/lib/modules/xt_qtaguid.ko
-    insmod /system/lib/modules/xt_quota2.ko
-
 # Load Authentec VPN kernel module
 #    insmod /system/lib/modules/vpnclient.ko
+
+# Load Quota2 support modules
+    insmod /system/lib/modules/xt_TPROXY.ko
+    insmod /system/lib/modules/xt_TRACE.ko
+    insmod /system/lib/modules/xt_NFQUEUE.ko
+    insmod /system/lib/modules/xt_qtaguid.ko
+    insmod /system/lib/modules/xt_quota2.ko
 
 # Enable hardware watchdog
     write /sys/devices/platform/omap_wdt/enabled on
@@ -665,7 +668,7 @@ on property:sys.shutdown=1
     exec /system/bin/reboot -p
 
 on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd_wlan0
+    stop dhcpcd_tiwlan0
 
 on property:ro.hdcp.support=1
     insmod /system/lib/modules/omap-hdcp.ko
@@ -688,7 +691,7 @@ service usbd /system/bin/usbd
 
 service battd /system/bin/battd
     class core
-    socket battdsock stream 0660 mot_accy mot_accy
+    socket battdsock stream 0666 mot_accy mot_accy
     user root
     group mot_accy mot_pwric
     oneshot
@@ -715,10 +718,10 @@ service uim /system/bin/uim-sysfs
     group media bluetooth
     oneshot
 
-service hostapd /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
-    socket hostapd_tiap0 dgram 660 wifi wifi
-    disabled
-    oneshot
+#service hostapd /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
+#    socket hostapd_tiap0 dgram 660 wifi wifi
+#    disabled
+#    oneshot
 
 service hciattach /system/bin/hciattach -l
     class late_start
@@ -771,18 +774,18 @@ service map /system/bin/sdptool add --channel=20 --network=2 MAP
     disabled
     oneshot
 
-service tcmd /system/bin/tcmd
-    class late_start
-    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media
-    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
-    socket batch_socket stream 0600 mot_tcmd mot_tcmd
-    oneshot
+#service tcmd /system/bin/tcmd
+#    class late_start
+#    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media
+#    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+#    socket batch_socket stream 0600 mot_tcmd mot_tcmd
+#    oneshot
 
-service tcmdhelp /system/bin/tcmdhelp
-    class late_start
-    socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
-    oneshot
-    disabled
+#service tcmdhelp /system/bin/tcmdhelp
+#    class late_start
+#    socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
+#    oneshot
+#    disabled
 
 # turn on wifi for tcmd step one
 on property:tcmd.load_wlan=1
@@ -804,12 +807,6 @@ on property:tcmd.unload_wlan=2
     exec /system/bin/rmmod tiwlan_drv
     setprop wlan.driver.status unloaded
 
-# turn on bluetooth for tcmd
-on property:tcmd.bt_mod=1
-    insmod /system/lib/modules/wl127x_test.ko
-#turn off bluetooth for tcmd
-on property:tcmd.bt_mod=0
-    exec /system/bin/rmmod wl127x_test
 #execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
@@ -834,18 +831,18 @@ service ap_fmloader /system/bin/logwrapper /system/bin/tiap_loader \
     disabled
     oneshot
 
-#service wlan_loader_rfmd /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service wlan_loader_rfmd /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_wlan1271_rfmd.bin -i /system/etc/wifi/tiwlan_rfmd.ini -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
-#service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
-#        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
-#        -e /pds/wifi/nvs_map.bin
-#    class late_start
-#    disabled
-#    oneshot
+service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
+        -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
+        -e /pds/wifi/nvs_map.bin
+    class late_start
+    disabled
+    oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class late_start
@@ -857,7 +854,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/mi
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
 	class main
 	disabled
 	oneshot
@@ -872,7 +869,7 @@ service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
 	disabled
 	oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_tiwlan0 /system/bin/dhcpcd -n
 	class main
 	disabled
 	oneshot
@@ -935,11 +932,11 @@ service qbplogd /system/bin/qbplogd
 #    oneshot
 #    disabled
 
-#service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
-#    class late_start
-#    group net_bt net_bt_admin
-#    disabled
-#    oneshot
+service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
+    class late_start
+    group net_bt net_bt_admin
+    disabled
+    oneshot
 
 on property:dev.bootcomplete=1
     start savebpver
@@ -961,9 +958,9 @@ service secclkd /system/bin/secclkd
     oneshot
 
 #start Authentec VPN service
-#service vpnclientpm /system/bin/vpnclientpm
-#    oneshot
-#    user root
+service vpnclientpm /system/bin/vpnclientpm
+    oneshot
+    user root
 
 # start syslink daemon
 service syslinkdaemon /system/bin/syslink_daemon.out -f /system/lib/ducati/Notify_MPUSYS_reroute_Test_Core0.xem3 /system/lib/ducati/base_image_app_m3.xem3
