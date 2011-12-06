@@ -30,6 +30,7 @@ PRODUCT_COPY_FILES += \
 #    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
 
 PRODUCT_PACKAGES += \
+    audio_policy.solana \
     audio.primary.solana \
 
 # Lights
@@ -203,6 +204,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
     device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
 
+
 # Graphics
 PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/pvrsrvinit:system/bin/pvrsrvinit \
@@ -247,6 +249,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 $(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 #$(call inherit-product, hardware/ti/wpan/tools/FM/Android.mk)
+$(call inherit-product-if-exists, vendor/google/google-vendor.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 $(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)

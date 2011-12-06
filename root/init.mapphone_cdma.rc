@@ -837,7 +837,7 @@ service wlan_loader_rfmd /system/bin/wlan_loader \
     disabled
     oneshot
 
-service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader \
+service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/tiap_loader \
         -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini \
         -e /pds/wifi/nvs_map.bin
     class late_start
