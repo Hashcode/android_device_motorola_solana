@@ -1,4 +1,4 @@
-feq ($(TARGET_BOOTLOADER_BOARD_NAME),jordan)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),solana)
 
 LOCAL_PATH:= $(call my-dir)
 
@@ -31,9 +31,14 @@ LOCAL_SHARED_LIBRARIES := \
     libutils \
     libmedia \
     libhardware \
+    libhardware_legacy \
     libdl \
     libaudio \
     libaudio_ext \
+    libasound \
+    liblog \
+    libm \
+    liba2dp \
 
 LOCAL_STATIC_LIBRARIES := \
     libmedia_helper
