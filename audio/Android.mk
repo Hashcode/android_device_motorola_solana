@@ -36,8 +36,16 @@ $(file) : device/motorola/solana/prebuilt/audio/liba2dp.so
 	@rm -rf $@
 	$(hide) cp -a device/motorola/solana/prebuilt/audio/liba2dp.so $@
 
+file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/libaudiopolicy.so
+$(file) : device/motorola/solana/prebuilt/audio/libaudiopolicy.so
+	@echo "Copy libaudiopolicy.so -> $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) cp -a device/motorola/solana/prebuilt/audio/libaudiopolicy.so $@
+
 LOCAL_SRC_FILES:= AudioPolicyManager.cpp
-LOCAL_SHARED_LIBRARIES:= libc libcutils libutils libmedia
+LOCAL_SHARED_LIBRARIES:= libc libcutils libutils libmedia libaudiopolicy
+#libaudiopolicy.so
 LOCAL_STATIC_LIBRARIES := libmedia_helper
 LOCAL_WHOLE_STATIC_LIBRARIES:= libaudiopolicy_legacy
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
@@ -54,6 +62,7 @@ include $(BUILD_SHARED_LIBRARY)
 ifeq ($(BOARD_USES_AUDIO_LEGACY),true)
 
 LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := audio.primary.solana
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
@@ -74,8 +83,10 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_STATIC_LIBRARIES := \
     libmedia_helper
+
 LOCAL_WHOLE_STATIC_LIBRARIES := \
     libaudiohw_legacy
+
 include $(BUILD_SHARED_LIBRARY)
 
 endif

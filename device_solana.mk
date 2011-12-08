@@ -28,7 +28,9 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
     device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
     device/motorola/solana/prebuilt/audio/liba2dp.so:/system/lib/liba2dp.so \
-#    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudio.so \
+    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
+    device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
 
 PRODUCT_PACKAGES += \
     audio_policy.solana \
@@ -41,12 +43,6 @@ PRODUCT_PACKAGES += \
 # Sensors
 #PRODUCT_PACKAGES += \
 #    sensors.solana \
-
-#PRODUCT_PACKAGES += \
-#    libaudiopolicy \
-#    libbundlewrapper \
-#    libreverbwrapper \
-#    libvisualizer \
 
 # Modem
 PRODUCT_PACKAGES += \
@@ -65,31 +61,6 @@ PRODUCT_PACKAGES += \
     libnotify \
     libd2cmap \
     libtimemmgr \
-#    dmm_daemontest.out \
-#    ducati_load.out \
-#    event_listener.out \
-#    gateMPApp.out \
-#    heapBufMPApp.out \
-#    heapMemMPApp.out \
-#    interm3.out \
-#    listMPApp.out \
-#    memmgrserver.out \
-#    messageQApp.out \
-#    nameServerApp.out \
-#    notifyping.out \
-#    procMgrApp.out \
-#    rcm_daemontest.out \
-#    rcm_multiclienttest.out \
-#    rcm_multitest.out \
-#    rcm_multithreadtest.out \
-#    rcm_singletest.out \
-#    sharedRegionApp.out \
-#    slpmresources.out \
-#    slpmtest.out \
-#    slpmtransport.out \
-#    utilsApp.out \
-#    libsyslink_ipc_listener \
-#    libomap_mm_library_jni \
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -107,8 +78,6 @@ PRODUCT_PACKAGES += \
     hostapd.conf \
 
 # Bluetooth
-#    uim-rfkill \
-#    liba2dp \
 PRODUCT_PACKAGES += \
     bt_sco_app \
     uim-sysfs \
@@ -142,6 +111,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Camera \
     Usb \
+    GlobalNwSwitch \
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -197,6 +167,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
     device/motorola/solana/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+    device/motorola/solana/prebuilt/etc/hijack-boot.zip:system/etc/hijack-boot.zip \
     device/motorola/solana/prebuilt/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
     device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm:system/usr/keychars/omap-keypad.kcm \
     device/motorola/solana/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
