@@ -44,10 +44,22 @@ $(file) : device/motorola/solana/prebuilt/audio/libaudiopolicy.so
 	$(hide) cp -a device/motorola/solana/prebuilt/audio/libaudiopolicy.so $@
 
 LOCAL_SRC_FILES:= AudioPolicyManager.cpp
-LOCAL_SHARED_LIBRARIES:= libc libcutils libutils libmedia libaudiopolicy
-#libaudiopolicy.so
-LOCAL_STATIC_LIBRARIES := libmedia_helper
-LOCAL_WHOLE_STATIC_LIBRARIES:= libaudiopolicy_legacy
+
+LOCAL_SHARED_LIBRARIES:= \
+    liblog \
+    libcutils \
+    libutils \
+    libmedia \
+    libm \
+    libaudiopolicy \
+    libc
+
+LOCAL_STATIC_LIBRARIES := \
+    libmedia_helper
+
+#LOCAL_WHOLE_STATIC_LIBRARIES:= \
+#    libaudiopolicy_legacy
+
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE:= audio_policy.solana
 LOCAL_MODULE_TAGS := optional
@@ -64,9 +76,7 @@ ifeq ($(BOARD_USES_AUDIO_LEGACY),true)
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := audio.primary.solana
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
-LOCAL_MODULE_TAGS := optional
+
 LOCAL_SHARED_LIBRARIES := \
     libcutils \
     libutils \
@@ -86,6 +96,10 @@ LOCAL_STATIC_LIBRARIES := \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := \
     libaudiohw_legacy
+
+LOCAL_MODULE := audio.primary.solana
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 

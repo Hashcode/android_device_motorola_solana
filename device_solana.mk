@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
     device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
     device/motorola/solana/prebuilt/audio/liba2dp.so:/system/lib/liba2dp.so \
-    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudio.so \
+    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
     device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
     device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
 

@@ -353,7 +353,7 @@ key PERIOD {
     alt, shift+alt, capslock+alt:       ':'
 }
 
-key BACKSPACE {
+key BACK {
     label:                              'b'
     number:                             '3'
     base:                               '\u0009'
