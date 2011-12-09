@@ -232,7 +232,7 @@
          the physical keyboard.  0 means it doesn't, 1 means it is accessible
          when the lid is open, 2 means it is accessible when the lid is
          closed.  The default is 1. -->
-    <integer name="config_lidKeyboardAccessibility">2</integer>
+    <integer name="config_lidKeyboardAccessibility">1</integer>
 
     <!-- Indicate whether the lid state impacts the accessibility of
          the physical keyboard.  0 means it doesn't, 1 means it is accessible

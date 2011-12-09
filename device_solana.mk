@@ -15,26 +15,22 @@ PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 PRODUCT_PACKAGES := \
-	charger \
-	charger_res_images
+    charger \
+    charger_res_images
+
+# Audio
+PRODUCT_COPY_FILES += \
+    device/motorola/solana/audio/acoustics.default.so:/system/lib/hw/acoustics.solana.so \
+    device/motorola/solana/audio/alsa.omap4.so:/system/lib/hw/alsa.solana.so \
+    device/motorola/solana/audio/libasound.so:/system/lib/libasound.so \
+    device/motorola/solana/audio/libaudio.so:/system/lib/libaudio.so \
+    device/motorola/solana/audio/libaudio_ext.so:/system/lib/libaudio.so \
+    device/motorola/solana/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
+    device/motorola/solana/audio/liba2dp.so:/system/lib/liba2dp.so \
 
 # Hardware HALs
 PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-
-# Audio sucks currently.  Moto customized alsa_sound and while I'm working it out, I'll use phone libs.  blech.
-PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/audio/libaudio.so:/system/lib/libaudio.so \
-    device/motorola/solana/prebuilt/audio/libaudio_ext.so:/system/lib/libaudio_ext.so \
-    device/motorola/solana/prebuilt/audio/libasound.so:/system/lib/libasound.so \
-    device/motorola/solana/prebuilt/audio/liba2dp.so:/system/lib/liba2dp.so \
-    device/motorola/solana/prebuilt/audio/libaudiopolicy.so:/system/lib/libaudiopolicy.so \
-    device/motorola/solana/prebuilt/audio/alsa.omap4.so:/system/lib/hw/alsa.omap4.so \
-    device/motorola/solana/prebuilt/audio/acoustics.default.so:/system/lib/hw/acoustics.default.so \
-
-PRODUCT_PACKAGES += \
-    audio_policy.solana \
-    audio.primary.solana \
 
 # Lights
 #PRODUCT_PACKAGES += \
