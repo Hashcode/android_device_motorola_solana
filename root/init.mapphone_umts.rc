@@ -953,3 +953,4 @@ on property:ro.bootmode=bp-tools
 on property:sys.mot.encrypt.test=1
     exec /system/bin/encryption_test
     exec /system/bin/setprop sys.mot.encrypt.test ""
+
