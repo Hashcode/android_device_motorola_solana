@@ -32,13 +32,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
 
-# Lights
+# Hardware HALs
 #PRODUCT_PACKAGES += \
 #    lights.solana \
-
-# Sensors
-#PRODUCT_PACKAGES += \
 #    sensors.solana \
+
+PRODUCT_PACKAGES += \
+    audio.primary.solana \
+    audio_policy.solana \
 
 # Modem
 PRODUCT_PACKAGES += \

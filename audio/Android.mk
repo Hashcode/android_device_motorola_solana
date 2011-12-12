@@ -7,39 +7,39 @@ LIBAUDIO_INTERMEDIATES_PREREQS := $(PRODUCT_OUT)/obj/lib
 
 # prerequisites for building audio
 file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/libaudio.so
-$(file) : $(LOCAL_PATH)/libaudio.so
+$(file) : device/motorola/solana/audio/libaudio.so
 	@echo "Copy libaudio.so -> $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) cp -a $(LOCAL_PATH)/libaudio.so $@
+	$(hide) cp -a device/motorola/solana/audio/libaudio.so $@
 
 file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/liba2dp.so
-$(file) : $(LOCAL_PATH)/liba2dp.so
+$(file) : device/motorola/solana/audio/liba2dp.so
 	@echo "Copy liba2dp.so -> $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) cp -a $(LOCAL_PATH)/liba2dp.so $@
+	$(hide) cp -a device/motorola/solana/audio/liba2dp.so $@
 
 file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/libaudio_ext.so
-$(file) : $(LOCAL_PATH)/libaudio_ext.so
+$(file) : device/motorola/solana/audio/libaudio_ext.so
 	@echo "Copy libaudio_ext.so -> $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) cp -a $(LOCAL_PATH)/libaudio_ext.so $@
+	$(hide) cp -a device/motorola/solana/audio/libaudio_ext.so $@
 
 file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/libasound.so
-$(file) : $(LOCAL_PATH)/libasound.so
+$(file) : device/motorola/solana/audio/libasound.so
 	@echo "Copy libasound.so -> $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) cp -a $(LOCAL_PATH)/libasound.so $@
+	$(hide) cp -a device/motorola/solana/audio/libasound.so $@
 
 file := $(LIBAUDIO_INTERMEDIATES_PREREQS)/libaudiopolicy.so
-$(file) : $(LOCAL_PATH)/libaudiopolicy.so
+$(file) : device/motorola/solana/audio/libaudiopolicy.so
 	@echo "Copy libaudiopolicy.so -> $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) cp -a $(LOCAL_PATH)/libaudiopolicy.so $@
+	$(hide) cp -a device/motorola/solana/audio/libaudiopolicy.so $@
 
 include $(all-subdir-makefiles)
 
