@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cambio de modo de red automática telefónica global</string>
+    <string name="globalPhone_nw_mode_switch_t">Modo de red ha sido cambiado</string>
+    <string name="globalPhone_nw_mode_switch_to_cdma">Tarjeta SIM no detectada. Se cambió a modo CDMA.</string>
+    <string name="globalPhone_nw_mode_switch_to_global">Tarjeta SIM detectada. Se cambió a modo global.</string>
+</resources>

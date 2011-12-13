@@ -238,7 +238,7 @@
          the physical keyboard.  0 means it doesn't, 1 means it is accessible
          when the lid is open, 2 means it is accessible when the lid is
          closed.  The default is 1. -->
-    <integer name="config_lidKeyboardAccessibility">1</integer>
+    <integer name="config_lidKeyboardAccessibility">2</integer>
 
     <!-- Indicate whether the lid state impacts the accessibility of
          the physical keyboard.  0 means it doesn't, 1 means it is accessible
@@ -250,7 +250,10 @@
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
     <!-- The default iface on which to monitor data use -->
-    <string name="config_datause_iface">ppp0</string>
+    <string name="config_datause_iface"></string>
+
+    <!-- IP address of the dns server to use if nobody else suggests one -->
+    <string name="config_default_dns_server">8.8.8.8</string>
 
 </resources>
 

@@ -16,7 +16,7 @@
  * Edited by Hashcode [2011-12-12]
  */
 
-package com.motorola.globalnwswitch.service;
+package com.motorola.globalnwswitch;
 
 import android.app.Notification;
 import android.app.NotificationManager;

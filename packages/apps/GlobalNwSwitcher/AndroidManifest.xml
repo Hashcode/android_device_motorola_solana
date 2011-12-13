@@ -14,32 +14,24 @@
 
    Edited by Hashcode [2011-12-12]
 -->
-
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.motorola.globalnwswitch">
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<manifest android:sharedUserId="android.uid.phone" xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.motorola.globalnwswitch">
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="14" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-sdk android:minSdkVersion="10" />
-
-    <application
-        android:icon="@drawable/icon"
-        android:label="@string/app_name" android:persistent="true" >
-        <service android:name="GlobalNwSwitchService" android:process="com.motorola.globalnwservice">
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <application android:label="@string/app_name" android:icon="@drawable/icon" android:process="com.android.phone">
+        <receiver android:name=".GlobalNwSwitchReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="com.motorola.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GlobalNwSwitchService">
             <intent-filter>
                 <action android:name="com.motorola.globalnwswitch.START_SERVICE" />
-                <action android:name="android.intent.action.SIM_STATE_CHANGED" />
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
-                <action android:name="com.motorola.intent.action.NETWORKMODE_SWITCH" />
                 <category android:name="com.motorola.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
-        <receiver android:name="GlobalNwSwitchReceiver" android:process="com.motorola.usb">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

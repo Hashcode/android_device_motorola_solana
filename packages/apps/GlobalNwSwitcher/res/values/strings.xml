@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 Motorola Mobility
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
-   Edited by Hashcode [2011-12-12]
--->
 <resources>
-    <string name="app_name">GlobalNwSwitch</string>
-    <string name="version">20111212</string>
-    <string name="globalPhone_nw_mode_switch_t">GlobalNwSwitch</string>
-    <string name="globalPhone_nw_mode_switch_to_cdma">Switching Phone to CDMA</string>
-    <string name="globalPhone_nw_mode_switch_to_global">Switching Phone to Global</string>
+    <string name="app_name">Global Phone Auto Network Mode Switch</string>
+    <string name="globalPhone_nw_mode_switch_t">Network Mode is switched</string>
+    <string name="globalPhone_nw_mode_switch_to_cdma">SIM card is not detected, switched to CDMA mode.</string>
+    <string name="globalPhone_nw_mode_switch_to_global">SIM card is detected, Switched to Global Mode.</string>
 </resources>

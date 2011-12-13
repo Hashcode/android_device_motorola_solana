@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="progress">false</item>
+    <item type="id" name="title_msg">false</item>
+    <item type="id" name="content_msg">false</item>
+</resources>
