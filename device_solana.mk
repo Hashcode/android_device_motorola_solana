@@ -112,7 +112,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     librs_jni \
-    com.android.future.usb.accessory
+    com.android.future.usb.accessory \
+    libjni_pinyinime \
 
 
 # Rootfs files
