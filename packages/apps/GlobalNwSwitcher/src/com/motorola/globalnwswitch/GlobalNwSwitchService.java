@@ -46,7 +46,7 @@ import com.android.internal.telephony.PhoneFactory;
 import com.android.internal.telephony.RILConstants;
 import com.android.internal.telephony.TelephonyIntents;
 
-import com.motorola.android.provider.MotorolaSettings;
+//import com.motorola.android.provider.MotorolaSettings;
 
 import com.motorola.globalnwswitch.R;
 
@@ -317,7 +317,7 @@ public class GlobalNwSwitchService extends Service {
     }
 
     private boolean readPriorSimAbsent() {
-        int lPriorSimAbsent = MotorolaSettings.getInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, 1);
+        int lPriorSimAbsent = 1; //FIXME: MotorolaSettings.getInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, 1);
         if (DEBUG) {
             Log.d(TAG, "readPriorSimAbsent = " + lPriorSimAbsent);
         }
@@ -371,7 +371,7 @@ public class GlobalNwSwitchService extends Service {
         try {
             int j = 0;
             if (paramBoolean) j = 1;
-            MotorolaSettings.putInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, j);
+            //FIXME: MotorolaSettings.putInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, j);
             if (DEBUG) {
                 Log.d(TAG, "finish writePriorSimAbsent");
             }
