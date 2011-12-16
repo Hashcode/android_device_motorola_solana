@@ -1,3 +1,5 @@
+import init.mapphone.usb.rc
+
 on init
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
@@ -274,6 +276,9 @@ on early-boot
     class_start media_early_init
 
 on boot
+
+# Enable ADB
+    exec /usbcheck.sh
 
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
     setprop ro.sys.atvc_allow_netmon_usb 0
