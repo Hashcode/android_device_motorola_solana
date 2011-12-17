@@ -16,42 +16,41 @@
 ** limitations under the License.
 */
 -->
-
 <device name="Android">
-  <item name="none">0</item>
-  <item name="screen.on">84</item>
-  <item name="bluetooth.active">142</item> <!-- In call -->
-  <item name="bluetooth.on">1</item>
-  <item name="bluetooth.at">25730</item>
-  <item name="screen.full">181</item>
-  <item name="wifi.on">3</item>
-  <item name="wifi.active">60</item>
-  <item name="wifi.scan">100</item>
-  <item name="dsp.audio">36</item>
-  <item name="dsp.video">153</item>
-  <item name="radio.active">205</item>
-  <item name="gps.on">56</item>
-  <item name="radio.scanning">49</item>
-  <item name="battery.capacity">1930</item>
-  <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
-      <value>5</value>
-      <value>5</value>
-  </array>
-  <array name="cpu.speeds">
-      <value>1000000</value>
-      <value>800000</value>
-      <value>600000</value>
-      <value>300000</value>
-  </array>
-  <!-- Power consumption when CPU is idle -->
-  <item name="cpu.idle">30</item>
-  <!-- Power consumption at different speeds -->
-  <array name="cpu.active">
-      <value>194</value>
-      <value>163</value>
-      <value>106</value>
-      <value>66</value>
-  </array>
-  <!-- This is the battery capacity in mAh -->
-  <item name="battery.capacity">1540</item>
+    <item name="none">0</item>
+    <item name="screen.on">55</item>
+    <item name="bluetooth.active">142</item>
+    <item name="bluetooth.on">1</item>
+    <item name="bluetooth.at">35690</item>
+    <item name="screen.full">115</item>
+    <item name="wifi.on">10</item>
+    <item name="wifi.active">130</item>
+    <item name="wifi.scan">104</item>
+    <item name="dsp.audio">75</item>
+    <item name="dsp.video">75</item>
+    <item name="radio.active">300</item>
+    <item name="gps.on">170</item>
+    <item name="radio.scanning">70</item>
+    <array name="radio.on">
+        <value>3</value>
+        <value>3</value>
+    </array>
+
+    <array name="cpu.speeds">
+        <value>1000000</value>
+        <value>800000</value>
+        <value>600000</value>
+        <value>300000</value>
+    </array>
+
+    <item name="cpu.idle">4</item>
+    <array name="cpu.active">
+        <value>280</value>
+        <value>200</value>
+        <value>120</value>
+        <value>40</value>
+    </array>
+
+    <!-- This is the battery capacity in mAh -->
+    <item name="battery.capacity">1540</item>
 </device>

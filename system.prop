@@ -279,6 +279,5 @@ ro.com.google.clientid=android-motorola
 ro.mot.hw.uaprof=http://uaprof.motorola.com/phoneconfig/MotoMB200/profile/MotoMB200.rdf
 ro.build.version.full=CM7_Version.5.6.890.XT862.Verizon.en.US
 ro.mot.hidden_keyboards=evfwd
+persist.sys.usb.config=mass_storage,adb
 
-ro.rommanager.developerid=Hashcode
-ro.modversion=CyanogenMod-9.0.0-RC0-Droid3-N1

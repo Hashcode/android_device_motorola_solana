@@ -1,6 +1,9 @@
 import init.mapphone.usb.rc
 
 on init
+    # hack to get adbd up and running
+    write /dev/usb_device_mode charge_adb
+
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
     export SD_EXT_DIRECTORY /sd-ext
@@ -8,6 +11,7 @@ on init
     export PHONE_STORAGE /mnt/emmc
 
 on post-fs-data
+    setprop sys.usb.config adb
 
 # prepare generic keypad name
     exec /init_prep_keypad.sh
@@ -306,9 +310,6 @@ on early-boot
     class_start media_early_init
 
 on boot
-
-# Enable ADB
-    exec /usbcheck.sh
 
 
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
