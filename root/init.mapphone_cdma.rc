@@ -11,7 +11,6 @@ on init
     export PHONE_STORAGE /mnt/emmc
 
 on post-fs-data
-    setprop sys.usb.config adb
 
 # prepare generic keypad name
     exec /init_prep_keypad.sh

@@ -55,7 +55,7 @@ public class GlobalNwSwitchService extends Service {
 
     private static final String TAG = "GlobalNwSwitchService";
     private static final String TAG_NETWORKMODE_SWITCH = "globalnwswitch";
-    private static final String GLOBAL_PHONE_SIM_ABSENT_TAG = "GlobalPhoneRadioOffSimAbsentState";
+    //private static final String GLOBAL_PHONE_SIM_ABSENT_TAG = "GlobalPhoneRadioOffSimAbsentState";
     private static final String ACTION_NETWORKMODE_SWITCH = "com.motorola.intent.action.NETWORKMODE_SWITCH";
 
     private static final int NW_MODE_CHANGE_TO_CDMA = 0;
@@ -317,7 +317,7 @@ public class GlobalNwSwitchService extends Service {
     }
 
     private boolean readPriorSimAbsent() {
-        int lPriorSimAbsent = 1; //FIXME: MotorolaSettings.getInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, 1);
+        int lPriorSimAbsent = Settings.System.getInt(mPhone.getContext().getContentResolver(), Settings.System.GLOBAL_PHONE_SIM_ABSENT_TAG, 1);
         if (DEBUG) {
             Log.d(TAG, "readPriorSimAbsent = " + lPriorSimAbsent);
         }
@@ -371,7 +371,7 @@ public class GlobalNwSwitchService extends Service {
         try {
             int j = 0;
             if (paramBoolean) j = 1;
-            //FIXME: MotorolaSettings.putInt(mPhone.getContext().getContentResolver(), GLOBAL_PHONE_SIM_ABSENT_TAG, j);
+            Settings.System.putInt(mPhone.getContext().getContentResolver(), Settings.System.GLOBAL_PHONE_SIM_ABSENT_TAG, j);
             if (DEBUG) {
                 Log.d(TAG, "finish writePriorSimAbsent");
             }

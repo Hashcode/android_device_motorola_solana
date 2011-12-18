@@ -9,8 +9,6 @@ on early-init
 
 on init
     exec /sbin/fixboot.sh
-    # hack to get adbd up and running
-    write /dev/usb_device_mode charge_adb
 
 sysclktz 0
 

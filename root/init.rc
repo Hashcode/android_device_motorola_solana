@@ -98,6 +98,8 @@ on fs
     mount ext3 /dev/block/mmcblk1p22 /cache nosuid nodev noatime nodiratime
 
 on post-fs
+    setprop sys.usb.config adb
+
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
 
@@ -187,7 +189,6 @@ on post-fs-data
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
 on boot
-    setprop sys.usb.config adb
 
 # basic network init
     ifup lo
