@@ -282,5 +282,3 @@ ro.mot.hidden_keyboards=evfwd
 persist.sys.usb.config=mass_storage,adb
 
 ro.rommanager.developerid=Hashcode
-ro.modversion=CyanogenMod-9.0.0-RC0-Droid3-N1
-
