@@ -35,7 +35,7 @@
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
     <integer-array name="config_keyboardTapVibePattern">
-        <item>30</item>
+        <item>10</item>
     </integer-array>
 
     <!-- Our amoled doesn't animate well. -->
@@ -165,21 +165,21 @@
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
-        <!-- <item>"rndis0"</item> -->
+        <item>"rndis0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <!-- <item>"tiap\\d"</item> -->
+        <item>"tiap\\d"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
          should be empty. -->
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
-        <!-- <item>"bnep\\d"</item> -->
+        <item>"bnep\\d"</item>
     </string-array>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
@@ -251,13 +251,13 @@
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
     <!-- The default iface on which to monitor data use -->
-    <string name="config_datause_iface"></string>
+    <string name="config_datause_iface">ppp0</string>
 
     <!-- IP address of the dns server to use if nobody else suggests one -->
     <string name="config_default_dns_server">8.8.8.8</string>
 
     <!-- Use legacy USB device manager. -->
-    <bool name="config_usesLegacyUsbDeviceManager">true</bool>
+    <!-- <bool name="config_usesLegacyUsbDeviceManager">true</bool> -->
 
 </resources>
 

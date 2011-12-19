@@ -45,6 +45,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libaudiomodemgeneric \
     libreference-cdma-sms \
+    rild \
+    radiooptions \
 
 # Syslink and Tiler
 PRODUCT_PACKAGES += \
@@ -80,12 +82,12 @@ PRODUCT_PACKAGES += \
     uim-sysfs \
 
 # FM Radio
-PRODUCT_PACKAGES += \
-    com.ti.fm.fmradioif.xml \
-    fmradioif \
-    FmRxApp \
-    FmTxApp \
-    FmService \
+#PRODUCT_PACKAGES += \
+#    com.ti.fm.fmradioif.xml \
+#    fmradioif \
+#    FmRxApp \
+#    FmTxApp \
+#    FmService \
 
 # Release utilities
 PRODUCT_PACKAGES += \
@@ -105,17 +107,19 @@ PRODUCT_PACKAGES += \
 #    camera_test \
 #    VideoEncTest \
 
+#    AndroidTerm \
 PRODUCT_PACKAGES += \
-    AndroidTerm \
     Camera \
     Usb \
+    Superuser \
+    su \
     GlobalNwSwitch \
+
 
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory \
     libjni_pinyinime \
-
 
 # Rootfs files
 PRODUCT_COPY_FILES += \
@@ -155,6 +159,9 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -224,8 +231,8 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 $(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
-#$(call inherit-product, hardware/ti/wpan/tools/FM/Android.mk)
 $(call inherit-product-if-exists, vendor/google/google-vendor.mk)
+#$(call inherit-product, hardware/ti/wpan/tools/FM/Android.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/solana/solana-vendor.mk)
 $(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)

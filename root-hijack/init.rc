@@ -88,10 +88,6 @@ loglevel 3
     # 5.0 %
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
-# Allow everybody to read the xt_qtaguid resource tracking misc dev.
-# This is needed by any process that uses socket tagging.
-    chmod 0644 /dev/xt_qtaguid
-
 on fs
     mount ext3 /dev/block/mmcblk1p21 /system wait noatime nodiratime barrier=1
     mount ext3 /dev/block/mmcblk1p24 /data nosuid nodev noatime nodiratime
@@ -187,6 +183,10 @@ on post-fs-data
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
 on boot
+
+# Allow everybody to read the xt_qtaguid resource tracking misc dev.
+# This is needed by any process that uses socket tagging.
+    chmod 0644 /dev/xt_qtaguid
 
 # basic network init
     ifup lo

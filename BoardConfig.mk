@@ -142,7 +142,7 @@ BOARD_HAS_MAPPHONE_SWITCH := true
 TARGET_PROVIDES_RELEASETOOLS := true
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools/solana_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/motorola/solana/releasetools/solana_img_from_target_files
-
+TARGET_CUSTOM_RELEASETOOL := ./device/motorola/solana/releasetools/squisher
 
 # Hijack
 #TARGET_NEEDS_MOTOROLA_HIJACK := true
