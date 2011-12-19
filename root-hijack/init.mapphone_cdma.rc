@@ -1,5 +1,3 @@
-import init.mapphone.usb.rc
-
 on init
     # hack to get adbd up and running
     write /dev/usb_device_mode charge_adb
@@ -289,12 +287,12 @@ on post-fs-data
 # Install kernel modules
     insmod /system/lib/modules/sec.ko
 # Load Quota2 support modules
-    insmod /system/lib/modules/ip6_tables.ko
-    insmod /system/lib/modules/xt_TPROXY.ko
-    insmod /system/lib/modules/xt_TRACE.ko
-    insmod /system/lib/modules/xt_NFQUEUE.ko
-    insmod /system/lib/modules/xt_qtaguid.ko
-#    insmod /system/lib/modules/xt_owner2.ko
+#    insmod /system/lib/modules/ip6_tables.ko
+#    insmod /system/lib/modules/xt_TPROXY.ko
+#    insmod /system/lib/modules/xt_TRACE.ko
+#    insmod /system/lib/modules/xt_NFQUEUE.ko
+#    insmod /system/lib/modules/xt_qtaguid.ko
+    insmod /system/lib/modules/xt_owner2.ko
     insmod /system/lib/modules/xt_quota2.ko
 
 # Install product specific kernel modules
@@ -1047,4 +1045,5 @@ service tund /system/bin/tund
     class core
     socket tund stream 0660 vpn system
     ioprio be 2
+
 
