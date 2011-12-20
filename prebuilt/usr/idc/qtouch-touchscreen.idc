@@ -20,7 +20,7 @@ touch.deviceType = touchScreen
 touch.orientationAware = 1
 
 keyboard.layout = qtouch-touchscreen
-keyboard.characterMap = omap-keypad
+keyboard.characterMap = qtouch-touchscreen
 keyboard.orientationAware = 1
 keyboard.builtIn = 0
 

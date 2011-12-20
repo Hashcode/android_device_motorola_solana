@@ -14,3 +14,7 @@ keyboard.builtIn = 1
 # DPad always means 'up' from the perspective of the user, even when the entire
 # device has been rotated.
 keyboard.orientationAware = 1
+
+keyboard.layout = omap-keypad
+keyboard.characterMap = omap-keypad
+

@@ -104,6 +104,7 @@ PRODUCT_PACKAGES += \
     tiler_ptest \
     overlay_test \
     omx_tests \
+    evtest \
 #    camera_test \
 #    VideoEncTest \
 
@@ -139,6 +140,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:root/usbcheck.sh \
     device/motorola/solana/root/ueventd.rc:root/ueventd.rc \
+
 
 # Permissions files
 PRODUCT_COPY_FILES += \
@@ -178,11 +180,12 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/idc/omap-keypad.idc:system/usr/idc/omap-keypad.idc \
     device/motorola/solana/prebuilt/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
     device/motorola/solana/prebuilt/usr/keychars/omap-keypad.kcm:system/usr/keychars/omap-keypad.kcm \
+    device/motorola/solana/prebuilt/usr/keychars/qtouch-touchscreen.kcm:system/usr/keychars/qtouch-touchscreen.kcm \
     device/motorola/solana/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     device/motorola/solana/prebuilt/usr/keylayout/cpcap-key.kl:system/usr/keylayout/cpcap-key.kl \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
-    device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
     device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
+#    device/motorola/solana/prebuilt/usr/keylayout/usb_keyboard_102_en_us.kl:system/usr/keylayout/usb_keyboard_102_en_us.kl \
 
 
 # Graphics
