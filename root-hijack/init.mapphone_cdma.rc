@@ -645,10 +645,13 @@ on property:ro.kernel.memsize=1024M
     write /sys/module/lowmemorykiller/parameters/minfree 3072,4608,7200,11776,17408,21000
 
 on property:sys.chargeonly.mode=1
-    start battd
+    class_reset main
+    class_reset late_start
+    class_start charger
     start console
-    write /data/chargeonlymode charging
-    exec /system/bin/charge_only_mode
+    start battd
+    start chargeonly
+    stop zygote
 
 # Power up to normal
 on property:tcmd.suspend=0
@@ -699,6 +702,11 @@ service telnet /system/bin/telnetd
 
 service usbd /system/bin/usbd
     class core
+
+service chargeonly /system/bin/charge_only_mode
+    group root
+    oneshot
+    disabled
 
 service battd /system/bin/battd
     class core
@@ -1045,5 +1053,4 @@ service tund /system/bin/tund
     class core
     socket tund stream 0660 vpn system
     ioprio be 2
-
 
