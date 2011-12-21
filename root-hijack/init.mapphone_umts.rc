@@ -1,9 +1,19 @@
 on init
+    exec /sbin/fixboot.sh
+
+    # Set init and its forked children's oom_adj.
+    write /proc/1/oom_adj -16
+
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
     export SD_EXT_DIRECTORY /sd-ext
     export EXTERNAL_STORAGE /mnt/sdcard
     export PHONE_STORAGE /mnt/emmc
+
+on fs
+    mount ext3 /dev/block/mmcblk1p21 /system wait noatime nodiratime barrier=1
+    mount ext3 /dev/block/mmcblk1p24 /data nosuid nodev noatime nodiratime
+    mount ext3 /dev/block/mmcblk1p22 /cache nosuid nodev noatime nodiratime
 
 on post-fs-data
 
@@ -556,10 +566,14 @@ on property:ro.kernel.memsize=1024M
     write /sys/module/lowmemorykiller/parameters/minfree 3072,4608,7200,11776,17408,21000
 
 on property:sys.chargeonly.mode=1
-    start battd
+    class_reset main
+    class_reset late_start
+    class_start charger
     start console
+    start battd
+    start chargeonly
     write /data/simpin lock
-    exec /system/bin/charge_only_mode
+    stop zygote
 
 # Power up to normal
 on property:tcmd.suspend=0
@@ -617,16 +631,23 @@ service telnet /system/bin/telnetd
 service usbd /system/bin/usbd
     class core
 
+service chargeonly /system/bin/charge_only_mode
+    group root
+    oneshot
+    disabled
+
 service nvm-daemon /system/usr/bin/nvm_daemon
     class core
     user radio
     group radio
 # start commdrv pds script
+
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
     class core
     oneshot
     user radio
     group radio system cache
+
 service gkisystem /system/bin/gkisystem
     class core
     socket location_shim stream 660 radio system
@@ -635,6 +656,7 @@ service gkisystem /system/bin/gkisystem
     socket gkilog_sock stream 660 radio radio
     group radio system mot_accy mot_secclkd
     onrestart exec /system/usr/bin/gki_pd_notifier
+
 service rild_tcmd /system/bin/rild_tcmd
     class core
     socket rild_tcmd stream 0660 radio mot_tcmd
@@ -819,34 +841,34 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/mi
     oneshot
 
 service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service dhcpcd_p2p /system/bin/dhcpcd -aABKL
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service iprenew_tiwlan0 /system/bin/dhcpcd -n
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service iprenew_p2p /system/bin/dhcpcd -n
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service iprenew_bnep0 /system/bin/dhcpcd -n
-	class main
-	disabled
-	oneshot
+    class main
+    disabled
+    oneshot
 
 service bugtogo /system/bin/bugtogo.sh
     class late_start
