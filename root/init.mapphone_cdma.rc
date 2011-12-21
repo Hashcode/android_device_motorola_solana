@@ -1,14 +1,4 @@
-
-
-
-
-
-
 on post-fs
-
-
-
-
 
 # prepare generic keypad name
     exec /init_prep_keypad.sh

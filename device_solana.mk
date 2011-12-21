@@ -241,9 +241,9 @@ PRODUCT_PACKAGES += \
     camera_test \
     VideoEncTest \
     omx_tests \
+    safestrapmenu \
 
 # Misc Packages
-#    safestrapmenu \
 #    2nd-init \
 
 PRODUCT_PACKAGES += \
