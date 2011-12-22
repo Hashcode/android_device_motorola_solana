@@ -1,6 +1,9 @@
 on early-init
     log "== init.rc: on early-init -----------------------"
 
+    # Set init and its forked children's oom_adj.
+    write /proc/1/oom_adj -16
+
     start ueventd
 
 # create mountpoints
@@ -309,58 +312,47 @@ on property:vold.decrypt=trigger_shutdown_framework
     class_reset main
 
 # Used to disable USB when switching states
-#on property:sys.usb.config=none
-    #log "on property sys.usb.config:" $sys.usb.config
-    #stop adbd
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/bDeviceClass 0
-    #setprop sys.usb.state $sys.usb.config
+on property:sys.usb.config=none
+    stop adbd
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/bDeviceClass 0
+    setprop sys.usb.state $sys.usb.config
 
 # adb only USB configuration
 # This should only be used during device bringup
 # and as a fallback if the USB manager fails to set a standard configuration
-#on property:sys.usb.config=adb
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/idVendor 18d1
-    #write /sys/class/android_usb/android0/idProduct D002
-    #write /sys/class/android_usb/android0/functions $sys.usb.config
-    #write /sys/class/android_usb/android0/enable 1
-    #setprop sys.usb.state $sys.usb.config
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct D002
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
 
 # USB accessory configuration
-#on property:sys.usb.config=accessory
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/idVendor 18d1
-    #write /sys/class/android_usb/android0/idProduct 2d00
-    #write /sys/class/android_usb/android0/functions $sys.usb.config
-    #write /sys/class/android_usb/android0/enable 1
-    #setprop sys.usb.state $sys.usb.config
+on property:sys.usb.config=accessory
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 2d00
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
 
 # USB accessory configuration, with adb
-#on property:sys.usb.config=accessory,adb
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/idVendor 18d1
-    #write /sys/class/android_usb/android0/idProduct 2d01
-    #write /sys/class/android_usb/android0/functions $sys.usb.config
-    #write /sys/class/android_usb/android0/enable 1
-    #setprop sys.usb.state $sys.usb.config
-
-#on property:sys.usb.config=*
-    #log "on property sys.usb.config:" $sys.usb.config
+on property:sys.usb.config=accessory,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 2d01
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
 
 # Used to set USB configuration at boot and to switch the configuration
 # when changing the default configuration
-#on property:persist.sys.usb.config=*
-    #log "on property persist.sys.usb.config:" $persist.sys.usb.config
-    #setprop sys.usb.config $persist.sys.usb.config
-
-on property:persist.service.adb.enable=1
-    log "== init.rc: on property:persist.service.adb.enable=1 -----------------------"
-    start adbd
-
-on property:persist.service.adb.enable=0
-    log "== init.rc: on property:persist.service.adb.enable=0 -----------------------"
-    stop adbd
+on property:persist.sys.usb.config=*
+    setprop sys.usb.config $persist.sys.usb.config
 
 ## Daemon processes to be run by init.
 ##

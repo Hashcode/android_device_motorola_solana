@@ -127,6 +127,7 @@ PRODUCT_COPY_FILES += \
     out/target/product/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
     device/motorola/solana/root/default.prop:system/etc/rootfs/default.prop \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
+    device/motorola/solana/root/init.solana.usb.rc:system/etc/rootfs/init.solana.usb.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:system/etc/rootfs/usbcheck.sh \
@@ -136,6 +137,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/solana/root/default.prop:root/default.prop \
     device/motorola/solana/root/init.rc:root/init.rc \
+    device/motorola/solana/root/init.solana.usb.rc:system/etc/rootfs/init.solana.usb.rc \
     device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:root/usbcheck.sh \
@@ -170,7 +172,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/bin/mount_ext3.sh:system/bin/mount_ext3.sh \
     device/motorola/solana/prebuilt/bin/strace:system/bin/strace \
     device/motorola/solana/prebuilt/etc/TICameraCameraProperties.xml:system/etc/TICameraCameraProperties.xml \
-    device/motorola/solana/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml \
     device/motorola/solana/prebuilt/etc/gps.conf:system/etc/gps.conf \
     device/motorola/solana/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
     device/motorola/solana/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
@@ -193,6 +194,11 @@ PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/usr/keylayout/mapphone-switch.kl:system/usr/keylayout/mapphone-switch.kl \
     device/motorola/solana/prebuilt/usr/keylayout/omap-keypad.kl:system/usr/keylayout/omap-keypad.kl \
     device/motorola/solana/prebuilt/usr/keylayout/qtouch-touchscreen.kl:system/usr/keylayout/qtouch-touchscreen.kl \
+
+# Phone settings
+PRODUCT_COPY_FILES += \
+    vendor/cm/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml \
+    vendor/cm/prebuilt/common/etc/spn-conf.xml:system/etc/spn-conf.xml \
 
 
 # Graphics

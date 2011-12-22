@@ -58,9 +58,7 @@ ro.opengles.version = 131072
 
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapstartsize=5m
-dalvik.vm.heapgrowthlimit=48m
-dalvik.vm.heapsize=128m
-#dalvik.vm.heapsize=32m
+dalvik.vm.heapsize=48m
 
 # our HTML browser (not WAP browser ) does not need to specify UAProf URL
 ro.mot.hw.uaprof=http://uaprof.vtext.com/mot/xt862/xt862.xml
@@ -284,3 +282,4 @@ ro.build.version.full=ICS_Version.5.6.890.XT862.Verizon.en.US
 ro.mot.hidden_keyboards=evfwd
 
 ro.rommanager.developerid=Hashcode
+persist.sys.usb.config=mass_storage,adb

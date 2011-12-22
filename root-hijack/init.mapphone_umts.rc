@@ -1,8 +1,7 @@
+import init.olympus.usb.rc
+
 on init
     exec /sbin/fixboot.sh
-
-    # Set init and its forked children's oom_adj.
-    write /proc/1/oom_adj -16
 
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
@@ -574,6 +573,9 @@ on property:sys.chargeonly.mode=1
     start chargeonly
     write /data/simpin lock
     stop zygote
+
+on property:persist.service.adb.enable=1
+    start adbd
 
 # Power up to normal
 on property:tcmd.suspend=0

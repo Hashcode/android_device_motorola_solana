@@ -1,13 +1,9 @@
+import init.olympus.usb.rc
+
 on init
     log "== init.mapphone_cdma.rc: on init -----------------------"
 
     exec /sbin/fixboot.sh
-
-    # Set init and its forked children's oom_adj.
-    write /proc/1/oom_adj -16
-
-    # hack to get adbd up and running
-    write /dev/usb_device_mode charge_adb
 
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
@@ -24,6 +20,9 @@ on fs
 
 on post-fs-data
     log "== init.mapphone_cdma.rc: on post-fs-data -----------------------"
+
+    # to prevent errors on aosp init.rc
+    #insmod /system/lib/modules/android_usb.ko
 
     # prepare generic keypad name
     exec /init_prep_keypad.sh
@@ -338,6 +337,9 @@ on early-boot
 
 on boot
     log "== init.mapphone_cdma.rc: on boot -----------------------"
+
+# Enable ADB
+   write /dev/usb_device_mode charge_adb
 
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
     setprop ro.sys.atvc_allow_netmon_usb 0
@@ -676,6 +678,9 @@ on property:sys.chargeonly.mode=1
     start battd
     start chargeonly
     stop zygote
+
+on property:persist.service.adb.enable=1
+    start adbd
 
 # Power up to normal
 on property:tcmd.suspend=0
