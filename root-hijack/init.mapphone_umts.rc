@@ -1,4 +1,4 @@
-import init.olympus.usb.rc
+import init.solana.usb.rc
 
 on init
     exec /sbin/fixboot.sh
