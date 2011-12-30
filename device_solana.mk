@@ -124,10 +124,10 @@ PRODUCT_PACKAGES += \
 # Additional Apps
 PRODUCT_PACKAGES += \
     GlobalNwSwitch \
-    WirelessTether \
 
-# WirelessTether Lib
+# WirelessTether
 PRODUCT_COPY_FILES += \
+    device/motorola/solana/prebuilt/app/wifi_tether_v3_1-pre110.apk:system/app/wifi_tether_v3_1-pre110.apk \
     device/motorola/solana/prebuilt/lib/libwtnativetask.so:system/lib/libwtnativetask.so \
 
 
@@ -170,7 +170,6 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/handheld_core_hardware.xml:/system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 
 
@@ -253,7 +252,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-#$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
+$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 $(call inherit-product-if-exists, vendor/google/google-vendor.mk)
 #$(call inherit-product, hardware/ti/wpan/tools/FM/Android.mk)
 
