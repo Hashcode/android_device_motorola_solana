@@ -89,6 +89,8 @@ cd $REPACK/ota/system/app
 find ./ -name \*.apk | $XARGS $OPTICHARGER
 )
 
+# Remove Gallery2.apk so that GalleryGoogle.apk doesn't cause 2 galleries to be shown
+rm $REPACK/ota/system/app/Gallery2.apk
 
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
 	squash_opts="-force-uid 1000 -force-gid 1000 -no-progress -noappend -no-exports -no-recovery"

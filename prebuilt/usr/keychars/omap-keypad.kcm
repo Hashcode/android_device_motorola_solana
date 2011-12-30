@@ -18,15 +18,15 @@ key A {
     label:           'A'
     base:            'a'
     shift, capslock: 'A'
+    alt:             '\u20ac'
 }
-#    alt:             '\u00ac'
 
 key B {
     label:           'B'
     base:            'b'
     shift, capslock: 'B'
+    alt:             '+'
 }
-#    alt:             '+'
 
 key C {
     label:                              'C'
@@ -123,8 +123,8 @@ key P {
     label:                              'P'
     base:                               'p'
     shift, capslock:                    'P'
+    alt:       '\u2620'
 }
-#    alt:       '\u2620'
 
 key Q {
     label:                              'Q'

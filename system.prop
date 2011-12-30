@@ -57,7 +57,7 @@ ro.HorizontalVVM=true
 ro.opengles.version = 131072
 
 # This is a high density device with more memory, so larger vm heaps for it.
-dalvik.vm.heapsize=64m
+dalvik.vm.heapsize=76m
 
 # our HTML browser (not WAP browser ) does not need to specify UAProf URL
 ro.mot.hw.uaprof=http://uaprof.vtext.com/mot/xt862/xt862.xml
@@ -195,7 +195,7 @@ ro.cdma.sms.latin_encode=true
 ro.hdcp.support=2
 
 # Mount the internal SD card, too
-ro.additionalmounts=/mnt/emmc
+ro.additionalmounts=/mnt/sdcard
 
 #special moto usb handling
 ro.usb.use_custom_service=1
