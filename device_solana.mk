@@ -147,7 +147,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/solana/root/default.prop:root/default.prop \
     device/motorola/solana/root/init.rc:root/init.rc \
-    device/motorola/solana/root/init.solana.usb.rc:system/etc/rootfs/init.solana.usb.rc \
+    device/motorola/solana/root/init.solana.usb.rc:root/init.solana.usb.rc \
     device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:root/usbcheck.sh \
