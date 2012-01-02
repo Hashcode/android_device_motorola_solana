@@ -357,6 +357,7 @@ on property:sys.usb.config=accessory,adb
 # when changing the default configuration
 on property:persist.sys.usb.config=*
     log "== init.rc: on property:persist.sys.usb.config=* -----------------------"
+    log "$persist.sys.usb.config"
     setprop sys.usb.config $persist.sys.usb.config
 
 ## Daemon processes to be run by init.

@@ -113,6 +113,7 @@ PRODUCT_PACKAGES += \
     Superuser \
     su \
     Usb \
+    CMSettings
 
 
 PRODUCT_PACKAGES += \
@@ -137,7 +138,6 @@ PRODUCT_COPY_FILES += \
     out/target/product/solana/root/sbin/adbd:system/etc/rootfs/sbin/adbd \
     device/motorola/solana/root/default.prop:system/etc/rootfs/default.prop \
     device/motorola/solana/root/init.rc:system/etc/rootfs/init.rc \
-    device/motorola/solana/root/init.solana.usb.rc:system/etc/rootfs/init.solana.usb.rc \
     device/motorola/solana/root/init.mapphone_cdma.rc:system/etc/rootfs/init.mapphone_cdma.rc \
     device/motorola/solana/root/init.mapphone_umts.rc:system/etc/rootfs/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:system/etc/rootfs/usbcheck.sh \
@@ -147,7 +147,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/solana/root/default.prop:root/default.prop \
     device/motorola/solana/root/init.rc:root/init.rc \
-    device/motorola/solana/root/init.solana.usb.rc:root/init.solana.usb.rc \
     device/motorola/solana/root-hijack/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
     device/motorola/solana/root-hijack/init.mapphone_umts.rc:root/init.mapphone_umts.rc \
     device/motorola/solana/root/usbcheck.sh:root/usbcheck.sh \
