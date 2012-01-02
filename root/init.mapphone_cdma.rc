@@ -185,6 +185,9 @@ on post-fs-data
     mkdir /cache/dalvik-cache 0771 system system
     mkdir /cache/lost+found 0770 root root
 
+# usbd permissions
+    mkdir /data/usbd 0777 system system
+
 # Motorola tcmd/12m stuff
     mkdir /data/local/12m 0771 mot_tcmd shell
     mkdir /data/local/12m/batch 0771 mot_tcmd shell

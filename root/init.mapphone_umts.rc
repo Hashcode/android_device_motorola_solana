@@ -180,6 +180,9 @@ on post-fs-data
     chmod 0664 /sys/class/rfkill/rfkill0/type
     chmod 0664 /sys/class/rfkill/rfkill0/state
 
+# usbd permissions
+    mkdir /data/usbd 0777 system system
+
     # create logger folder
     mkdir /data/logger 0770 radio log
     chown radio log /data/logger
