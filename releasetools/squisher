@@ -92,6 +92,12 @@ find ./ -name \*.apk | $XARGS $OPTICHARGER
 # Fix Voice Search
 cp -f $ANDROID_BUILD_TOP/vendor/google/prebuilt/lib/libvoicesearch.so $REPACK/ota/system/lib/libvoicesearch.so
 
+# Remove unwanted Apps
+rm $REPACK/ota/system/app/FmRxApp.apk
+rm $REPACK/ota/system/app/FmService.apk
+rm $REPACK/ota/system/app/FmTxApp.apk
+
+
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
 	squash_opts="-force-uid 1000 -force-gid 1000 -no-progress -noappend -no-exports -no-recovery"
 	updater=$REPACK/ota/META-INF/com/google/android/updater-script
