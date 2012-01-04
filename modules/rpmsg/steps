@@ -7,4 +7,5 @@ export KERNEL_DIR=$YOUR_PATH/kernel
 export ARCH=arm
 
 make mapphone_defconfig
-make ARCH=arm M=$MYDROID/device/motorola/solana/modules/netfilter/xt_qtaguid modules
+make ARCH=arm CONFIG_ION_OMAP=true M=$MYDROID/device/motorola/solana/modules/rpmsg modules
+

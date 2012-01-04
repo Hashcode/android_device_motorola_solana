@@ -96,6 +96,7 @@ cp -f $ANDROID_BUILD_TOP/vendor/google/prebuilt/lib/libvoicesearch.so $REPACK/ot
 rm $REPACK/ota/system/app/FmRxApp.apk
 rm $REPACK/ota/system/app/FmService.apk
 rm $REPACK/ota/system/app/FmTxApp.apk
+rm $REPACK/ota/system/app/Music.apk
 
 
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
