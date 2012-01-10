@@ -107,9 +107,9 @@
     <integer-array name="config_autoBrightnessButtonBacklightValues">
         <item>255</item>
         <item>255</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
         <item>0</item>
     </integer-array>
 
@@ -121,9 +121,9 @@
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
         <item>255</item>
         <item>255</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
         <item>0</item>
     </integer-array>
 
