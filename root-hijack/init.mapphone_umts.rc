@@ -4,8 +4,8 @@ on init
     export ANDROID_CACHE /cache
     export DOWNLOAD_CACHE /cache/download
     export SD_EXT_DIRECTORY /sd-ext
-    export EXTERNAL_STORAGE /mnt/sdcard-ext
-    export PHONE_STORAGE /mnt/sdcard
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /mnt/sdcard-ext
 
 on fs
     mount ext3 /dev/block/mmcblk1p21 /system wait noatime nodiratime barrier=1
