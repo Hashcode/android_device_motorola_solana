@@ -11,8 +11,11 @@ obj-m += virtio.o
 obj-m += virtio_rpmsg_bus.o
 obj-m += virtio_ring.o
 
-#obj-m += rpmsg_resmgr_driver.o
-#rpmsg_resmgr_driver-objs += rpmsg_resmgr.o omap_hwmod.o
+obj-m += rpres.o
+#obj-m += remoteproc.o
+
+obj-m += rpmsg_resmgr_driver.o
+rpmsg_resmgr_driver-objs += rpmsg_resmgr.o omap_hwmod.o
 
 #obj-m += rpmsg_omx_driver.o
 #rpmsg_omx_driver-objs += rpmsg_omx.o omap_hwmod.o

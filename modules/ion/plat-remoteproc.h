@@ -16,7 +16,7 @@
 #ifndef _PLAT_REMOTEPROC_H
 #define _PLAT_REMOTEPROC_H
 
-#include <linux/remoteproc.h>
+#include "linux-remoteproc.h"
 #include <plat/omap_device.h>
 
 /*

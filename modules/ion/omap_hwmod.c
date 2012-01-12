@@ -165,7 +165,7 @@ static LIST_HEAD(omap_hwmod_list);
 /* mpu_oh: used to add/remove MPU initiator from sleepdep list */
 static struct omap_hwmod *mpu_oh;
 
-
+#if 0
 /* Private functions */
 
 /**
@@ -908,6 +908,7 @@ static void _shutdown_sysc(struct omap_hwmod *oh)
 
 	_write_sysconfig(v, oh);
 }
+#endif
 
 /**
  * _lookup - find an omap_hwmod by name
@@ -931,6 +932,7 @@ static struct omap_hwmod *_lookup(const char *name)
 	return oh;
 }
 
+#if 0
 /**
  * _init_clocks - clk_get() all clocks associated with this hwmod
  * @oh: struct omap_hwmod *
@@ -2464,6 +2466,7 @@ int omap_hwmod_pad_get_wakeup_status(struct omap_hwmod *oh)
 		return omap_hwmod_mux_get_wake_status(oh->mux);
 	return -EINVAL;
 }
+#endif
 
 /**
  * omap_hwmod_name_get_dev() - convert a hwmod name to device pointer

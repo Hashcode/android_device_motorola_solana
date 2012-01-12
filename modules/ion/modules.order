@@ -4,3 +4,4 @@ kernel//home/scottml/android/d.moto-solana/mydroid/device/motorola/solana/module
 kernel//home/scottml/android/d.moto-solana/mydroid/device/motorola/solana/modules/ion/virtio.ko
 kernel//home/scottml/android/d.moto-solana/mydroid/device/motorola/solana/modules/ion/virtio_rpmsg_bus.ko
 kernel//home/scottml/android/d.moto-solana/mydroid/device/motorola/solana/modules/ion/virtio_ring.ko
+kernel//home/scottml/android/d.moto-solana/mydroid/device/motorola/solana/modules/ion/rpres.ko
