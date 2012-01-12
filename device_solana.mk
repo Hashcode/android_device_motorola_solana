@@ -41,6 +41,15 @@ PRODUCT_PACKAGES += \
     audio.primary.solana \
     audio_policy.solana \
 
+# BlueZ a2dp Audio HAL module
+PRODUCT_PACKAGES += \
+    audio.a2dp.default
+
+# BlueZ test tools
+PRODUCT_PACKAGES += \
+    hciconfig \
+    hcitool
+
 # Modem
 PRODUCT_PACKAGES += \
     libaudiomodemgeneric \
