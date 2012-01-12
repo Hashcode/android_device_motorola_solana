@@ -19,9 +19,6 @@ on fs
 on post-fs-data
     log "== init.mapphone_cdma.rc: on post-fs-data -----------------------"
 
-# Enable ADB
-    write /dev/usb_device_mode msc_adb
-
     # prepare generic keypad name
     exec /init_prep_keypad.sh
 
@@ -290,7 +287,6 @@ on post-fs-data
     mkdir /pds/wmdrm 0775 mot_drm mot_drm
     # Temp workaround for HP library cleanup
     symlink /dev/hp3a-omap /dev/hp3A-omap
-
 # Permissions for video
     chmod 0770 /dev/hp3a-omap
     chmod 0770 /dev/hplens-omap
@@ -326,7 +322,6 @@ on post-fs-data
     insmod /system/lib/modules/nf_conntrack_ipv6.ko
 
 # Load Quota2 support modules
-    insmod /system/lib/modules/ip6_tables.ko
     insmod /system/lib/modules/xt_TPROXY.ko
     insmod /system/lib/modules/xt_TRACE.ko
     insmod /system/lib/modules/xt_NFQUEUE.ko

@@ -198,7 +198,7 @@ ro.hdcp.support=2
 ro.additionalmounts=/mnt/sdcard
 
 #special moto usb handling
-ro.usb.use_custom_service=1
+#ro.usb.use_custom_service=1
 
 # use charge_counter for 1% battery increments
 ro.product.use_charge_counter=1

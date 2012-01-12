@@ -286,7 +286,6 @@ on post-fs-data
     insmod /system/lib/modules/nf_conntrack_ipv6.ko
 
 # Load Quota2 support modules
-    insmod /system/lib/modules/ip6_tables.ko
     insmod /system/lib/modules/xt_TPROXY.ko
     insmod /system/lib/modules/xt_TRACE.ko
     insmod /system/lib/modules/xt_NFQUEUE.ko
@@ -310,9 +309,6 @@ on early-boot
     class_start media_early_init
 
 on boot
-
-# Enable ADB
-    exec /usbcheck.sh
 
 # Define Motorola DBVC ATVC Property defaults (failsafe properties)
     setprop ro.sys.atvc_allow_netmon_usb 0
@@ -691,10 +687,6 @@ service battd /system/bin/battd
     group mot_accy mot_pwric
     oneshot
 
-#service catcommands /system/bin/catcommands
-#    class core
-#    group radio
-
 service whisperd /system/bin/whisperd /dev/ttyO1
     class late_start
     user mot_whisper
@@ -726,12 +718,6 @@ service uim /system/bin/uim-sysfs
     user root
     group media bluetooth
     oneshot
-
-#service hostapd /system/bin/logwrapper /system/bin/Hostapd /data/misc/wifi/hostapd.conf
-#    class late_start
-#    socket hostapd_tiap0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
 
 service hciattach /system/bin/hciattach -l
     class late_start
@@ -853,10 +839,6 @@ service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/tiap_loader -f /syst
 
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class late_start
-# we will start as root and wpa_supplicant will switch to user wifi
-# after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
@@ -1028,18 +1010,6 @@ service secclkd /system/bin/secclkd
 service dla /system/bin/dla
     class late_start
     oneshot
-
-on property:tcmd.ctrl_adb=1
-    setprop persist.service.adb.enable 1
-    setprop persist.factory.allow_adb 1
-    stop usbd
-    start usbd
-
-on property:tcmd.ctrl_adb=0
-    setprop persist.service.adb.enable 0
-    setprop persist.factory.allow_adb 0
-    stop usbd
-    start usbd
 
 #start Authentec VPN service
 service vpnclientpm /system/bin/vpnclientpm
