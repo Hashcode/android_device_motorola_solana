@@ -280,4 +280,4 @@ ro.mot.hidden_keyboards=evfwd
 persist.sys.usb.config=mass_storage,adb
 
 ro.rommanager.developerid=Hashcode
-ro.modversion=Droid3-ICS
+ro.modversion=Droid3-ICS-Alpha6
