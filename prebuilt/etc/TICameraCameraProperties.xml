@@ -14,7 +14,7 @@
 <prop-facing>back</prop-facing>
 <prop-s3d-supported>false</prop-s3d-supported>
 <prop-preview-size-values>128x96,160x120,176x144,240x160,352x288,320x240,640x480,768x576,720x480,720x576,800x480,864x480,1280x720,1920x1080</prop-preview-size-values>
-<prop-preview-format-values>rgb565,yuv422i-yuyv,yuv420sp</prop-preview-format-values>
+<prop-preview-format-values>yuv422i-yuyv,yuv420sp,rgb565</prop-preview-format-values>
 <prop-preview-frame-rate-values>30,25,24,20,15,10</prop-preview-frame-rate-values>
 <prop-framerate-range-values>(5000,15000),(10000,20000),(12000,30000),(15000,30000),(20000,30000)</prop-framerate-range-values>
 <prop-zoom-ratios>100,104,107,111,115,119,123,127,132,137,141,146,152,157,162,168,174,180,187,193,200,207,214,222,230,238,246,255,264,273,283,293,303,314,325,336,348,361,373,386,400,414,429,444,459,476,492,510,528,546,566,586,606,628,650,673,696,721,746,773,800</prop-zoom-ratios>
