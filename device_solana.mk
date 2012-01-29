@@ -32,10 +32,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/solana/prebuilt/imgtec/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
 
-# Hardware HALs
-#PRODUCT_PACKAGES += \
 #    lights.solana \
 #    sensors.solana \
+# Hardware HALs
+PRODUCT_PACKAGES += \
+    camera.omap4
 
 PRODUCT_PACKAGES += \
     audio.primary.solana \
@@ -101,7 +102,8 @@ PRODUCT_PACKAGES += \
     overlay_test \
     omx_tests \
     evtest \
-#    camera_test \
+    camera_test \
+
 #    VideoEncTest \
 
 PRODUCT_PACKAGES += \
@@ -124,7 +126,8 @@ PRODUCT_PACKAGES += \
 
 # WirelessTether
 PRODUCT_COPY_FILES += \
-    device/motorola/solana/prebuilt/app/wifi_tether_v3_1-pre110.apk:system/app/wifi_tether_v3_1-pre110.apk \
+    device/motorola/solana/prebuilt/app/CMMusic.apk:system/app/CMMusic.apk \
+    device/motorola/solana/prebuilt/app/wifi_tether_v3_1-beta11.apk:system/app/wifi_tether_v3_1-beta11.apk \
     device/motorola/solana/prebuilt/lib/libwtnativetask.so:system/lib/libwtnativetask.so \
 
 
