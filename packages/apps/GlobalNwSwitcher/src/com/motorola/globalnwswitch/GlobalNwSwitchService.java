@@ -103,26 +103,20 @@ public class GlobalNwSwitchService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-
-            if (("true".equals(SystemProperties.get("ro.telephony.disable.globalnwswitch")))) {
-                Log.d(TAG, "on ignored receive " + action + " (ro.telephony.disable.globalnwswitch=true)");
-            } else {
+            if (DEBUG) {
+                Log.d(TAG, "on receive " + action);
+            }
+            if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+                handleAirplaneModeChanged(intent);
+            if (action.equals(TelephonyIntents.ACTION_SIM_STATE_CHANGED))
+                handleSimStateChanged(intent);
+            if (mNotificationStatus && action.equals(ACTION_NETWORKMODE_SWITCH)) {
+                ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).cancel(TAG_NETWORKMODE_SWITCH, 0);
                 if (DEBUG) {
-                    Log.d(TAG, "on receive " + action);
+                    Log.d(TAG, "Cancel network mode switch notification ");
                 }
-                if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED))
-                    handleAirplaneModeChanged(intent);
-                if (action.equals(TelephonyIntents.ACTION_SIM_STATE_CHANGED)) {
-                        handleSimStateChanged(intent);
-                }
-                if (mNotificationStatus && action.equals(ACTION_NETWORKMODE_SWITCH)) {
-                    ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).cancel(TAG_NETWORKMODE_SWITCH, 0);
-                    if (DEBUG) {
-                        Log.d(TAG, "Cancel network mode switch notification ");
-                    }
-                    /* access$502(GlobalNwSwitchService.this, 0); */
-                    mNotificationStatus = false;
-                }
+                /* access$502(GlobalNwSwitchService.this, 0); */
+                mNotificationStatus = false;
             }
         }
     }
@@ -216,7 +210,6 @@ public class GlobalNwSwitchService extends Service {
                 switchMessage = getApplicationContext().getString(R.string.globalPhone_nw_mode_switch_to_cdma);
                 simStatusIcon = R.drawable.stat_sys_no_sim;
                 break;
-
             case NW_MODE_CHANGE_TO_GLOBAL:
                 switchMessage = getApplicationContext().getString(R.string.globalPhone_nw_mode_switch_to_global);
                 simStatusIcon = R.drawable.stat_notify_sim;
