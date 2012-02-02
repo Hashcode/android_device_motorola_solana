@@ -49,14 +49,19 @@ key 62    F4
 key 103   DPAD_UP
 key 105   DPAD_LEFT
 key 106   DPAD_RIGHT
+key 107   ENDCALL             WAKE_DROPPED
 key 108   DPAD_DOWN
 key 113   MUTE
 key 114   VOLUME_DOWN
 key 115   VOLUME_UP
 key 139   MENU
+key 163   MEDIA_NEXT
+key 164   MEDIA_PLAY_PAUSE
+key 165   MEDIA_PREVIOUS
 key 167   MEDIA_RECORD
 key 215   AT
 key 217   SEARCH
+key 226   HEADSETHOOK         WAKE
 key 231   CALL                WAKE_DROPPED
 key 232   DPAD_CENTER
 
