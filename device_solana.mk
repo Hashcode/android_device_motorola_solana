@@ -110,8 +110,7 @@ PRODUCT_PACKAGES += \
     Camera \
     Superuser \
     su \
-    Usb \
-    CMSettings
+    Usb
 
 
 PRODUCT_PACKAGES += \
