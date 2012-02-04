@@ -37,7 +37,7 @@
 #include <linux/completion.h>
 #include <linux/workqueue.h>
 #include <linux/notifier.h>
-#include <linux/pm_qos_params.h>
+#include "pm_qos_params.h"
 
 /* Must match the BIOS version embeded in the BIOS firmware image */
 #define RPROC_BIOS_VERSION	2

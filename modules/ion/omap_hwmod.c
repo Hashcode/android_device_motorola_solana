@@ -2498,4 +2498,4 @@ struct device *omap_hwmod_name_get_dev(const char *oh_name)
 
 	return &oh->od->pdev.dev;
 }
-EXPORT_SYMBOL(omap_hwmod_name_get_dev);
+/* EXPORT_SYMBOL(omap_hwmod_name_get_dev); */

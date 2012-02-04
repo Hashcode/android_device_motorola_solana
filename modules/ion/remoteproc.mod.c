@@ -18,7 +18,5 @@ __attribute__((section(".gnu.linkonce.this_module"))) = {
 static const char __module_depends[]
 __used
 __attribute__((section(".modinfo"))) =
-"depends=rpres,remoteproc,virtio_rpmsg_bus";
+"depends=";
 
-MODULE_ALIAS("platform:rpmsg-resmgr");
-MODULE_ALIAS("platform:");

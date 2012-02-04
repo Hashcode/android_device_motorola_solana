@@ -53,186 +53,12 @@
 ** MISSING ROUTINES
 */
 /* remoteproc.c */
+#if 0
 static LIST_HEAD(rprocs);
 static DEFINE_SPINLOCK(rprocs_lock);
 
-static void rproc_loader_cont(const struct firmware *fw, void *context)
-{
-	struct rproc *rproc = context;
-	struct device *dev = rproc->dev;
-	const char *fwfile = rproc->firmware;
-	u64 bootaddr = 0;
-	struct fw_header *image;
-	struct fw_section *section;
-	int left, ret;
-
-	if (!fw) {
-		dev_err(dev, "%s: failed to load %s\n", __func__, fwfile);
-		goto complete_fw;
-	}
-
-	dev_info(dev, "Loaded BIOS image %s, size %d\n", fwfile, fw->size);
-
-	/* make sure this image is sane */
-	if (fw->size < sizeof(struct fw_header)) {
-		dev_err(dev, "Image is too small\n");
-		goto out;
-	}
-
-	image = (struct fw_header *) fw->data;
-
-	if (memcmp(image->magic, "RPRC", 4)) {
-		dev_err(dev, "Image is corrupted (bad magic)\n");
-		goto out;
-	}
-
-	dev_info(dev, "BIOS image version is %d\n", image->version);
-
-	rproc->header = kzalloc(image->header_len, GFP_KERNEL);
-	if (!rproc->header) {
-		dev_err(dev, "%s: kzalloc failed\n", __func__);
-		goto out;
-	}
-	memcpy(rproc->header, image->header, image->header_len);
-	rproc->header_len = image->header_len;
-
-	/* Ensure we recognize this BIOS version: */
-	if (image->version != RPROC_BIOS_VERSION) {
-		dev_err(dev, "Expected BIOS version: %d!\n",
-			RPROC_BIOS_VERSION);
-		goto out;
-	}
-
-	/* now process the image, section by section */
-	section = (struct fw_section *)(image->header + image->header_len);
-
-	left = fw->size - sizeof(struct fw_header) - image->header_len;
-
-	ret = rproc_process_fw(rproc, section, left, &bootaddr);
-	if (ret) {
-		dev_err(dev, "Failed to process the image: %d\n", ret);
-		goto out;
-	}
-
-	rproc_start(rproc, bootaddr);
-
-out:
-	release_firmware(fw);
-complete_fw:
-	/* allow all contexts calling rproc_put() to proceed */
-	complete_all(&rproc->firmware_loading_complete);
-}
-
-static int rproc_loader(struct rproc *rproc)
-{
-	const char *fwfile = rproc->firmware;
-	struct device *dev = rproc->dev;
-	int ret;
-
-	if (!fwfile) {
-		dev_err(dev, "%s: no firmware to load\n", __func__);
-		return -EINVAL;
-	}
-
-	/*
-	 * allow building remoteproc as built-in kernel code, without
-	 * hanging the boot process
-	 */
-	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_HOTPLUG, fwfile,
-			dev, GFP_KERNEL, rproc, rproc_loader_cont);
-	if (ret < 0) {
-		dev_err(dev, "request_firmware_nowait failed: %d\n", ret);
-		return ret;
-	}
-
-	return 0;
-}
-
-static struct rproc *__find_rproc_by_name(const char *name)
-{
-	struct rproc *rproc;
-	struct list_head *tmp;
-
-	spin_lock(&rprocs_lock);
-
-	list_for_each(tmp, &rprocs) {
-		rproc = list_entry(tmp, struct rproc, next);
-		if (!strcmp(rproc->name, name))
-			break;
-		rproc = NULL;
-	}
-
-	spin_unlock(&rprocs_lock);
-
-	return rproc;
-}
-
-struct rproc *rproc_get(const char *name)
-{
-	struct rproc *rproc, *ret = NULL;
-	struct device *dev;
-	int err;
-
-	rproc = __find_rproc_by_name(name);
-	if (!rproc) {
-		pr_err("can't find remote processor %s\n", name);
-		return NULL;
-	}
-
-	dev = rproc->dev;
-
-	err = mutex_lock_interruptible(&rproc->lock);
-	if (err) {
-		dev_err(dev, "can't lock remote processor %s\n", name);
-		return NULL;
-	}
-
-	if (rproc->state == RPROC_CRASHED) {
-		mutex_unlock(&rproc->lock);
-		if (wait_for_completion_interruptible(&rproc->error_comp)) {
-			dev_err(dev, "error waiting error completion\n");
-			return NULL;
-		}
-		mutex_lock(&rproc->lock);
-	}
-
-	/* prevent underlying implementation from being removed */
-	if (!try_module_get(rproc->owner)) {
-		dev_err(dev, "%s: can't get owner\n", __func__);
-		goto unlock_mutex;
-	}
-
-	/* bail if rproc is already powered up */
-	if (rproc->count++) {
-		ret = rproc;
-		goto unlock_mutex;
-	}
-
-	/* rproc_put() calls should wait until async loader completes */
-	init_completion(&rproc->firmware_loading_complete);
-
-	dev_info(dev, "powering up %s\n", name);
-
-	err = rproc_loader(rproc);
-	if (err) {
-		dev_err(dev, "failed to load rproc %s\n", rproc->name);
-		complete_all(&rproc->firmware_loading_complete);
-		module_put(rproc->owner);
-		--rproc->count;
-		goto unlock_mutex;
-	}
-
-	rproc->state = RPROC_LOADING;
-	ret = rproc;
-
-unlock_mutex:
-	mutex_unlock(&rproc->lock);
-	return ret;
-}
-
-
-
 static struct dentry *rprm_dbg;
+#endif
 
 static char *regulator_name[] = {
 	"cam2pwr"
@@ -1316,12 +1142,14 @@ static int rprm_probe(struct rpmsg_channel *rpdev)
 	idr_init(&rprm->id_list);
 	dev_set_drvdata(&rpdev->dev, rprm);
 
+#if 0
 	rprm->dbg_dir = debugfs_create_dir(dev_name(&rpdev->dev), rprm_dbg);
 	if (!rprm->dbg_dir)
 		dev_err(&rpdev->dev, "can't create debugfs dir\n");
 
 	debugfs_create_file("resources", 0400, rprm->dbg_dir, rprm,
 							&rprm_dbg_ops);
+#endif
 
 	return 0;
 }
@@ -1375,22 +1203,27 @@ static int __init init(void)
 {
 	int r;
 
+#if 0
 	if (debugfs_initialized()) {
 		rprm_dbg = debugfs_create_dir(KBUILD_MODNAME, NULL);
 		if (!rprm_dbg)
 			pr_err("Error creating rprm debug directory\n");
 	}
+#endif
 	r = register_rpmsg_driver(&rprm_driver);
+#if 0
 	if (r && rprm_dbg)
 		debugfs_remove_recursive(rprm_dbg);
-
+#endif
 	return r;
 }
 
 static void __exit fini(void)
 {
+#if 0
 	if (rprm_dbg)
 		debugfs_remove_recursive(rprm_dbg);
+#endif
 	unregister_rpmsg_driver(&rprm_driver);
 }
 module_init(init);
