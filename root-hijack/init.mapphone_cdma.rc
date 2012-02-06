@@ -179,7 +179,6 @@ on post-fs-data
     mkdir /data/tmp 0777 system system
 
     mkdir /cache/download 0771 system cache
-    mkdir /cache/dalvik-cache 0771 system system
     mkdir /cache/lost+found 0770 root root
 
 # usbd permissions
@@ -327,6 +326,10 @@ on post-fs-data
     insmod /system/lib/modules/xt_NFQUEUE.ko
     insmod /system/lib/modules/xt_qtaguid.ko
     insmod /system/lib/modules/xt_quota2.ko
+
+# Allow everybody to read the xt_qtaguid resource tracking misc dev.
+# This is needed by any process that uses socket tagging.
+#    chmod 0644 /dev/xt_qtaguid
 
 # Install product specific kernel modules
     exec /system/bin/load_modules.sh
