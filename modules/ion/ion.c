@@ -29,7 +29,7 @@
 #include "ion.h"
 #include "ion_priv.h"
 #include "tiler.h"
-#include "omap_ion.h"
+#include "linux-omap_ion.h"
 #include "omap_ion_priv.h"
 
 #define DEBUG
@@ -2051,6 +2051,85 @@ int omap_ion_remove(struct platform_device *pdev)
 	return 0;
 }
 
+/*
+ * ION Initialization for OMAP4.
+ *
+ * Copyright (C) 2011 Texas Instruments
+ *
+ * Author: Dan Murphy <dmurphy@ti.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "ion.h"
+#include <linux/memblock.h>
+#include "linux-omap_ion.h"
+#include <linux/platform_device.h>
+#include <linux/bootmem.h>
+
+#include "mach-omap4_ion.h"
+
+static struct ion_platform_data omap4_ion_data = {
+	.nr = 3,
+	.heaps = {
+		{
+			.type = ION_HEAP_TYPE_CARVEOUT,
+			.id = OMAP_ION_HEAP_SECURE_INPUT,
+			.name = "secure_input",
+			.base = PHYS_ADDR_SMC_MEM -
+					OMAP4_ION_HEAP_SECURE_INPUT_SIZE,
+			.size = OMAP4_ION_HEAP_SECURE_INPUT_SIZE,
+		},
+		{	.type = OMAP_ION_HEAP_TYPE_TILER,
+			.id = OMAP_ION_HEAP_TILER,
+			.name = "tiler",
+			.base = PHYS_ADDR_DUCATI_MEM -
+					OMAP4_ION_HEAP_TILER_SIZE,
+			.size = OMAP4_ION_HEAP_TILER_SIZE,
+		},
+		{
+			.type = OMAP_ION_HEAP_TYPE_TILER,
+			.id = OMAP_ION_HEAP_NONSECURE_TILER,
+			.name = "nonsecure_tiler",
+			.base = 0x80000000 + SZ_512M + SZ_2M,
+			.size = OMAP4_ION_HEAP_NONSECURE_TILER_SIZE,
+		},
+	},
+};
+
+static struct platform_device omap4_ion_device = {
+	.name = "ion-omap4",
+	.id = -1,
+	.dev = {
+		.platform_data = &omap4_ion_data,
+	},
+};
+
+#if 0
+void __init omap_ion_init(void)
+{
+	int i;
+	int ret;
+
+	memblock_remove(OMAP4_RAMCONSOLE_START, OMAP4_RAMCONSOLE_SIZE);
+
+	for (i = 0; i < omap4_ion_data.nr; i++)
+		if (omap4_ion_data.heaps[i].type == ION_HEAP_TYPE_CARVEOUT ||
+		    omap4_ion_data.heaps[i].type == OMAP_ION_HEAP_TYPE_TILER) {
+			ret = memblock_remove(omap4_ion_data.heaps[i].base,
+					      omap4_ion_data.heaps[i].size);
+			if (ret)
+				pr_err("memblock remove of %x@%lx failed\n",
+				       omap4_ion_data.heaps[i].size,
+				       omap4_ion_data.heaps[i].base);
+		}
+}
+#endif
+
+/* ---------------------------------- */
+
 //      .owner = THIS_MODULE,
 static struct platform_driver ion_driver = {
 	.probe = omap_ion_probe,
@@ -2060,8 +2139,27 @@ static struct platform_driver ion_driver = {
 
 static int __init ion_init(void)
 {
-	printk(KERN_WARNING "ion_init");
-	return platform_driver_register(&ion_driver);
+	int i;
+	int ret = 0;
+
+	if (ret == 0) {
+		platform_device_register(&omap4_ion_device);
+		//memblock_remove(OMAP4_RAMCONSOLE_START, OMAP4_RAMCONSOLE_SIZE);
+
+		for (i = 0; i < omap4_ion_data.nr; i++)
+			if (omap4_ion_data.heaps[i].type == ION_HEAP_TYPE_CARVEOUT ||
+			    omap4_ion_data.heaps[i].type == OMAP_ION_HEAP_TYPE_TILER) {
+				//reserve_bootmem(omap4_ion_data.heaps[i].base, omap4_ion_data.heaps[i].size, BOOTMEM_EXCLUSIVE);
+				//ret = memblock_remove(omap4_ion_data.heaps[i].base,
+				//		      omap4_ion_data.heaps[i].size);
+				if (ret)
+					pr_err("memblock remove of %x@%lx failed\n",
+					       omap4_ion_data.heaps[i].size,
+					       omap4_ion_data.heaps[i].base);
+			}
+	}
+	ret = platform_driver_register(&ion_driver);
+	return ret;
 }
 
 static void __exit ion_exit(void)

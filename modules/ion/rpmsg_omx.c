@@ -101,7 +101,8 @@ static LIST_HEAD(rpmsg_omx_services_list);
 
 #ifdef CONFIG_ION_OMAP
 #ifdef CONFIG_PVR_SGX
-#include "../gpu/pvr/ion.h"
+/* FIXME-HASH: Reference to PVR_SGX? */
+// #include "../gpu/pvr/ion.h"
 #endif
 #endif
 

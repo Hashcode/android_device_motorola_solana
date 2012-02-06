@@ -21,4 +21,7 @@ obj-m += rpmsg_omx_driver.o
 rpmsg_resmgr_driver-objs := rpmsg_resmgr.o omap_hwmod.o
 obj-m += rpmsg_resmgr_driver.o
 
+obj-m += rpmsg_client_sample.o
+obj-m += rpmsg_server_sample.o
 
+obj-m += omap_rpmsg.o

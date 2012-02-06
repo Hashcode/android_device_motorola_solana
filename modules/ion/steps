@@ -8,3 +8,16 @@ export ARCH=arm
 
 make ARCH=arm mapphone_defconfig
 make ARCH=arm M=$MYDROID/device/motorola/solana/modules/ion modules
+
+insmod tiler2_dmm.ko
+insmod tiler2.ko
+insmod ion_driver.ko
+insmod virtio.ko
+insmod virtio_ring.ko
+insmod rpres.ko
+insmod remoteproc.ko
+insmod virtio_rpmsg_bus.ko
+insmod rpmsg_omx_driver.ko
+insmod rpmsg_resmgr_driver.ko
+insmod omap_rpmsg.ko
+
