@@ -18,5 +18,5 @@ __attribute__((section(".gnu.linkonce.this_module"))) = {
 static const char __module_depends[]
 __used
 __attribute__((section(".modinfo"))) =
-"depends=virtio,virtio_ring,remoteproc";
+"depends=virtio,virtio_ring,remoteproc_driver";
 
