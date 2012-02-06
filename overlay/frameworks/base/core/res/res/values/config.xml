@@ -47,6 +47,9 @@
     <!-- Our amoled doesn't animate well. -->
     <bool name="config_animateScreenLights">false</bool>
 
+    <!-- Indicate whether the SD card is accessible without removing the battery. -->
+    <bool name="config_batterySdCardAccessibility">true</bool>
+
     <!-- If true, the direction rotation is applied to get to an application's requested
          orientation is reversed.  Normally, the model is that landscape is
          clockwise from portrait; thus on a portrait device an app requesting
@@ -55,7 +58,7 @@
          true here reverses that logic. -->
     <bool name="config_reverseDefaultRotation">false</bool>
 
-    <integer name="config_deskDockKeepsScreenOn">0</integer>
+    <integer name="config_deskDockKeepsScreenOn">1</integer>
     <integer name="config_carDockKeepsScreenOn">1</integer>
 
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->

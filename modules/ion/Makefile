@@ -11,7 +11,7 @@ obj-m += virtio.o
 obj-m += virtio_ring.o
 
 obj-m += rpres.o
-obj-m += remoteproc.o
+obj-m += remoteproc_driver.o
 
 obj-m += virtio_rpmsg_bus.o
 

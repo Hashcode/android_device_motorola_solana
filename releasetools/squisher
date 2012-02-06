@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Squish a CM otapackage for distribution
+# Squish a otapackage for distribution
 # cyanogen
 #
 
@@ -40,35 +40,6 @@ QUIET=-q
 DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 
 
-# Some products want a squashfs for xbin for space
-case "$TARGET_PRODUCT" in
-	cyanogen_dream_sapphire) WANT_SQUASHFS=1 ;;
-	*) WANT_SQUASHFS=0 ;;
-esac
-
-if [ "$WANT_SQUASHFS" -eq 1 ]; then
-	fatal=0
-	MKSQUASHFS_VER_REQ=4
-	if type mksquashfs >/dev/null 2>&1; then
-		if mksquashfs -version | grep -q "version $MKSQUASHFS_VER_REQ"; then :; else
-			echo
-			echo "ERROR: mksquashfs must be at least version $MKSQUASHFS_VER_REQ for this build."
-			fatal=1
-		fi
-	else
-		echo
-		echo "ERROR: $TARGET_PRODUCT requires mksquashfs."
-		fatal=1
-	fi
-
-	if [ "$fatal" -ne 0 ]; then
-		echo
-		echo "       Unoptimized package is still available at"
-		echo "         $OTAPACKAGE"
-		exit $fatal
-	fi
-fi
-
 REPACK=$OUT/repack.d
 printf "Sanitizing environment..."
 rm -rf $REPACK
@@ -97,10 +68,8 @@ rm $REPACK/ota/system/app/FmRxApp.apk
 rm $REPACK/ota/system/app/FmService.apk
 rm $REPACK/ota/system/app/FmTxApp.apk
 rm $REPACK/ota/system/app/Music.apk
+rm $REPACK/ota/system/app/RomManager.apk
 
-# Fix Calendar
-rm $REPACK/ota/system/app/Calendar.apk
-cp $ANDROID_BUILD_TOP/vendor/google/prebuilt/app/Calendar.apk $REPACK/ota/system/app
 
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
 	squash_opts="-force-uid 1000 -force-gid 1000 -no-progress -noappend -no-exports -no-recovery"
@@ -152,13 +121,9 @@ rm -rf $REPACK/ota/recovery
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # Determine what to name the new signed package
-if [ -z "$CYANOGEN_NIGHTLY" ]; then
-	MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-	: ${MODVERSION:=nightly}
-	OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
-else
-	OUTFILE=$OUT/update-squished.zip
-fi
+REALDATE=`date +%F-%H_%M`
+
+OUTFILE=$OUT/ICS-4.0.3_r1-$TARGET_PRODUCT-$REALDATE.zip
 
 # Pack it up and sign
 printf "Zipping package..."
@@ -166,7 +131,7 @@ printf "Zipping package..."
 echo
 printf "Signing package..."
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
-java -Xmx768m \
+java -Xmx1536m \
 	-jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
 	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
 	$REPACK/update.zip $OUTFILE

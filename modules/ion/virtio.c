@@ -187,7 +187,7 @@ EXPORT_SYMBOL_GPL(unregister_virtio_driver);
 
 int register_virtio_device(struct virtio_device *dev)
 {
-	int err;
+	int err = 0;
 
 	dev->dev.bus = &virtio_bus;
 

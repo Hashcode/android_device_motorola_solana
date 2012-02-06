@@ -17,7 +17,6 @@
  * GNU General Public License for more details.
  */
 
-#define DEBUG 1
 #define pr_fmt(fmt) "%s: " fmt, __func__
 
 #include <linux/init.h>
@@ -564,6 +563,7 @@ static struct omap_rpmsg_vproc omap_rpmsg_vprocs[] = {
 static int __init omap_rpmsg_ini(void)
 {
 	int i, ret = 0;
+
 	/* FIXME-HASH: HACK */
 	phys_addr_t paddr = PHYS_ADDR_DUCATI_MEM;
 	//phys_addr_t paddr = omap_ipu_get_mempool_base(OMAP_RPROC_MEMPOOL_STATIC);
@@ -573,7 +573,6 @@ static int __init omap_rpmsg_ini(void)
 	//phys_addr_t psize = omap_ipu_get_mempool_size(OMAP_RPROC_MEMPOOL_STATIC);
 
 	for (i = 0; i < ARRAY_SIZE(omap_rpmsg_vprocs); i++) {
-pr_debug("omap_rpmsg_ini vproc loop : %d\n", i);
 		struct omap_rpmsg_vproc *rpdev = &omap_rpmsg_vprocs[i];
 
 		if (psize < RPMSG_IPC_MEM) {
@@ -585,20 +584,14 @@ pr_debug("omap_rpmsg_ini vproc loop : %d\n", i);
 		 * vring buffers are expected to be present at the beginning
 		 * of the chosen remoteproc pool
 		 */
-pr_debug("rpdev->buf_addr = paddr\n");
 		rpdev->buf_addr = paddr;
-pr_debug("rpdev->buf_size = RPMSG_BUFS_SPACE\n");
 		rpdev->buf_size = RPMSG_BUFS_SPACE;
-pr_debug("rpdev->vring[0] = paddr + RPMSG_BUFS_SPACE\n");
 		rpdev->vring[0] = paddr + RPMSG_BUFS_SPACE;
-pr_debug("rpdev->vring[1] = paddr + RPMSG_BUFS_SPACE + RPMSG_RING_SIZE\n");
 		rpdev->vring[1] = paddr + RPMSG_BUFS_SPACE + RPMSG_RING_SIZE;
-pr_debug("INIT_WORK(&rpdev->reset_work, rpmsg_reset_work)\n");
+
 		INIT_WORK(&rpdev->reset_work, rpmsg_reset_work);
 
-pr_debug("paddr += RPMSG_IPC_MEM\n");
 		paddr += RPMSG_IPC_MEM;
-pr_debug("psize -= RPMSG_IPC_MEM\n");
 		psize -= RPMSG_IPC_MEM;
 
 		pr_debug("rpdev%d: buf 0x%x, vring0 0x%x, vring1 0x%x\n", i,
@@ -607,12 +600,12 @@ pr_debug("psize -= RPMSG_IPC_MEM\n");
 		rpdev->vdev.dev.release = omap_rpmsg_vproc_release;
 
 		ret = register_virtio_device(&rpdev->vdev);
+
 		if (ret) {
 			pr_err("failed to register rpdev: %d\n", ret);
 			break;
 		}
 	}
-
 	return ret;
 }
 module_init(omap_rpmsg_ini);
@@ -626,6 +619,7 @@ static void __exit omap_rpmsg_fini(void)
 
 		unregister_virtio_device(&rpdev->vdev);
 	}
+
 }
 module_exit(omap_rpmsg_fini);
 
