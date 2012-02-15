@@ -11,12 +11,14 @@ if [ -e ${BLOCK_DEVICE} ]; then
         cat ${UNPACK_IMAGE} | gzip -d | dd of=${BLOCK_DEVICE} bs=131072
         ret=$?
         if [ $ret -eq 0 ]; then
+            mount -t ext3 -o remount,rw /dev/block/system /system
             echo "image unpack done, removing image from system"
             rm ${UNPACK_IMAGE}
             ret=$?
             if [ ${ret} -ne 0 ]; then
                 echo "failed to remove ${UNPACK_IMAGE}, error ${ret}"
             fi
+            mount -t ext3 -o remount,ro /dev/block/system /system
         else
             echo "image unpack failed: ${ret}"
             exit

@@ -60,9 +60,6 @@ cd $REPACK/ota/system/app
 find ./ -name \*.apk | $XARGS $OPTICHARGER
 )
 
-# Fix Voice Search
-cp -f $ANDROID_BUILD_TOP/vendor/google/prebuilt/lib/libvoicesearch.so $REPACK/ota/system/lib/libvoicesearch.so
-
 # Remove unwanted Apps
 rm $REPACK/ota/system/app/FmRxApp.apk
 rm $REPACK/ota/system/app/FmService.apk
@@ -118,6 +115,9 @@ rm -rf $REPACK/ota/recovery
 # Strip modules
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
+
+# Copy libvoicesearch as it's getting messed up in the build
+cp -f $ANDROID_BUILD_TOP/vendor/google/prebuilt/lib/libvoicesearch.so $REPACK/ota/system/lib/libvoicesearch.so
 
 # Determine what to name the new signed package
 REALDATE=`date +%F-%H_%M`

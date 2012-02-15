@@ -120,8 +120,8 @@ PRODUCT_PACKAGES += \
 
 
 # Additional Apps
-PRODUCT_PACKAGES += \
-    GlobalNwSwitch \
+#PRODUCT_PACKAGES += \
+#    GlobalNwSwitch \
 
 # WirelessTether
 PRODUCT_COPY_FILES += \
