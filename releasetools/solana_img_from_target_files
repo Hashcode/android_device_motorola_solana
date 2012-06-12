@@ -27,8 +27,8 @@ Usage:  img_from_target_files [flags] input_target_files output_image_zip
 
 import sys
 
-if sys.hexversion < 0x02040000:
-  print >> sys.stderr, "Python 2.4 or newer is required."
+if sys.hexversion < 0x02050000:
+  print >> sys.stderr, "Python 2.5 or newer is required."
   sys.exit(1)
 
 import errno
@@ -166,6 +166,8 @@ def main(argv):
 
   output_zip = zipfile.ZipFile(args[1], "w", compression=zipfile.ZIP_DEFLATED)
 
+#  common.AddBoot(output_zip, OPTIONS.info_dict)
+#  common.AddRecovery(output_zip, OPTIONS.info_dict)
   AddSystem(output_zip)
   AddUserdata(output_zip)
   CopyInfo(output_zip)
@@ -179,6 +181,7 @@ def main(argv):
 
 if __name__ == '__main__':
   try:
+    common.CloseInheritedPipes()
     main(sys.argv[1:])
   except common.ExternalError, e:
     print

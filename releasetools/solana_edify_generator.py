@@ -101,20 +101,15 @@ class EdifyGenerator(object):
            ");")
     self.script.append(self._WordWrap(cmd))
 
-  def AssertKernelVersion(self):
-    self.script.append('package_extract_file("system/etc/releaseutils/check_kernel", "/tmp/check_kernel");')
-    self.script.append('set_perm(0, 0, 0777, "/tmp/check_kernel");')
-    self.script.append('assert(run_program("/tmp/check_kernel") == 0);');
-
   def RunBackup(self, command):
     self.script.append('package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");')
     self.script.append('set_perm(0, 0, 0777, "/tmp/backuptool.sh");')
     self.script.append(('run_program("/tmp/backuptool.sh", "%s");' % command))
 
-  def RunChkKineto(self):
-    self.script.append('package_extract_file("system/bin/chkkineto.sh", "/tmp/chkkineto.sh");')
-    self.script.append('set_perm(0, 0, 0777, "/tmp/chkkineto.sh");')
-    self.script.append('run_program("/tmp/chkkineto.sh");')
+  def RunModelidCfg(self):
+    self.script.append('package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");')
+    self.script.append('set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");')
+    self.script.append('run_program("/tmp/modelid_cfg.sh");')
 
   def RunVerifyCachePartitionSize(self):
     self.script.append('package_extract_file("system/bin/verify_cache_partition_size.sh", "/tmp/verify_cache_partition_size.sh");')
@@ -191,13 +186,6 @@ class EdifyGenerator(object):
                          ("ext3", common.PARTITION_TYPES["ext3"],
                           p.device, p.mount_point))
       self.mounts.add(p.mount_point)
-    else:
-      what = mount_point.lstrip("/")
-      what = self.info.get("partition_path", "") + what
-      self.script.append('mount("%s", "%s", "%s", "%s");' %
-                         (self.info["fs_type"], self.info["partition_type"],
-                          what, mount_point))
-      self.mounts.add(mount_point)
 
   def UnpackPackageDir(self, src, dst):
     """Unpack a given directory from the OTA package into the given
@@ -224,12 +212,6 @@ class EdifyGenerator(object):
       p = fstab[partition]
       self.script.append('format("%s", "%s", "%s");' %
                          (p.fs_type, common.PARTITION_TYPES[p.fs_type], p.device))
-    else:
-      # older target-files without per-partition types
-      partition = self.info.get("partition_path", "") + partition
-      self.script.append('format("%s", "%s", "%s");' %
-                         (self.info["fs_type"], self.info["partition_type"],
-                          partition))
 
   def DeleteFiles(self, file_list):
     """Delete all files in file_list."""
@@ -285,8 +267,14 @@ class EdifyGenerator(object):
       elif partition_type == "EMMC":
         self.script.append(
             'package_extract_file("%(fn)s", "%(device)s");' % args)
+      elif partition_type == "BML":
+	        self.script.append(
+            ('assert(package_extract_file("%(fn)s", "/tmp/%(device)s.img"),\n'
+             '       write_raw_image("/tmp/%(device)s.img", "%(device)s"),\n'
+             '       delete("/tmp/%(device)s.img"));') % args)
       else:
         raise ValueError("don't know how to write \"%s\" partitions" % (p.fs_type,))
+
     else:
       # backward compatibility with older target-files that lack recovery.fstab
       if self.info["partition_type"] == "MTD":
